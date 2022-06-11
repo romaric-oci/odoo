@@ -25,6 +25,7 @@ const {
     applyModifications,
     removeOnImageChangeAttrs,
     isImageSupportedForProcessing,
+    isImageSupportedForStyle,
 } = require('web_editor.image_processing');
 
 var qweb = core.qweb;
@@ -338,6 +339,15 @@ const UserValueWidget = Widget.extend({
         return null;
     },
     /**
+     * Focus the main focusable element of the widget.
+     */
+    focus() {
+        const el = this._getFocusableElement();
+        if (el) {
+            el.focus();
+        }
+    },
+    /**
      * Returns the value that the widget would hold if it was active, by default
      * the internal value it holds.
      *
@@ -508,12 +518,6 @@ const UserValueWidget = Widget.extend({
      * @param {boolean} [isSimulatedEvent=false]
      */
     notifyValueChange: function (previewMode, isSimulatedEvent) {
-        // If the widget has no associated method, it should not notify user
-        // value changes
-        if (!this._methodsNames.length) {
-            console.warn('UserValueWidget with no methods notifying value change');
-        }
-
         // In the case we notify a change update, force a preview update if it
         // was not already previewed
         const isPreviewed = this.isPreviewed();
@@ -580,13 +584,32 @@ const UserValueWidget = Widget.extend({
      * @param {boolean} show
      */
     toggleVisibility: function (show) {
+        let doFocus = false;
+        if (show) {
+            const wasInvisible = this.el.classList.contains('d-none');
+            doFocus = wasInvisible && this.el.dataset.requestFocus === "true";
+        }
         this.el.classList.toggle('d-none', !show);
+        if (doFocus) {
+            this.focus();
+        }
     },
 
     //--------------------------------------------------------------------------
     // Private
     //--------------------------------------------------------------------------
 
+    /**
+     * Returns the main focusable element of the widget. By default supposes
+     * nothing is focusable.
+     *
+     * @todo review all specific widget's method
+     * @private
+     * @returns {HTMLElement}
+     */
+    _getFocusableElement: function () {
+        return null;
+    },
     /**
      * @private
      * @param {OdooEvent|Event}
@@ -1169,6 +1192,7 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
     events: {
         'input input': '_onInputInput',
         'blur input': '_onInputBlur',
+        'change input': '_onUserValueChange',
         'keydown input': '_onInputKeydown',
     },
 
@@ -1208,6 +1232,17 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
     },
 
     //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * @override
+     */
+    _getFocusableElement() {
+        return this.inputEl;
+    },
+
+    //--------------------------------------------------------------------------
     // Handlers
     //--------------------------------------------------------------------------
 
@@ -1220,33 +1255,15 @@ const InputUserValueWidget = UnitUserValueWidget.extend({
         this._onUserValuePreview(ev);
     },
     /**
-     * @private
-     * @param {Event} ev
+     * TODO remove in master
      */
-    _onInputBlur: function (ev) {
-        // Sometimes, an input is focusout for internal reason (like an undo
-        // recording) then focused again manually in the same JS stack
-        // execution. In that case, the blur should not trigger an option
-        // selection as the user did not leave the input. We thus defer the blur
-        // handling to then check that the target is indeed still blurred before
-        // executing the actual option selection.
-        setTimeout(() => {
-            if (ev.currentTarget === document.activeElement) {
-                return;
-            }
-            this._onUserValueChange(ev);
-        });
-    },
+    _onInputBlur: function (ev) {},
     /**
      * @private
      * @param {Event} ev
      */
     _onInputKeydown: function (ev) {
         switch (ev.which) {
-            case $.ui.keyCode.ENTER: {
-                this._onUserValueChange(ev);
-                break;
-            }
             case $.ui.keyCode.UP:
             case $.ui.keyCode.DOWN: {
                 const input = ev.currentTarget;
@@ -3238,7 +3255,7 @@ const SnippetOptionWidget = Widget.extend({
         hasUserValue = applyCSS.call(this, cssProps[0], values.join(' '), styles) || hasUserValue;
 
         function applyCSS(cssProp, cssValue, styles) {
-            if (!weUtils.areCssValuesEqual(styles[cssProp], cssValue)) {
+            if (!weUtils.areCssValuesEqual(styles[cssProp], cssValue, cssProp, this.$target[0])) {
                 this.$target[0].style.setProperty(cssProp, cssValue, 'important');
                 return true;
             }
@@ -3571,6 +3588,7 @@ const SnippetOptionWidget = Widget.extend({
                     // if editing the other).
                     const parts = backgroundImageCssToParts(styles['background-image']);
                     if (parts.gradient) {
+                        _restoreTransitions();
                         return parts.gradient;
                     }
                 }
@@ -4412,16 +4430,55 @@ registry.Box = SnippetOptionWidget.extend({
     //--------------------------------------------------------------------------
 
     /**
+     * TODO this should be reviewed in master to avoid the need of using the
+     * 'reset' previewMode and having to remember the previous box-shadow value.
+     * We are forced to remember the previous box shadow before applying a new
+     * one as the whole box-shadow value is handled by multiple widgets.
+     *
      * @see this.selectClass for parameters
      */
-    setShadow(previewMode, widgetValue, params) {
-        this.$target.toggleClass(params.shadowClass, !!widgetValue);
-        const defaultShadow = this._getDefaultShadow(widgetValue, params.shadowClass);
-        this.$target[0].style.setProperty('box-shadow', defaultShadow, 'important');
-        if (widgetValue === 'outset') {
-            // In this case, the shadowClass is enough
-            this.$target[0].style.setProperty('box-shadow', '');
+    async setShadow(previewMode, widgetValue, params) {
+        // Check if the currently configured shadow is not using the same shadow
+        // mode, in which case nothing has to be done.
+        const styles = window.getComputedStyle(this.$target[0]);
+        const currentBoxShadow = styles['box-shadow'] || 'none';
+        const currentMode = currentBoxShadow === 'none'
+            ? ''
+            : currentBoxShadow.includes('inset') ? 'inset' : 'outset';
+        if (currentMode === widgetValue) {
+            return;
         }
+
+        if (previewMode === true) {
+            this._prevBoxShadow = currentBoxShadow;
+        }
+
+        // Add/remove the shadow class
+        this.$target.toggleClass(params.shadowClass, !!widgetValue);
+
+        // Change the mode of the old box shadow. If no shadow was currently
+        // set then get the shadow value that is supposed to be set according
+        // to the shadow mode. Try to apply it via the selectStyle method so
+        // that it is either ignored because the shadow class had its effect or
+        // forced (to the shadow value or none) if toggling the class is not
+        // enough (e.g. if the item has a default shadow coming from CSS rules,
+        // removing the shadow class won't be enough to remove the shadow but in
+        // most other cases it will).
+        let shadow = 'none';
+        if (previewMode === 'reset') {
+            shadow = this._prevBoxShadow;
+        } else {
+            if (currentBoxShadow === 'none') {
+                shadow = this._getDefaultShadow(widgetValue, params.shadowClass) || 'none';
+            } else {
+                if (widgetValue === 'outset') {
+                    shadow = currentBoxShadow.replace('inset', '').trim();
+                } else if (widgetValue === 'inset') {
+                    shadow = currentBoxShadow + ' inset';
+                }
+            }
+        }
+        await this.selectStyle(previewMode, shadow, Object.assign({cssProperty: 'box-shadow'}, params));
     },
 
     //--------------------------------------------------------------------------
@@ -4461,17 +4518,21 @@ registry.Box = SnippetOptionWidget.extend({
         if (type) {
             el.classList.add(shadowClass);
         }
+
+        let shadow = ''; // TODO in master this should be changed to 'none'
         document.body.appendChild(el);
         switch (type) {
             case 'outset': {
-                return $(el).css('box-shadow');
+                shadow = $(el).css('box-shadow');
+                break;
             }
             case 'inset': {
-                return $(el).css('box-shadow') + ' inset';
+                shadow = $(el).css('box-shadow') + ' inset';
+                break;
             }
         }
         el.remove();
-        return '';
+        return shadow;
     }
 });
 
@@ -4657,6 +4718,23 @@ registry.SnippetMove = SnippetOptionWidget.extend({
  * Allows for media to be replaced.
  */
 registry.ReplaceMedia = SnippetOptionWidget.extend({
+    xmlDependencies: ['/web_editor/static/src/xml/image_link_tools.xml'],
+
+    /**
+     * @override
+     */
+    onFocus() {
+        core.bus.on('activate_image_link_tool', this, this._activateLinkTool);
+        // When we start editing an image, rerender the UI to ensure the
+        // we-select that suggests the anchors is in a consistent state.
+        this.rerender = true;
+    },
+    /**
+     * @override
+     */
+    onBlur() {
+        core.bus.off('activate_image_link_tool', this, this._activateLinkTool);
+    },
 
     //--------------------------------------------------------------------------
     // Options
@@ -4671,6 +4749,125 @@ registry.ReplaceMedia = SnippetOptionWidget.extend({
         // TODO for now, this simulates a double click on the media,
         // to be refactored when the new editor is merged
         this.$target.dblclick();
+    },
+    /**
+     * Makes the image a clickable link by wrapping it in an <a>.
+     * This function is also called for the opposite operation.
+     *
+     * @see this.selectClass for parameters
+     */
+    setLink(previewMode, widgetValue, params) {
+        const parentEl = this.$target[0].parentNode;
+        if (parentEl.tagName !== 'A') {
+            const wrapperEl = document.createElement('a');
+            this.$target[0].after(wrapperEl);
+            wrapperEl.appendChild(this.$target[0]);
+        } else {
+            parentEl.replaceWith(this.$target[0]);
+        }
+    },
+    /**
+     * Changes the image link so that the URL is opened on another tab or not
+     * when it is clicked.
+     *
+     * @see this.selectClass for parameters
+     */
+    setNewWindow(previewMode, widgetValue, params) {
+        const linkEl = this.$target[0].parentElement;
+        if (widgetValue) {
+            linkEl.setAttribute('target', '_blank');
+        } else {
+            linkEl.removeAttribute('target');
+        }
+    },
+    /**
+     * Records the target url of the hyperlink.
+     *
+     * @see this.selectClass for parameters
+     */
+    setUrl(previewMode, widgetValue, params) {
+        const linkEl = this.$target[0].parentElement;
+        let url = widgetValue;
+        if (!url) {
+            // As long as there is no URL, the image is not considered a link.
+            linkEl.removeAttribute('href');
+            return;
+        }
+        if (!url.startsWith('/') && !url.startsWith('#')
+                && !/^([a-zA-Z]*.):.+$/gm.test(url)) {
+            // We permit every protocol (http:, https:, ftp:, mailto:,...).
+            // If none is explicitly specified, we assume it is a http.
+            url = 'http://' + url;
+        }
+        linkEl.setAttribute('href', url);
+        this.rerender = true;
+    },
+    /**
+     * @override
+     */
+    async updateUI() {
+        if (this.rerender) {
+            this.rerender = false;
+            await this._rerenderXML();
+            return;
+        }
+        return this._super.apply(this, arguments);
+    },
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    _activateLinkTool() {
+        if (this.$target[0].parentElement.tagName === 'A') {
+            this._requestUserValueWidgets('media_url_opt')[0].focus();
+        } else {
+            this._requestUserValueWidgets('media_link_opt')[0].enable();
+        }
+    },
+    /**
+     * @override
+     */
+    _computeWidgetState(methodName, params) {
+        const parentEl = this.$target[0].parentElement;
+        const linkEl = parentEl.tagName === 'A' ? parentEl : null;
+        switch (methodName) {
+            case 'setLink': {
+                return linkEl ? 'true' : '';
+            }
+            case 'setUrl': {
+                let href = linkEl ? linkEl.getAttribute('href') : '';
+                return href || '';
+            }
+            case 'setNewWindow': {
+                const target = linkEl ? linkEl.getAttribute('target') : '';
+                return target && target === '_blank' ? 'true' : '';
+            }
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * @override
+     */
+    async _computeWidgetVisibility(widgetName, params) {
+        if (widgetName === 'media_link_opt') {
+            if (this.$target[0].matches('img')) {
+                return isImageSupportedForStyle(this.$target[0]);
+            }
+            return !this.$target[0].classList.contains('media_iframe_video');
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * @override
+     */
+    async _renderCustomXML(uiFragment) {
+        const rowEl = uiFragment.querySelector('we-row');
+        rowEl.insertAdjacentHTML('beforeend', qweb.render('web_editor.media_link_tools_button'));
+        rowEl.insertAdjacentHTML('afterend', qweb.render('web.editor.media_link_tools_fields'));
     },
 });
 
@@ -4969,12 +5166,12 @@ const ImageHandlerOption = SnippetOptionWidget.extend({
     },
     /**
      * TODO: adapt in master (used to keep ImageTools related options available
-     * for all images).
+     * for all supported images).
      *
      * @returns {Boolean}
      */
     _isAllowedOnAllImages() {
-        return false;
+        return isImageSupportedForStyle(this._getImg());
     },
 });
 
@@ -5327,6 +5524,10 @@ registry.ImageTools = ImageHandlerOption.extend({
         if (params.optionsPossibleValues.resetCrop) {
             return this._isCropped();
         }
+        // Only the 'Crop' widget is visible when image is not supported for style options.
+        if (Object.keys(params.optionsPossibleValues).some(methodName => ['transform', 'selectStyle'].includes(methodName))) {
+            return isImageSupportedForStyle(this._getImg());
+        }
         return this._super();
     },
     /**
@@ -5449,12 +5650,6 @@ registry.ImageTools = ImageHandlerOption.extend({
             await this._loadShape(img.dataset.shape);
             await this._applyShapeAndColors(true, (img.dataset.shapeColors && img.dataset.shapeColors.split(';')));
         }
-    },
-    /**
-     * @override
-     */
-    _isAllowedOnAllImages() {
-        return true;
     },
 
     //--------------------------------------------------------------------------
@@ -6582,7 +6777,7 @@ registry.BackgroundPosition = SnippetOptionWidget.extend({
      * @private
      */
     _onDocumentClicked: function (ev) {
-        if (!$(ev.target).closest('.o_we_background_position_overlay')) {
+        if (!$(ev.target).closest('.o_we_background_position_overlay').length) {
             this._toggleBgOverlay(false);
         }
     },
@@ -6622,7 +6817,9 @@ registry.ColoredLevelBackground = registry.BackgroundToggler.extend({
      * @private
      */
     _markColorLevel: function () {
+        this.options.wysiwyg.odooEditor.observerUnactive('_markColorLevel');
         this.$target.addClass('o_colored_level');
+        this.options.wysiwyg.odooEditor.observerActive('_markColorLevel');
     },
 });
 

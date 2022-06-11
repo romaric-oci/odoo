@@ -6,6 +6,7 @@ import {
     afterEach,
     afterNextRender,
     beforeEach,
+    isScrolledToBottom,
     nextAnimationFrame,
     start,
 } from '@mail/utils/test_utils';
@@ -619,9 +620,9 @@ QUnit.test('sidebar: public/private channel rendering', async function (assert) 
             }).localId
         }"]
     `);
-    assert.notOk(
-        channel1.querySelectorAll(`:scope .o_ThreadIcon`).length,
-        "channel1 (public) should not have any icon"
+    assert.ok(
+        channel1.querySelectorAll(`:scope .o_ThreadIcon_channelPublic`).length,
+        "channel1 (public) should have globe icon"
     );
     assert.strictEqual(
         channel2.querySelectorAll(`:scope .o_ThreadIcon_channelPrivate`).length,
@@ -1284,6 +1285,34 @@ QUnit.test('basic rendering of message', async function (assert) {
     );
 });
 
+QUnit.test('should not be able to reply to temporary/transient messages', async function (assert) {
+    assert.expect(1);
+
+    this.data['mail.channel'].records.push({ id: 20 });
+    await this.start({
+        discuss: {
+            params: {
+                default_active_id: 'mail.channel_20',
+            },
+        },
+    });
+    // these user interactions is to forge a transient message response from channel command "/who"
+    await afterNextRender(() => {
+        document.querySelector(`.o_ComposerTextInput_textarea`).focus();
+        document.execCommand('insertText', false, "/who");
+    });
+    await afterNextRender(() =>
+        document.querySelector('.o_Composer_buttonSend').click()
+    );
+    // click on message to show actions on the transient message resulting from the "/who" command
+    await afterNextRender(() => document.querySelector('.o_Message').click());
+    assert.containsNone(
+        document.body,
+        '.o_MessageActionList_actionReply',
+        "should not have action to reply to temporary/transient messages"
+    );
+});
+
 QUnit.test('basic rendering of squashed message', async function (assert) {
     // messages are squashed when "close", e.g. less than 1 minute has elapsed
     // from messages of same author and same thread. Note that this should
@@ -1646,7 +1675,7 @@ QUnit.test('auto-scroll to bottom of thread', async function (assert) {
                     thread &&
                     thread.model === 'mail.channel' &&
                     thread.id === 20 &&
-                    scrollTop === messageList.scrollHeight - messageList.clientHeight
+                    isScrolledToBottom(messageList)
                 );
             },
         },
@@ -1659,9 +1688,8 @@ QUnit.test('auto-scroll to bottom of thread', async function (assert) {
         "should have 25 messages"
     );
     const messageList = document.querySelector(`.o_Discuss_thread .o_ThreadView_messageList`);
-    assert.strictEqual(
-        messageList.scrollTop,
-        messageList.scrollHeight - messageList.clientHeight,
+    assert.ok(
+        isScrolledToBottom(messageList),
         "should have scrolled to bottom of thread"
     );
 });
@@ -1693,7 +1721,7 @@ QUnit.test('load more messages from channel (auto-load on scroll)', async functi
                     thread &&
                     thread.model === 'mail.channel' &&
                     thread.id === 20 &&
-                    scrollTop === messageList.scrollHeight - messageList.clientHeight
+                    isScrolledToBottom(messageList)
                 );
             },
         },
@@ -1781,7 +1809,7 @@ QUnit.test('new messages separator [REQUIRE FOCUS]', async function (assert) {
                     thread &&
                     thread.model === 'mail.channel' &&
                     thread.id === 20 &&
-                    scrollTop === messageList.scrollHeight - messageList.clientHeight
+                    isScrolledToBottom(messageList)
                 );
             },
         },
@@ -1851,7 +1879,7 @@ QUnit.test('new messages separator [REQUIRE FOCUS]', async function (assert) {
                 thread &&
                 thread.model === 'mail.channel' &&
                 thread.id === 20 &&
-                scrollTop === messageList.scrollHeight - messageList.clientHeight
+                isScrolledToBottom(messageList)
             );
         },
     });
@@ -1921,9 +1949,8 @@ QUnit.test('restore thread scroll position', async function (assert) {
         .o_Discuss_thread
         .o_ThreadView_messageList
     `);
-    assert.strictEqual(
-        initialMessageList.scrollTop,
-        initialMessageList.scrollHeight - initialMessageList.clientHeight,
+    assert.ok(
+        isScrolledToBottom(initialMessageList),
         "should have scrolled to bottom of channel 11 initially"
     );
 
@@ -1966,7 +1993,7 @@ QUnit.test('restore thread scroll position', async function (assert) {
                 thread &&
                 thread.model === 'mail.channel' &&
                 thread.id === 12 &&
-                scrollTop === messageList.scrollHeight - messageList.clientHeight
+                isScrolledToBottom(messageList)
             );
         },
     });
@@ -2029,14 +2056,13 @@ QUnit.test('restore thread scroll position', async function (assert) {
                 thread &&
                 thread.model === 'mail.channel' &&
                 thread.id === 12 &&
-                scrollTop === messageList.scrollHeight - messageList.clientHeight
+                isScrolledToBottom(messageList)
             );
         },
     });
     const messageList = document.querySelector('.o_ThreadView_messageList');
-    assert.strictEqual(
-        messageList.scrollTop,
-        messageList.scrollHeight - messageList.clientHeight,
+    assert.ok(
+        isScrolledToBottom(messageList),
         "should have recovered scroll position of channel 12 (scroll to bottom)"
     );
 });
@@ -3570,7 +3596,7 @@ QUnit.test('all messages in "Inbox" in "History" after marked all as read', asyn
                     thread.model === 'mail.box' &&
                     thread.id === 'inbox' &&
                     orderedMessages.length === 30 &&
-                    scrollTop === messageList.scrollHeight - messageList.clientHeight
+                    isScrolledToBottom(messageList)
                 );
             },
         },
@@ -3603,7 +3629,7 @@ QUnit.test('all messages in "Inbox" in "History" after marked all as read', asyn
                 thread.model === 'mail.box' &&
                 thread.id === 'history' &&
                 orderedMessages.length === 30 &&
-                scrollTop === messageList.scrollHeight - messageList.clientHeight
+                isScrolledToBottom(messageList)
             );
         },
     });

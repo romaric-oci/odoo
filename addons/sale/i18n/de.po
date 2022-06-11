@@ -3,19 +3,22 @@
 # 	* sale
 # 
 # Translators:
-# Martin Trigaux, 2021
 # Chris Egal <sodaswed@web.de>, 2021
 # Ahmed Aly <ahmed.aly@datenpol.at>, 2021
-# Friederike Fasterling-Nesselbosch, 2021
 # Raymond Vetter, 2021
+# Wolfgang Taferner, 2022
+# Martin Trigaux, 2022
+# Robert Förster <hello@suppliot.eu>, 2022
+# TomTietze <tietze.development@web.de>, 2022
+# Friederike Fasterling-Nesselbosch, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:19+0000\n"
+"POT-Creation-Date: 2022-01-24 08:20+0000\n"
 "PO-Revision-Date: 2021-09-14 12:26+0000\n"
-"Last-Translator: Raymond Vetter, 2021\n"
+"Last-Translator: Friederike Fasterling-Nesselbosch, 2022\n"
 "Language-Team: German (https://www.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1273,7 +1276,7 @@ msgstr "Kontakt"
 #: model_terms:product.product,website_description:sale.product_product_4e
 #: model_terms:product.product,website_description:sale.product_product_4f
 msgid "Contact Us"
-msgstr "Kontakt"
+msgstr "Kontaktieren Sie uns"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order_line__product_uom_category_id
@@ -1300,7 +1303,7 @@ msgstr "Erstellt am"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 #: model_terms:ir.ui.view,arch_db:sale.view_sale_advance_payment_inv
 msgid "Create Invoice"
-msgstr "Rechnung erzeugen"
+msgstr "Rechnung erstellen"
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_invoice_salesteams
@@ -1327,12 +1330,12 @@ msgstr ""
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_sale_advance_payment_inv
 msgid "Create and View Invoice"
-msgstr "Erzeuge und zeige Rechnung an"
+msgstr "Rechnung erstellen und anzeigen"
 
 #. module: sale
 #: model:ir.actions.act_window,name:sale.action_view_sale_advance_payment_inv
 msgid "Create invoices"
-msgstr "Rechnung erzeugen"
+msgstr "Rechnungen erstellen"
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_invoice_salesteams
@@ -1377,8 +1380,8 @@ msgstr ""
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__sale_payment_acquirer_onboarding_wizard__payment_method__stripe
-msgid "Credit card (via Stripe)"
-msgstr "Kreditkarte (Stripe)"
+msgid "Credit & Debit card (via Stripe)"
+msgstr "Kredit- und Debitkarte (über Stripe)"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_advance_payment_inv__currency_id
@@ -1495,8 +1498,8 @@ msgstr "Passen Sie Ihre Angebote und Aufträge an."
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery_dhl
-msgid "DHL USA Connector"
-msgstr "DHL USA Stecker"
+msgid "DHL Express Connector"
+msgstr "DHL Express Konnektor"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_product_search
@@ -1640,7 +1643,7 @@ msgstr "Beschreibung"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Disc.%"
-msgstr "Disc.%"
+msgstr "Rabatt %"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_report__discount
@@ -1823,10 +1826,9 @@ msgid ""
 " a validated expense can be re-invoice to a customer at its cost or sales "
 "price."
 msgstr ""
-"Spesen und Lieferantenrechnungen können einem Kunden erneut in Rechnung "
-"gestellt werden. Mit dieser Option kann ein validierter Aufwand einem Kunden"
-" zu seinen Kosten oder seinem Verkaufspreis erneut in Rechnung gestellt "
-"werden."
+"Auslagen und Lieferantenrechnungen können an Kunden weiterberechnet werden. "
+"Mit dieser Option kann eine validierte Auslage zum Selbstkosten- oder "
+"Verkaufspreis an einen Kunden weiterberechnet werden."
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__validity_date
@@ -2038,7 +2040,7 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,help:sale.field_product_packaging__sales
 msgid "If true, the packaging can be used for sales orders"
-msgstr ""
+msgstr "Wenn ja, kann die Verpackung für Kundenaufträge verwendet werden."
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order__pricelist_id
@@ -2130,7 +2132,7 @@ msgstr "Erzeuge Rechnung"
 #: model:ir.model.fields,field_description:sale.field_sale_order__invoice_status
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__invoice_status
 msgid "Invoice Status"
-msgstr "Status Rechnung"
+msgstr "Rechnungsstatus"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.product_template_sale_form_view
@@ -2816,7 +2818,7 @@ msgstr "Fakturierbarer Auftrag"
 #: code:addons/sale/models/sale_order_line.py:0
 #, python-format
 msgid "Ordered Quantity: %(old_qty)s -> %(new_qty)s"
-msgstr "Bestellte Menge: %(alte_Anzahl)s -> %(neue_Anzahl)s"
+msgstr "Bestellte Menge: %(old_qty)s -> %(new_qty)s"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_product_product__invoice_policy
@@ -2844,7 +2846,7 @@ msgstr "Aufträge"
 #: model:ir.ui.menu,name:sale.menu_sale_order_invoice
 #: model_terms:ir.ui.view,arch_db:sale.crm_team_view_kanban_dashboard
 msgid "Orders to Invoice"
-msgstr "Aufträge zur Rechnung"
+msgstr "Aufträge zur Abrechnung"
 
 #. module: sale
 #: model:ir.actions.act_window,name:sale.action_orders_upselling
@@ -2860,7 +2862,7 @@ msgstr "Weitere Informationen"
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__sale_payment_acquirer_onboarding_wizard__payment_method__other
 msgid "Other payment acquirer"
-msgstr "Anderer Zahlungserwerber"
+msgstr "Anderer Zahlungsanbieter"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_acquirer_onboarding_wizard__paypal_pdt_token
@@ -2905,7 +2907,7 @@ msgstr "Bezahlen mit"
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__res_company__sale_onboarding_payment_method__other
 msgid "Pay with another payment acquirer"
-msgstr "Bezahlen Sie mit einem anderen Zahlungsempfänger"
+msgstr "Nutzen Sie einen anderen Zahlungsanbieter"
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__res_company__sale_onboarding_payment_method__paypal
@@ -2985,7 +2987,7 @@ msgid ""
 "Press a button and watch your desk glide effortlessly from sitting to "
 "standing height in seconds."
 msgstr ""
-"Drücken Sie einen Button und beobachten Sie, wie Ihr Schreibtisch in "
+"Drücken Sie einen Knopf und beobachten Sie, wie Ihr Schreibtisch in "
 "Sekundenschnelle mühelos von Sitz- auf Stehhöhe gleitet."
 
 #. module: sale
@@ -3289,7 +3291,7 @@ msgstr "Angebote und Verkäufe"
 #: model:ir.model.fields,field_description:sale.field_product_product__expense_policy
 #: model:ir.model.fields,field_description:sale.field_product_template__expense_policy
 msgid "Re-Invoice Expenses"
-msgstr "Spesen weiter verrechnen"
+msgstr "Auslagen weiterberechnen"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_product_product__visible_expense_policy
@@ -3313,6 +3315,11 @@ msgstr "Referenz"
 #: model:ir.model.fields,help:sale.field_sale_order__origin
 msgid "Reference of the document that generated this sales order request."
 msgstr "Referenz zu Beleg, der den Verkaufsauftrag ausgelöst hat"
+
+#. module: sale
+#: model:ir.model,name:sale.model_account_payment_register
+msgid "Register Payment"
+msgstr "Zahlung erfassen"
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__sale_advance_payment_inv__advance_payment_method__delivered
@@ -3391,7 +3398,7 @@ msgstr "Durch die Kampagne generierte Umsätze"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.mail_notification_paynow_online
 msgid "Review, Accept &amp; Pay Quotation"
-msgstr ""
+msgstr "Angebot Prüfen, Akzeptieren &amp; Unterzeichnen"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.mail_notification_paynow_online
@@ -3952,7 +3959,7 @@ msgstr "Zwischensumme"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_report_view_tree
 msgid "Sum of Total"
-msgstr ""
+msgstr "Gesamtsumme"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_report_view_tree
@@ -3968,7 +3975,7 @@ msgstr "Stichwörter"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__tax_country_id
 msgid "Tax Country"
-msgstr ""
+msgstr "Steuerland"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_tree
@@ -4023,6 +4030,8 @@ msgid ""
 "Technical field to filter the available taxes depending on the fiscal "
 "country and fiscal position."
 msgstr ""
+"Technisches Feld zum Filtern der verfügbaren Steuern je nach Steuerland und "
+"Steuerzuordnung."
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
@@ -4036,7 +4045,7 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__terms_type
 msgid "Terms & Conditions format"
-msgstr ""
+msgstr "Format Allgemeine Geschäftsbedingungen"
 
 #. module: sale
 #: code:addons/sale/models/sale_order.py:0
@@ -4138,8 +4147,8 @@ msgid ""
 "The invoice is marked as paid and the payment is registered in the payment journal defined in the configuration of the payment acquirer.\n"
 "This mode is advised if you issue the final invoice at the order and not after the delivery."
 msgstr ""
-"Die Rechnung wird automatisch generiert und ist im Kundenportal verfügbar, wenn die Transaktion vom Zahlungsempfänger bestätigt wird.\n"
-"Die Rechnung wird als bezahlt markiert und die Zahlung im Zahlungsjournal registriert, das in der Konfiguration des Zahlungsempfängers definiert ist.\n"
+"Die Rechnung wird automatisch generiert und ist im Kundenportal verfügbar, wenn die Transaktion vom Zahlungsanbieter bestätigt wird.\n"
+"Die Rechnung wird als bezahlt markiert und die Zahlung im Zahlungsjournal registriert, das in der Konfiguration des Zahlungsanbieters definiert ist.\n"
 "Dieser Modus wird empfohlen, wenn Sie die endgültige Rechnung bei der Bestellung und nicht nach der Lieferung ausstellen."
 
 #. module: sale
@@ -4321,6 +4330,8 @@ msgid ""
 "This product is packaged by %(pack_size).2f %(pack_name)s. You should sell "
 "%(quantity).2f %(unit)s."
 msgstr ""
+"Die Verpackung dieses Produkts erfolgt in %(pack_size).2f%(pack_name)s. Sie "
+"sollten%(quantity).2f%(unit)sverkaufen."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_order_report_all
@@ -4369,7 +4380,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "This will update all unit prices based on the currently set pricelist."
 msgstr ""
-"Dadurch werden alle Gerätepreise basierend auf der aktuell eingestellten "
+"Dadurch werden alle Einzelpreise basierend auf der aktuell eingestellten "
 "Preisliste aktualisiert."
 
 #. module: sale
@@ -4427,7 +4438,7 @@ msgstr "Heutige Aktivitäten"
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_quotations
 #: model_terms:ir.ui.view,arch_db:sale.view_order_line_tree
 msgid "Total"
-msgstr "Total"
+msgstr "Gesamt"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__price_tax
@@ -4581,7 +4592,7 @@ msgstr "Preise aktualisieren"
 #: code:addons/sale/models/sale_order.py:0
 #, python-format
 msgid "Upsell %(order)s for customer %(customer)s"
-msgstr ""
+msgstr "Upselling von %(order)s for Kunden %(customer)s"
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__sale_order__invoice_status__upselling
@@ -4779,6 +4790,13 @@ msgstr ""
 " Bitte ändern Sie die Firma Ihres Angebots oder entfernen Sie die Produkte von anderen Firmen (%(bad_products)s)."
 
 #. module: sale
+#: model:ir.actions.server,name:sale.send_invoice_cron_ir_actions_server
+#: model:ir.cron,cron_name:sale.send_invoice_cron
+#: model:ir.cron,name:sale.send_invoice_cron
+msgid "automatic invoicing: send ready invoice"
+msgstr "automatische Rechnungsstellung: fertige Rechnungen versenden"
+
+#. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery_bpost
 msgid "bpost Connector"
 msgstr "bpost Konnektor"
@@ -4813,6 +4831,9 @@ msgid ""
 "== 'pending') and 'Pending Order' or 'Order' }} (Ref {{ object.name or 'n/a'"
 " }})"
 msgstr ""
+"{{ object.company_id.name }} {{ (object.get_portal_last_transaction().state "
+"== 'pending') and 'Pending Order' or 'Order' }} (Ref {{ object.name or 'n/a'"
+" }})"
 
 #. module: sale
 #: model:mail.template,subject:sale.email_template_edi_sale
@@ -4821,3 +4842,6 @@ msgid ""
 "(ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ "
 "object.name or 'n/a' }})"
 msgstr ""
+"{{ object.company_id.name }} {{ object.state in ('draft', 'sent') and "
+"(ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ "
+"object.name or 'n/a' }})"

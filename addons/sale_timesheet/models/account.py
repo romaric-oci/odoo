@@ -27,7 +27,7 @@ class AccountAnalyticLine(models.Model):
     timesheet_invoice_id = fields.Many2one('account.move', string="Invoice", readonly=True, copy=False, help="Invoice created from the timesheet")
     so_line = fields.Many2one(compute="_compute_so_line", store=True, readonly=False, domain="[('is_service', '=', True), ('is_expense', '=', False), ('state', 'in', ['sale', 'done']), ('order_partner_id', 'child_of', commercial_partner_id)]")
     # we needed to store it only in order to be able to groupby in the portal
-    order_id = fields.Many2one(related='so_line.order_id', store=True, readonly=False)
+    order_id = fields.Many2one(related='so_line.order_id', store=True, readonly=True)
     is_so_line_edited = fields.Boolean("Is Sales Order Item Manually Edited")
 
     @api.depends('project_id.commercial_partner_id', 'task_id.commercial_partner_id')
@@ -90,13 +90,8 @@ class AccountAnalyticLine(models.Model):
 
     @api.model
     def _timesheet_preprocess(self, values):
-        if values.get('task_id') and not values.get('account_id'):
-            task = self.env['project.task'].browse(values.get('task_id'))
-            if task.analytic_account_id:
-                values['account_id'] = task.analytic_account_id.id
-                values['company_id'] = task.analytic_account_id.company_id.id
-        values = super(AccountAnalyticLine, self)._timesheet_preprocess(values)
-        return values
+        # TODO: remove me in master
+        return super()._timesheet_preprocess(values)
 
     def _timesheet_determine_sale_line(self):
         """ Deduce the SO line associated to the timesheet line:

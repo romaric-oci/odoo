@@ -33,13 +33,18 @@ const cartHandlerMixin = {
             route: "/shop/cart/update_json",
             params: params,
         }).then(async data => {
-            await animateClone($('header .o_wsale_my_cart').first(), this.$itemImgContainer, 25, 40);
-            updateCartNavBar(data);
+            if (data.cart_quantity && (data.cart_quantity !== parseInt($(".my_cart_quantity").text()))) {
+                await animateClone($('header .o_wsale_my_cart').first(), this.$itemImgContainer, 25, 40);
+                updateCartNavBar(data);
+            }
         });
     },
 };
 
 function animateClone($cart, $elem, offsetTop, offsetLeft) {
+    if (!$cart.length) {
+        return Promise.resolve();
+    }
     $cart.find('.o_animate_blink').addClass('o_red_highlight o_shadow_animation').delay(500).queue(function () {
         $(this).removeClass("o_shadow_animation").dequeue();
     }).delay(2000).queue(function () {

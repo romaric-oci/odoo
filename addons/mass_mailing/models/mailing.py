@@ -85,7 +85,7 @@ class MassMailing(models.Model):
         help="Date at which the mailing was or will be sent.")
     # don't translate 'body_arch', the translations are only on 'body_html'
     body_arch = fields.Html(string='Body', translate=False, sanitize=False)
-    body_html = fields.Html(string='Body converted to be sent by mail', sanitize=False)
+    body_html = fields.Html(string='Body converted to be sent by mail', render_engine='qweb', sanitize=False)
     is_body_empty = fields.Boolean(compute="_compute_is_body_empty",
                                    help='Technical field used to determine if the mail body is empty')
     attachment_ids = fields.Many2many('ir.attachment', 'mass_mailing_ir_attachments_rel',
@@ -395,6 +395,9 @@ class MassMailing(models.Model):
             if mailing.ab_testing_enabled and not mailing.campaign_id
         ]
         self.env['utm.campaign'].create(campaign_vals)
+
+        mailings._fix_attachment_ownership()
+
         return mailings
 
     def write(self, values):
@@ -409,6 +412,7 @@ class MassMailing(models.Model):
             raise ValidationError(_("A campaign should be set when A/B test is enabled"))
 
         result = super(MassMailing, self).write(values)
+        self._fix_attachment_ownership()
 
         if any(self.mapped('ab_testing_schedule_datetime')):
             schedule_date = min(m.ab_testing_schedule_datetime for m in self if m.ab_testing_schedule_datetime)
@@ -416,6 +420,11 @@ class MassMailing(models.Model):
             ab_testing_cron._trigger(at=schedule_date)
 
         return result
+
+    def _fix_attachment_ownership(self):
+        for record in self:
+            record.attachment_ids.write({'res_model': record._name, 'res_id': record.id})
+        return self
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
@@ -735,7 +744,9 @@ class MassMailing(models.Model):
             SELECT lower(substring(t.%(mail_field)s, '([^ ,;<@]+@[^> ,;]+)'))
               FROM mailing_trace s
               JOIN %(target)s t ON (s.res_id = t.id)
+              %(join_domain)s
              WHERE substring(t.%(mail_field)s, '([^ ,;<@]+@[^> ,;]+)') IS NOT NULL
+              %(where_domain)s                               
         """
 
         # Apply same 'get email field' rule from mail_thread.message_get_default_recipients
@@ -746,7 +757,9 @@ class MassMailing(models.Model):
                   FROM mailing_trace s
                   JOIN %(target)s t ON (s.res_id = t.id)
                   JOIN res_partner p ON (t.partner_id = p.id)
+                  %(join_domain)s                  
                  WHERE substring(p.%(mail_field)s, '([^ ,;<@]+@[^> ,;]+)') IS NOT NULL
+                  %(where_domain)s 
             """
         elif issubclass(type(target), self.pool['mail.thread.blacklist']):
             mail_field = 'email_normalized'
@@ -768,13 +781,17 @@ class MassMailing(models.Model):
                AND s.mass_mailing_id = %%(mailing_id)s
                AND s.model = %%(target_model)s;
             """
-        query = query % {'target': target._table, 'mail_field': mail_field}
+        join_domain, where_domain = self._get_seen_list_extra()
+        query = query % {'target': target._table, 'mail_field': mail_field, 'join_domain': join_domain, 'where_domain': where_domain}
         params = {'mailing_id': self.id, 'mailing_campaign_id': self.campaign_id.id, 'target_model': self.mailing_model_real}
         self._cr.execute(query, params)
         seen_list = set(m[0] for m in self._cr.fetchall())
         _logger.info(
             "Mass-mailing %s has already reached %s %s emails", self, len(seen_list), target._name)
         return seen_list
+
+    def _get_seen_list_extra(self):
+        return ('', '')
 
     def _get_mass_mailing_context(self):
         """Returns extra context items with pre-filled blacklist and seen list for massmailing"""
@@ -874,7 +891,7 @@ class MassMailing(models.Model):
             extra_context = mailing._get_mass_mailing_context()
             composer = composer.with_context(active_ids=res_ids, **extra_context)
             # auto-commit except in testing mode
-            auto_commit = not getattr(threading.currentThread(), 'testing', False)
+            auto_commit = not getattr(threading.current_thread(), 'testing', False)
             composer._action_send_mail(auto_commit=auto_commit)
             mailing.write({
                 'state': 'done',
@@ -1131,6 +1148,6 @@ class MassMailing(models.Model):
                 modified = True
 
         if modified:
-            return lxml.html.tostring(root)
+            return lxml.html.tostring(root, encoding='unicode')
 
         return body_html

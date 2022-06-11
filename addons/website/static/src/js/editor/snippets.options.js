@@ -11,6 +11,7 @@ const weUtils = require('web_editor.utils');
 var options = require('web_editor.snippets.options');
 const wLinkPopoverWidget = require('@website/js/widgets/link_popover_widget')[Symbol.for("default")];
 const wUtils = require('website.utils');
+const {isImageSupportedForStyle} = require('web_editor.image_processing');
 require('website.s_popup_options');
 
 var _t = core._t;
@@ -428,6 +429,12 @@ options.Class.include({
     customizeWebsiteColor: async function (previewMode, widgetValue, params) {
         await this._customizeWebsite(previewMode, widgetValue, params, 'color');
     },
+    /**
+     * @see this.selectClass for parameters
+     */
+    async customizeWebsiteAssets(previewMode, widgetValue, params) {
+        await this._customizeWebsite(previewMode, widgetValue, params, 'assets');
+    },
 
     //--------------------------------------------------------------------------
     // Private
@@ -474,30 +481,16 @@ options.Class.include({
     _computeWidgetState: async function (methodName, params) {
         switch (methodName) {
             case 'customizeWebsiteViews': {
-                const allXmlIDs = this._getXMLIDsFromPossibleValues(params.possibleValues);
-                const enabledXmlIDs = await this._rpc({
-                    route: '/website/theme_customize_get',
-                    params: {
-                        'xml_ids': allXmlIDs,
-                    },
-                });
-                let mostXmlIDsStr = '';
-                let mostXmlIDsNb = 0;
-                for (const xmlIDsStr of params.possibleValues) {
-                    const enableXmlIDs = xmlIDsStr.split(/\s*,\s*/);
-                    if (enableXmlIDs.length > mostXmlIDsNb
-                            && enableXmlIDs.every(xmlID => enabledXmlIDs.includes(xmlID))) {
-                        mostXmlIDsStr = xmlIDsStr;
-                        mostXmlIDsNb = enableXmlIDs.length;
-                    }
-                }
-                return mostXmlIDsStr; // Need to return the exact same string as in possibleValues
+                return this._getEnabledCustomizeValues(params.possibleValues, true);
             }
             case 'customizeWebsiteVariable': {
                 return weUtils.getCSSVariableValue(params.variable);
             }
             case 'customizeWebsiteColor': {
                 return weUtils.getCSSVariableValue(params.color);
+            }
+            case 'customizeWebsiteAssets': {
+                return this._getEnabledCustomizeValues(params.possibleValues, false);
             }
         }
         return this._super(...arguments);
@@ -513,13 +506,16 @@ options.Class.include({
 
         switch (type) {
             case 'views':
-                await this._customizeWebsiteViews(widgetValue, params);
+                await this._customizeWebsiteData(widgetValue, params, true);
                 break;
             case 'variable':
                 await this._customizeWebsiteVariable(widgetValue, params);
                 break;
             case 'color':
                 await this._customizeWebsiteColor(widgetValue, params);
+                break;
+            case 'assets':
+                await this._customizeWebsiteData(widgetValue, params, false);
                 break;
             default:
                 if (params.customCustomization) {
@@ -583,32 +579,78 @@ options.Class.include({
         }, params.nullValue);
     },
     /**
+     * TODO Remove this function in master because it only stays here for
+     * compatibility.
+     *
      * @private
      */
     _customizeWebsiteViews: async function (xmlID, params) {
-        const allXmlIDs = this._getXMLIDsFromPossibleValues(params.possibleValues);
-        const enableXmlIDs = xmlID.split(/\s*,\s*/);
-        const disableXmlIDs = allXmlIDs.filter(xmlID => !enableXmlIDs.includes(xmlID));
+        this._customizeWebsiteData(xmlID, params, true);
+    },
+    /**
+     * @private
+     */
+    async _customizeWebsiteData(value, params, isViewData) {
+        const allDataKeys = this._getDataKeysFromPossibleValues(params.possibleValues);
+        const enableDataKeys = value.split(/\s*,\s*/);
+        const disableDataKeys = allDataKeys.filter(value => !enableDataKeys.includes(value));
         const resetViewArch = !!params.resetViewArch;
 
         return this._rpc({
-            route: '/website/theme_customize',
+            route: '/website/theme_customize_data',
             params: {
-                'enable': enableXmlIDs,
-                'disable': disableXmlIDs,
+                'is_view_data': isViewData,
+                'enable': enableDataKeys,
+                'disable': disableDataKeys,
                 'reset_view_arch': resetViewArch,
             },
         });
     },
     /**
+     * TODO Remove this function in master because it only stays here for
+     * compatibility.
+     *
      * @private
      */
     _getXMLIDsFromPossibleValues: function (possibleValues) {
-        const allXmlIDs = [];
-        for (const xmlIDsStr of possibleValues) {
-            allXmlIDs.push(...xmlIDsStr.split(/\s*,\s*/));
+        this._getDataKeysFromPossibleValues(possibleValues);
+    },
+    /**
+     * @private
+     */
+    _getDataKeysFromPossibleValues(possibleValues) {
+        const allDataKeys = [];
+        for (const dataKeysStr of possibleValues) {
+            allDataKeys.push(...dataKeysStr.split(/\s*,\s*/));
         }
-        return allXmlIDs.filter((v, i, arr) => arr.indexOf(v) === i);
+        return allDataKeys.filter((v, i, arr) => arr.indexOf(v) === i);
+    },
+    /**
+     * @private
+     * @param {Array} possibleValues
+     * @param {Boolean} isViewData true = "ir.ui.view", false = "ir.asset"
+     * @returns {String}
+     */
+    async _getEnabledCustomizeValues(possibleValues, isViewData) {
+        const allDataKeys = this._getDataKeysFromPossibleValues(possibleValues);
+        const enabledValues = await this._rpc({
+            route: '/website/theme_customize_data_get',
+            params: {
+                'keys': allDataKeys,
+                'is_view_data': isViewData,
+            },
+        });
+        let mostValuesStr = '';
+        let mostValuesNb = 0;
+        for (const valuesStr of possibleValues) {
+            const enableValues = valuesStr.split(/\s*,\s*/);
+            if (enableValues.length > mostValuesNb
+                    && enableValues.every(value => enabledValues.includes(value))) {
+                mostValuesStr = valuesStr;
+                mostValuesNb = enableValues.length;
+            }
+        }
+        return mostValuesStr; // Need to return the exact same string as in possibleValues
     },
     /**
      * @private
@@ -782,6 +824,90 @@ options.registry.BackgroundShape.include({
         }
         return _getLastPreFilterLayerElement(this.$target);
     }
+});
+
+options.registry.ReplaceMedia.include({
+    /**
+     * Adds an anchor to the url.
+     * Here "anchor" means a specific section of a page.
+     *
+     * @see this.selectClass for parameters
+     */
+    setAnchor(previewMode, widgetValue, params) {
+        const linkEl = this.$target[0].parentElement;
+        let url = linkEl.getAttribute('href');
+        url = url.split('#')[0];
+        linkEl.setAttribute('href', url + widgetValue);
+    },
+
+    //--------------------------------------------------------------------------
+    // Private
+    //--------------------------------------------------------------------------
+
+    /**
+     * @override
+     */
+    _computeWidgetState(methodName, params) {
+        if (methodName === 'setAnchor') {
+            const parentEl = this.$target[0].parentElement;
+            if (parentEl.tagName === 'A') {
+                const href = parentEl.getAttribute('href') || '';
+                return href ? `#${href.split('#')[1]}` : '';
+            }
+            return '';
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * @override
+     */
+    async _computeWidgetVisibility(widgetName, params) {
+        if (widgetName === 'media_link_anchor_opt') {
+            const parentEl = this.$target[0].parentElement;
+            const linkEl = parentEl.tagName === 'A' ? parentEl : null;
+            const href = linkEl ? linkEl.getAttribute('href') : false;
+            return href && href.startsWith('/');
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * Fills the dropdown with the available anchors for the page referenced in
+     * the href.
+     *
+     * @override
+     */
+    async _renderCustomXML(uiFragment) {
+        await this._super(...arguments);
+
+        const oldURLWidgetEl = uiFragment.querySelector('[data-name="media_url_opt"]');
+
+        const URLWidgetEl = document.createElement('we-urlpicker');
+        // Copy attributes
+        for (const {name, value} of oldURLWidgetEl.attributes) {
+            URLWidgetEl.setAttribute(name, value);
+        }
+        URLWidgetEl.title = _t("Hint: Type '/' to search an existing page and '#' to link to an anchor.");
+        oldURLWidgetEl.replaceWith(URLWidgetEl);
+
+        const hrefValue = this.$target[0].parentElement.getAttribute('href');
+        if (!hrefValue || !hrefValue.startsWith('/')) {
+            return;
+        }
+        const urlWithoutAnchor = hrefValue.split('#')[0];
+        const selectEl = document.createElement('we-select');
+        selectEl.dataset.name = 'media_link_anchor_opt';
+        selectEl.dataset.dependencies = 'media_url_opt';
+        selectEl.dataset.noPreview = 'true';
+        selectEl.setAttribute('string', _t("⌙ Page Anchor"));
+        const anchors = await wUtils.loadAnchors(urlWithoutAnchor);
+        for (const anchor of anchors) {
+            const weButtonEl = document.createElement('we-button');
+            weButtonEl.dataset.setAnchor = anchor;
+            weButtonEl.textContent = anchor;
+            selectEl.append(weButtonEl);
+        }
+        URLWidgetEl.after(selectEl);
+    },
 });
 
 options.registry.BackgroundVideo = options.Class.extend({
@@ -1473,7 +1599,7 @@ options.registry.Carousel = options.Class.extend({
         this.$controls.removeClass('d-none');
         const $active = $items.filter('.active');
         this.$indicators.append($('<li>', {
-            'data-target': '#' + $active.attr('id'),
+            'data-target': '#' + this.$target.attr('id'),
             'data-slide-to': $items.length,
         }));
         this.$indicators.append(' ');
@@ -1961,11 +2087,12 @@ const VisibilityPageOptionUpdate = options.Class.extend({
      */
     async visibility(previewMode, widgetValue, params) {
         const show = (widgetValue !== 'hidden');
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             this.trigger_up('action_demand', {
                 actionName: 'toggle_page_option',
                 params: [{name: this.pageOptionName, value: show}],
                 onSuccess: () => resolve(),
+                onFailure: reject,
             });
         });
         this.trigger_up('snippet_option_visibility_update', {show: show});
@@ -1990,11 +2117,12 @@ const VisibilityPageOptionUpdate = options.Class.extend({
      * @returns {boolean}
      */
     async _isShown() {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             this.trigger_up('action_demand', {
                 actionName: 'get_page_option',
                 params: [this.pageOptionName],
                 onSuccess: v => resolve(!!v),
+                onFailure: reject,
             });
         });
     },
@@ -2035,21 +2163,23 @@ options.registry.TopMenuVisibility = VisibilityPageOptionUpdate.extend({
             return;
         }
         const transparent = (widgetValue === 'transparent');
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             this.trigger_up('action_demand', {
                 actionName: 'toggle_page_option',
                 params: [{name: 'header_overlay', value: transparent}],
                 onSuccess: () => resolve(),
+                onFailure: reject,
             });
         });
         if (!transparent) {
             return;
         }
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             this.trigger_up('action_demand', {
                 actionName: 'toggle_page_option',
                 params: [{name: 'header_color', value: ''}],
                 onSuccess: () => resolve(),
+                onFailure: reject,
             });
         });
     },
@@ -2059,11 +2189,12 @@ options.registry.TopMenuVisibility = VisibilityPageOptionUpdate.extend({
     async _computeWidgetState(methodName, params) {
         const _super = this._super.bind(this);
         if (methodName === 'visibility') {
-            this.shownValue = await new Promise(resolve => {
+            this.shownValue = await new Promise((resolve, reject) => {
                 this.trigger_up('action_demand', {
                     actionName: 'get_page_option',
                     params: ['header_overlay'],
                     onSuccess: v => resolve(v ? 'transparent' : 'regular'),
+                    onFailure: reject,
                 });
             });
         }
@@ -2101,11 +2232,12 @@ options.registry.topMenuColor = options.Class.extend({
         if (!show) {
             return false;
         }
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             this.trigger_up('action_demand', {
                 actionName: 'get_page_option',
                 params: ['header_overlay'],
                 onSuccess: value => resolve(!!value),
+                onFailure: reject,
             });
         });
     },
@@ -2466,6 +2598,10 @@ options.registry.CoverProperties = options.Class.extend({
             $defaultSizeBtn.click();
             $defaultSizeBtn.closest('we-select').click();
         }
+
+        if (!previewMode) {
+            this._updateSavingDataset();
+        }
     },
     /**
      * @see this.selectClass for parameters
@@ -2473,47 +2609,30 @@ options.registry.CoverProperties = options.Class.extend({
     filterValue: function (previewMode, widgetValue, params) {
         this.$filter.css('opacity', widgetValue || 0);
         this.$filter.toggleClass('oe_black', parseFloat(widgetValue) !== 0);
+
+        if (!previewMode) {
+            this._updateSavingDataset();
+        }
     },
-
-    //--------------------------------------------------------------------------
-    // Public
-    //--------------------------------------------------------------------------
-
     /**
-     * @private
+     * @override
      */
-    updateUI: async function () {
+    selectStyle: async function (previewMode, widgetValue, params) {
         await this._super(...arguments);
 
-        // TODO: `o_record_has_cover` should be handled using model field, not
-        // resize_class to avoid all of this.
-        let coverClass = this.$el.find('[data-cover-opt-name="size"] we-button.active').data('selectClass') || '';
-        const bg = this.$image.css('background-image');
-        if (bg && bg !== 'none') {
-            coverClass += " o_record_has_cover";
+        if (!previewMode) {
+            this._updateSavingDataset(widgetValue);
         }
-        // Update saving dataset
-        this.$target[0].dataset.coverClass = coverClass;
-        this.$target[0].dataset.textAlignClass = this.$el.find('[data-cover-opt-name="text_align"] we-button.active').data('selectClass') || '';
-        this.$target[0].dataset.filterValue = this.$filterValueOpts.filter('.active').data('filterValue') || 0.0;
-        const colorPickerWidget = this._requestUserValueWidgets('bg_color_opt')[0];
-        // TODO there is probably a better way and this should be refactored to
-        // use more standard colorpicker+imagepicker structure
-        const ccValue = colorPickerWidget._ccValue;
-        const colorOrGradient = colorPickerWidget._value;
-        const isGradient = weUtils.isColorGradient(colorOrGradient);
-        const isCSSColor = !isGradient && ColorpickerWidget.isCSSColor(colorOrGradient);
-        const colorNames = [];
-        if (ccValue) {
-            colorNames.push(ccValue);
+    },
+    /**
+     * @override
+     */
+    selectClass: async function (previewMode, widgetValue, params) {
+        await this._super(...arguments);
+
+        if (!previewMode) {
+            this._updateSavingDataset();
         }
-        if (!isGradient && !isCSSColor) {
-            colorNames.push(colorOrGradient);
-        }
-        this.$target[0].dataset.bgColorClass = weUtils.computeColorClasses(colorNames).join(' ');
-        this.$target[0].dataset.bgColorStyle =
-            isCSSColor ? `background-color: ${colorOrGradient};` :
-            isGradient ? `background-color: rgba(0, 0, 0, 0); background-image: ${colorOrGradient};` : '';
     },
 
     //--------------------------------------------------------------------------
@@ -2546,6 +2665,70 @@ options.registry.CoverProperties = options.Class.extend({
             return this.$target.data(`use_${params.coverOptName}`) === 'True';
         }
         return this._super(...arguments);
+    },
+    /**
+     * TODO: update in master to set data-name values in XML.
+     *
+     * @override
+     */
+    async _renderCustomXML(uiFragment) {
+        uiFragment.querySelectorAll('[data-cover-opt-name]').forEach(el => {
+            el.dataset.name = `${el.dataset.coverOptName}_opt`;
+        });
+    },
+    /**
+     * @private
+     */
+    _updateColorDataset(bgColorStyle = '', bgColorClass = '') {
+        this.$target[0].dataset.bgColorStyle = bgColorStyle;
+        this.$target[0].dataset.bgColorClass = bgColorClass;
+    },
+    /**
+     * Updates the cover properties dataset used for saving.
+     *
+     * @private
+     */
+    _updateSavingDataset(colorValue) {
+        const [colorPickerWidget, sizeWidget, textAlignWidget] = this._requestUserValueWidgets('bg_color_opt', 'size_opt', 'text_align_opt');
+        // TODO: `o_record_has_cover` should be handled using model field, not
+        // resize_class to avoid all of this.
+        // Get values from DOM (selected values in options are only available
+        // after updateUI)
+        const sizeOptValues = sizeWidget.getMethodsParams('selectClass').possibleValues;
+        let coverClass = [...this.$target[0].classList].filter(
+            value => sizeOptValues.includes(value)
+        ).join(' ');
+        const bg = this.$image.css('background-image');
+        if (bg && bg !== 'none') {
+            coverClass += " o_record_has_cover";
+        }
+        const textAlignOptValues = textAlignWidget.getMethodsParams('selectClass').possibleValues;
+        const textAlignClass = [...this.$target[0].classList].filter(
+            value => textAlignOptValues.includes(value)
+        ).join(' ');
+        const filterEl = this.$target[0].querySelector('.o_record_cover_filter');
+        const filterValue = filterEl && filterEl.style.opacity;
+        // Update saving dataset
+        this.$target[0].dataset.coverClass = coverClass;
+        this.$target[0].dataset.textAlignClass = textAlignClass;
+        this.$target[0].dataset.filterValue = filterValue || 0.0;
+        // TODO there is probably a better way and this should be refactored to
+        // use more standard colorpicker+imagepicker structure
+        const ccValue = colorPickerWidget._ccValue;
+        const colorOrGradient = colorPickerWidget._value;
+        const isGradient = weUtils.isColorGradient(colorOrGradient);
+        const isCSSColor = !isGradient && ColorpickerWidget.isCSSColor(colorOrGradient);
+        const colorNames = [];
+        if (ccValue) {
+            colorNames.push(ccValue);
+        }
+        if (colorOrGradient && !isGradient && !isCSSColor) {
+            colorNames.push(colorOrGradient);
+        }
+        const bgColorClass = weUtils.computeColorClasses(colorNames).join(' ');
+        const bgColorStyle = isCSSColor ? `background-color: ${colorOrGradient};` :
+            isGradient ? `background-color: rgba(0, 0, 0, 0); background-image: ${colorOrGradient};` : '';
+        this._updateColorDataset(bgColorStyle, bgColorClass);
     },
 });
 
@@ -2901,15 +3084,6 @@ options.registry.WebsiteAnimate = options.Class.extend({
             this.$target.toggleClass('o_animate_preview o_animate', !!widgetValue);
         }
     },
-    /**
-     * @override
-     */
-    async _computeWidgetVisibility(widgetName, params) {
-        if (widgetName === 'animation_launch_opt') {
-            return !this.$target[0].closest('.dropdown');
-        }
-        return this._super(...arguments);
-    },
 
     //--------------------------------------------------------------------------
     // Private
@@ -2937,6 +3111,18 @@ options.registry.WebsiteAnimate = options.Class.extend({
     _computeWidgetVisibility(widgetName, params) {
         if (widgetName === 'no_animation_opt') {
             return !this.isAnimatedText;
+        }
+        if (widgetName === 'animation_launch_opt') {
+            return !this.$target[0].closest('.dropdown');
+        }
+        return this._super(...arguments);
+    },
+    /**
+     * @override
+     */
+    _computeVisibility(methodName, params) {
+        if (this.$target[0].matches('img')) {
+            return isImageSupportedForStyle(this.$target[0]);
         }
         return this._super(...arguments);
     },

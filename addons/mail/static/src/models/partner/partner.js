@@ -371,9 +371,6 @@ function factory(dependencies) {
          * @returns {string}
          */
         _computeAvatarUrl() {
-            if (this === this.messaging.partnerRoot) {
-                return '/mail/static/src/img/odoobot.png';
-            }
             return `/web/image/res.partner/${this.id}/avatar_128`;
         }
 
@@ -445,6 +442,15 @@ function factory(dependencies) {
             compute: '_computeAvatarUrl',
         }),
         country: many2one('mail.country'),
+        /**
+         * Deprecated.
+         * States the `display_name` of this partner, as returned by the server.
+         * The value of this field is unreliable (notably its value depends on
+         * context on which it was received) therefore it should only be used as
+         * a default if the actual `name` is missing (@see `nameOrDisplayName`).
+         * And if a specific name format is required, it should be computed from
+         * relevant fields instead.
+         */
         display_name: attr({
             compute: '_computeDisplayName',
             default: "",

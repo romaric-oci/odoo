@@ -11,6 +11,7 @@ from lxml import etree
 from datetime import datetime
 import re
 import logging
+import json
 
 
 _logger = logging.getLogger(__name__)
@@ -30,8 +31,22 @@ class AccountEdiFormat(models.Model):
         '''Returns a name conform to the Fattura pa Specifications:
            See ES documentation 2.2
         '''
-        a = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        n = invoice.id
+        a = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        # Each company should have its own filename sequence. If it does not exist, create it
+        n = self.env['ir.sequence'].with_company(invoice.company_id).next_by_code('l10n_it_edi.fattura_filename')
+        if not n:
+            # The offset is used to avoid conflicts with existing filenames
+            offset = 62 ** 4
+            sequence = self.env['ir.sequence'].sudo().create({
+                'name': 'FatturaPA Filename Sequence',
+                'code': 'l10n_it_edi.fattura_filename',
+                'company_id': invoice.company_id.id,
+                'number_next': offset,
+            })
+            n = sequence._next()
+        # The n is returned as a string, but we require an int
+        n = int(''.join(filter(lambda c: c.isdecimal(), n)))
+
         progressive_number = ""
         while n:
             (n, m) = divmod(n, len(a))
@@ -39,11 +54,19 @@ class AccountEdiFormat(models.Model):
 
         return '%(country_code)s%(codice)s_%(progressive_number)s.xml' % {
             'country_code': invoice.company_id.country_id.code,
-            'codice': invoice.company_id.l10n_it_codice_fiscale.replace(' ', ''),
+            'codice': self.env['res.partner']._l10n_it_normalize_codice_fiscale(invoice.company_id.l10n_it_codice_fiscale),
             'progressive_number': progressive_number.zfill(5),
         }
 
     def _l10n_it_edi_check_invoice_configuration(self, invoice):
+        errors = self._l10n_it_edi_check_ordinary_invoice_configuration(invoice)
+
+        if not errors:
+            errors = self._l10n_it_edi_check_simplified_invoice_configuration(invoice)
+
+        return errors
+
+    def _l10n_it_edi_check_ordinary_invoice_configuration(self, invoice):
         errors = []
         seller = invoice.company_id
         buyer = invoice.commercial_partner_id
@@ -83,7 +106,35 @@ class AccountEdiFormat(models.Model):
 
         # <1.4.1>
         if not buyer.vat and not buyer.l10n_it_codice_fiscale and buyer.country_id.code == 'IT':
-            errors.append(_("The buyer, %s, or his company must have either a VAT number either a tax code (Codice Fiscale).", buyer.display_name))
+            errors.append(_("The buyer, %s, or his company must have a VAT number and/or a tax code (Codice Fiscale).", buyer.display_name))
+
+        # <2.2.1>
+        for invoice_line in invoice.invoice_line_ids:
+            if not invoice_line.display_type and len(invoice_line.tax_ids) != 1:
+                raise UserError(_("You must select one and only one tax by line."))
+
+        for tax_line in invoice.line_ids.filtered(lambda line: line.tax_line_id):
+            if not tax_line.tax_line_id.l10n_it_kind_exoneration and tax_line.tax_line_id.amount == 0:
+                errors.append(_("%s has an amount of 0.0, you must indicate the kind of exoneration.", tax_line.name))
+
+        return errors
+
+    def _l10n_it_edi_check_simplified_invoice_configuration(self, invoice):
+        errors = self._l10n_it_edi_check_buyer_invoice_configuration(invoice)
+        template = self.env.ref('l10n_it_edi.account_invoice_it_simplified_FatturaPA_export', raise_if_not_found=False)
+
+        if errors and template:
+            buyer = invoice.commercial_partner_id
+            if ((not buyer.country_id or buyer.country_id.code == 'IT')
+                and (buyer.l10n_it_codice_fiscale or (buyer.vat and (buyer.vat[:2].upper() == 'IT' or buyer.vat[:2].isdecimal())))
+                and invoice.amount_total <= 400):
+                return []
+
+        return errors
+
+    def _l10n_it_edi_check_buyer_invoice_configuration(self, invoice):
+        errors = []
+        buyer = invoice.commercial_partner_id
 
         # <1.4.2>
         if not buyer.street and not buyer.street2:
@@ -97,19 +148,30 @@ class AccountEdiFormat(models.Model):
         if not buyer.country_id:
             errors.append(_("%s must have a country.", buyer.display_name))
 
-        # <2.2.1>
-        for invoice_line in invoice.invoice_line_ids:
-            if not invoice_line.display_type and len(invoice_line.tax_ids) != 1:
-                raise UserError(_("You must select one and only one tax by line."))
+        if any(line.quantity < 0 for line in invoice.invoice_line_ids):
+            errors.append(_("All quantities should be positive."))
 
         for tax_line in invoice.line_ids.filtered(lambda line: line.tax_line_id):
             if not tax_line.tax_line_id.l10n_it_kind_exoneration and tax_line.tax_line_id.amount == 0:
                 errors.append(_("%s has an amount of 0.0, you must indicate the kind of exoneration.", tax_line.name))
 
-        if not invoice.partner_bank_id:
-            errors.append(_("The seller must have a bank account."))
-
         return errors
+
+    def _l10n_it_get_document_type(self, invoice):
+        errors_buyer = self._l10n_it_edi_check_buyer_invoice_configuration(invoice)
+        if errors_buyer: # Simplified invoice case
+            if invoice.move_type == 'out_invoice':
+                return 'TD07'
+            elif invoice.move_type == 'out_refund':
+                return 'TD08'
+
+        if invoice.move_type == 'out_invoice':
+            return 'TD01'
+        elif invoice.move_type == 'out_refund':
+            return 'TD04'
+
+    def _l10n_it_is_simplified_document_type(self, document_type):
+        return document_type in ['TD07', 'TD08', 'TD09']
 
     # -------------------------------------------------------------------------
     # Export
@@ -152,7 +214,7 @@ class AccountEdiFormat(models.Model):
         if invoice.l10n_it_einvoice_id:
             invoice.l10n_it_einvoice_id.unlink()
         res = invoice.invoice_generate_xml()
-        if len(invoice.commercial_partner_id.l10n_it_pa_index or '') == 6:
+        if invoice._is_commercial_partner_pa():
             invoice.message_post(
                 body=(_("Invoices for PA are not managed by Odoo, you can download the document and send it on your own."))
             )
@@ -268,18 +330,23 @@ class AccountEdiFormat(models.Model):
             # TD04 == credit note
             # TD05 == debit note
             # TD06 == fee
+            # TD07 == simplified invoice
+            # TD08 == simplified credit note
+            # TD09 == simplified debit note
             # For unsupported document types, just assume in_invoice, and log that the type is unsupported
             elements = tree.xpath('//DatiGeneraliDocumento/TipoDocumento')
             move_type = 'in_invoice'
-            if elements and elements[0].text and elements[0].text == 'TD04':
+            document_type = elements[0].text if elements else ''
+            if document_type and document_type in ['TD04', 'TD08']:
                 move_type = 'in_refund'
-            elif elements and elements[0].text and elements[0].text != 'TD01':
+            elif document_type and document_type not in ['TD01', 'TD07']:
                 _logger.info('Document type not managed: %s. Invoice type is set by default.', elements[0].text)
+
+            simplified = self._l10n_it_is_simplified_document_type(document_type)
 
             # Setup the context for the Invoice Form
             invoice_ctx = invoice.with_company(company) \
-                                 .with_context(default_move_type=move_type,
-                                               account_predictive_bills_disable_prediction=True)
+                                 .with_context(default_move_type=move_type)
 
             # move could be a single record (editing) or be empty (new).
             with Form(invoice_ctx) as invoice_form:
@@ -339,36 +406,6 @@ class AccountEdiFormat(models.Model):
                 if elements:
                     invoice_form.l10n_it_stamp_duty = float(elements[0].text)
 
-                # List of all amount discount (will be add after all article to avoid to have a negative sum)
-                discount_list = []
-                percentage_global_discount = 1.0
-
-                # Global discount. <2.1.1.8>
-                discount_elements = body_tree.xpath('.//DatiGeneraliDocumento/ScontoMaggiorazione')
-                total_discount_amount = 0.0
-                if discount_elements:
-                    for discount_element in discount_elements:
-                        discount_line = discount_element.xpath('.//Tipo')
-                        discount_sign = -1
-                        if discount_line and discount_line[0].text == 'SC':
-                            discount_sign = 1
-                        discount_percentage = discount_element.xpath('.//Percentuale')
-                        if discount_percentage and discount_percentage[0].text:
-                            percentage_global_discount *= 1 - float(discount_percentage[0].text)/100 * discount_sign
-
-                        discount_amount_text = discount_element.xpath('.//Importo')
-                        if discount_amount_text and discount_amount_text[0].text:
-                            discount_amount = float(discount_amount_text[0].text) * discount_sign * -1
-                            discount = {}
-                            discount["seq"] = 0
-
-                            if discount_amount < 0:
-                                discount["name"] = _('GLOBAL DISCOUNT')
-                            else:
-                                discount["name"] = _('GLOBAL EXTRA CHARGE')
-                            discount["amount"] = discount_amount
-                            discount["tax"] = []
-                            discount_list.append(discount)
 
                 # Comment. <2.1.1.11>
                 elements = body_tree.xpath('.//DatiGeneraliDocumento//Causale')
@@ -415,10 +452,13 @@ class AccountEdiFormat(models.Model):
                         if invoice_form.partner_id and invoice_form.partner_id.commercial_partner_id:
                             bank = self.env['res.partner.bank'].search([
                                 ('acc_number', '=', elements[0].text),
-                                ('partner_id.id', '=', invoice_form.partner_id.commercial_partner_id.id)
-                                ])
+                                ('partner_id', '=', invoice_form.partner_id.commercial_partner_id.id),
+                                ('company_id', 'in', [invoice_form.company_id.id, False])
+                            ], order='company_id', limit=1)
                         else:
-                            bank = self.env['res.partner.bank'].search([('acc_number', '=', elements[0].text)])
+                            bank = self.env['res.partner.bank'].search([
+                                ('acc_number', '=', elements[0].text), ('company_id', 'in', [invoice_form.company_id.id, False])
+                            ], order='company_id', limit=1)
                         if bank:
                             invoice_form.partner_bank_id = bank
                         else:
@@ -440,7 +480,11 @@ class AccountEdiFormat(models.Model):
                             invoice._compose_info_message(body_tree, './/DatiPagamento')))
 
                 # Invoice lines. <2.2.1>
-                elements = body_tree.xpath('.//DettaglioLinee')
+                if not simplified:
+                    elements = body_tree.xpath('.//DettaglioLinee')
+                else:
+                    elements = body_tree.xpath('.//DatiBeniServizi')
+
                 if elements:
                     for element in elements:
                         with invoice_form.invoice_line_ids.new() as invoice_line_form:
@@ -448,13 +492,9 @@ class AccountEdiFormat(models.Model):
                             # Sequence.
                             line_elements = element.xpath('.//NumeroLinea')
                             if line_elements:
-                                invoice_line_form.sequence = int(line_elements[0].text) * 2
+                                invoice_line_form.sequence = int(line_elements[0].text)
 
                             # Product.
-                            line_elements = element.xpath('.//Descrizione')
-                            if line_elements:
-                                invoice_line_form.name = " ".join(line_elements[0].text.split())
-
                             elements_code = element.xpath('.//CodiceArticolo')
                             if elements_code:
                                 for element_code in elements_code:
@@ -466,22 +506,22 @@ class AccountEdiFormat(models.Model):
                                             invoice_line_form.product_id = product
                                             break
                                     if partner:
-                                        product_supplier = self.env['product.supplierinfo'].search([('name', '=', partner.id), ('product_code', '=', code.text)])
-                                        if product_supplier and product_supplier.product_id:
+                                        product_supplier = self.env['product.supplierinfo'].search([('name', '=', partner.id), ('product_code', '=', code.text)], limit=2)
+                                        if product_supplier and len(product_supplier) == 1 and product_supplier.product_id:
                                             invoice_line_form.product_id = product_supplier.product_id
                                             break
                                 if not invoice_line_form.product_id:
                                     for element_code in elements_code:
                                         code = element_code.xpath('.//CodiceValore')[0]
-                                        product = self.env['product.product'].search([('default_code', '=', code.text)])
-                                        if product:
+                                        product = self.env['product.product'].search([('default_code', '=', code.text)], limit=2)
+                                        if product and len(product) == 1:
                                             invoice_line_form.product_id = product
                                             break
 
-                            # Price Unit.
-                            line_elements = element.xpath('.//PrezzoUnitario')
+                            # Label.
+                            line_elements = element.xpath('.//Descrizione')
                             if line_elements:
-                                invoice_line_form.price_unit = float(line_elements[0].text)
+                                invoice_line_form.name = " ".join(line_elements[0].text.split())
 
                             # Quantity.
                             line_elements = element.xpath('.//Quantita')
@@ -491,11 +531,30 @@ class AccountEdiFormat(models.Model):
                                 invoice_line_form.quantity = 1
 
                             # Taxes
-                            tax_element = element.xpath('.//AliquotaIVA')
+                            percentage = None
+                            price_subtotal = 0
+                            if not simplified:
+                                tax_element = element.xpath('.//AliquotaIVA')
+                                if tax_element and tax_element[0].text:
+                                    percentage = float(tax_element[0].text)
+                            else:
+                                amount_element = element.xpath('.//Importo')
+                                if amount_element and amount_element[0].text:
+                                    amount = float(amount_element[0].text)
+                                    tax_element = element.xpath('.//Aliquota')
+                                    if tax_element and tax_element[0].text:
+                                        percentage = float(tax_element[0].text)
+                                        price_subtotal = amount / (1 + percentage / 100)
+                                    else:
+                                        tax_element = element.xpath('.//Imposta')
+                                        if tax_element and tax_element[0].text:
+                                            tax_amount = float(tax_element[0].text)
+                                            price_subtotal = amount - tax_amount
+                                            percentage = round(tax_amount / price_subtotal * 100)
+
                             natura_element = element.xpath('.//Natura')
                             invoice_line_form.tax_ids.clear()
-                            if tax_element and tax_element[0].text:
-                                percentage = float(tax_element[0].text)
+                            if percentage is not None:
                                 if natura_element and natura_element[0].text:
                                     l10n_it_kind_exoneration = natura_element[0].text
                                     tax = self.env['account.tax'].search([
@@ -527,57 +586,59 @@ class AccountEdiFormat(models.Model):
                                             percentage,
                                             invoice_line_form.name))
 
-                            # Discount in cascade mode.
-                            # if 3 discounts : -10% -50€ -20%
-                            # the result must be : (((price -10%)-50€) -20%)
-                            # Generic form : (((price -P1%)-A1€) -P2%)
-                            # It will be split in two parts: fix amount and pourcent amount
-                            # example: (((((price - A1€) -P2%) -A3€) -A4€) -P5€)
-                            # pourcent: 1-(1-P2)*(1-P5)
-                            # fix amount: A1*(1-P2)*(1-P5)+A3*(1-P5)+A4*(1-P5) (we must take account of all
-                            # percentage present after the fix amount)
-                            line_elements = element.xpath('.//ScontoMaggiorazione')
-                            total_discount_amount = 0.0
-                            total_discount_percentage = percentage_global_discount
-                            if line_elements:
-                                for line_element in line_elements:
-                                    discount_line = line_element.xpath('.//Tipo')
-                                    discount_sign = -1
-                                    if discount_line and discount_line[0].text == 'SC':
-                                        discount_sign = 1
-                                    discount_percentage = line_element.xpath('.//Percentuale')
-                                    if discount_percentage and discount_percentage[0].text:
-                                        pourcentage_actual = 1 - float(discount_percentage[0].text)/100 * discount_sign
-                                        total_discount_percentage *= pourcentage_actual
-                                        total_discount_amount *= pourcentage_actual
+                            # Price Unit.
+                            if not simplified:
+                                line_elements = element.xpath('.//PrezzoUnitario')
+                                if line_elements:
+                                    invoice_line_form.price_unit = float(line_elements[0].text)
+                            else:
+                                invoice_line_form.price_unit = price_subtotal
 
-                                    discount_amount = line_element.xpath('.//Importo')
-                                    if discount_amount and discount_amount[0].text:
-                                        total_discount_amount += float(discount_amount[0].text) * discount_sign * -1
+                            # Discounts
+                            discount_elements = element.xpath('.//ScontoMaggiorazione')
+                            if discount_elements:
+                                discount_element = discount_elements[0]
+                                discount_percentage = discount_element.xpath('.//Percentuale')
+                                # Special case of only 1 percentage discount
+                                if discount_percentage and len(discount_elements) == 1:
+                                    discount_type = discount_element.xpath('.//Tipo')
+                                    discount_sign = 1
+                                    if discount_type and discount_type[0].text == 'MG':
+                                        discount_sign = -1
+                                    invoice_line_form.discount = discount_sign * float(discount_percentage[0].text)
+                                # Discounts in cascade summarized in 1 percentage
+                                else:
+                                    total = float(element.xpath('.//PrezzoTotale')[0].text)
+                                    discount = 100 - (100 * total) / (invoice_line_form.quantity * invoice_line_form.price_unit)
+                                    invoice_line_form.discount = discount
 
-                                # Save amount discount.
-                                if total_discount_amount != 0:
-                                    discount = {}
-                                    discount["seq"] = invoice_line_form.sequence + 1
 
-                                    if total_discount_amount < 0:
-                                        discount["name"] = _('DISCOUNT: %s', invoice_line_form.name)
-                                    else:
-                                        discount["name"] = _('EXTRA CHARGE: %s', invoice_line_form.name)
-                                    discount["amount"] = total_discount_amount
-                                    discount["tax"] = []
-                                    for tax in invoice_line_form.tax_ids:
-                                        discount["tax"].append(tax)
-                                    discount_list.append(discount)
-                            invoice_line_form.discount = (1 - total_discount_percentage) * 100
+                # Global discount summarized in 1 amount
+                discount_elements = body_tree.xpath('.//DatiGeneraliDocumento/ScontoMaggiorazione')
+                if discount_elements:
+                    taxable_amount = float(json.loads(invoice_form.tax_totals_json)['amount_untaxed'])
+                    discounted_amount = taxable_amount
+                    for discount_element in discount_elements:
+                        discount_type = discount_element.xpath('.//Tipo')
+                        discount_sign = 1
+                        if discount_type and discount_type[0].text == 'MG':
+                            discount_sign = -1
+                        discount_amount = discount_element.xpath('.//Importo')
+                        if discount_amount:
+                            discounted_amount -= discount_sign * float(discount_amount[0].text)
+                            continue
+                        discount_percentage = discount_element.xpath('.//Percentuale')
+                        if discount_percentage:
+                            discounted_amount *= 1 - discount_sign * float(discount_percentage[0].text) / 100
 
-                # Apply amount discount.
-                for discount in discount_list:
-                    with invoice_form.invoice_line_ids.new() as invoice_line_form_discount:
-                        invoice_line_form_discount.tax_ids.clear()
-                        invoice_line_form_discount.sequence = discount["seq"]
-                        invoice_line_form_discount.name = discount["name"]
-                        invoice_line_form_discount.price_unit = discount["amount"]
+                    general_discount = discounted_amount - taxable_amount
+                    sequence = len(elements) + 1
+
+                    with invoice_form.invoice_line_ids.new() as invoice_line_global_discount:
+                        invoice_line_global_discount.tax_ids.clear()
+                        invoice_line_global_discount.sequence = sequence
+                        invoice_line_global_discount.name = 'SCONTO' if general_discount < 0 else 'MAGGIORAZIONE'
+                        invoice_line_global_discount.price_unit = general_discount
 
             new_invoice = invoice_form.save()
             new_invoice.l10n_it_send_state = "other"

@@ -3,15 +3,15 @@
 # 	* im_livechat
 # 
 # Translators:
-# 敬雲 林 <chingyun@yuanchih-consult.com>, 2021
+# 敬雲 林 <chingyun@yuanchih-consult.com>, 2022
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 10:28+0000\n"
+"POT-Creation-Date: 2022-01-24 08:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:23+0000\n"
-"Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2021\n"
+"Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2022\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -172,7 +172,7 @@ msgstr "要求點什麼..."
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_form
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_tree
 msgid "Attendees"
-msgstr "參會者"
+msgstr "與會者"
 
 #. module: im_livechat
 #: model:ir.model.fields.selection,name:im_livechat.selection__im_livechat_channel_rule__action__auto_popup
@@ -370,7 +370,7 @@ msgstr "配置"
 #. module: im_livechat
 #: model:ir.model,name:im_livechat.model_res_partner
 msgid "Contact"
-msgstr "聯繫人"
+msgstr "聯絡人"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_channel__channel_id
@@ -421,12 +421,12 @@ msgstr ""
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.mail_channel_action
 msgid "Create a channel and start chatting to fill up your history."
-msgstr "創建一個頻道，開始聊天就可以生成交談記錄。"
+msgstr "建立一個頻道，開始聊天就可以生成交談記錄。"
 
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.im_livechat_canned_response_action
 msgid "Create a new canned response"
-msgstr "創建罐頭回應"
+msgstr "建立罐頭回應"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_channel__create_uid
@@ -443,18 +443,18 @@ msgstr "建立於"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_search
 msgid "Creation Date"
-msgstr "創建日期"
+msgstr "建立日期"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_channel_view_search
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_operator_view_search
 msgid "Creation date"
-msgstr "創建日期"
+msgstr "建立日期"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_channel_view_search
 msgid "Creation date (hour)"
-msgstr "創建日期(小時)"
+msgstr "建立日期(小時)"
 
 #. module: im_livechat
 #: model:ir.actions.act_window,name:im_livechat.rating_rating_action_livechat_report
@@ -505,7 +505,7 @@ msgstr ""
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.im_livechat_channel_action
 msgid "Define a new website live chat channel"
-msgstr "定義一個新的及時聊天頻道網站"
+msgstr "定義一個新的線上客服頻道網站"
 
 #. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_channel_rule__auto_popup_timer
@@ -621,7 +621,7 @@ msgstr "好"
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_operator_view_search
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_search
 msgid "Group By..."
-msgstr "分組按..."
+msgstr "分組依據..."
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_channel__header_background_color
@@ -643,7 +643,7 @@ msgstr "歷史"
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_channel__start_date_hour
 msgid "Hour of start Date of session"
-msgstr "對話窗口開始的小時數"
+msgstr "對話視窗開始的小時數"
 
 #. module: im_livechat
 #. openerp-web
@@ -816,12 +816,12 @@ msgstr ""
 #: model:ir.model,name:im_livechat.model_im_livechat_channel
 #: model_terms:ir.ui.view,arch_db:im_livechat.rating_rating_view_search_livechat
 msgid "Livechat Channel"
-msgstr "即時聊天頻道"
+msgstr "線上客服頻道"
 
 #. module: im_livechat
 #: model:ir.model,name:im_livechat.model_im_livechat_channel_rule
 msgid "Livechat Channel Rules"
-msgstr "及時聊天頻道規則"
+msgstr "線上客服頻道規則"
 
 #. module: im_livechat
 #: model:ir.model.fields.selection,name:im_livechat.selection__mail_channel__channel_type__livechat
@@ -836,7 +836,7 @@ msgstr ""
 #. module: im_livechat
 #: model:ir.model,name:im_livechat.model_im_livechat_report_channel
 msgid "Livechat Support Channel Report"
-msgstr "及時聊天支援頻道報告"
+msgstr "線上客服支援頻道報告"
 
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.im_livechat_report_channel_action
@@ -845,12 +845,12 @@ msgid ""
 "Livechat Support Channel Statistics allows you to easily check and analyse "
 "your company livechat session performance. Extract information about the "
 "missed sessions, the audiance, the duration of a session, etc."
-msgstr "及時聊天支援頻道統計允許您輕鬆檢查和分析公司及時聊天對話窗口的表現。提取關於錯過的對話窗口、觀眾、對話窗口持續時間等的資訊"
+msgstr "線上客服支援頻道統計允許您輕鬆檢查和分析公司對話視窗的表現。擷取關於錯過的對話視窗、觀眾、對話視窗持續時間等的資訊"
 
 #. module: im_livechat
 #: model:ir.model,name:im_livechat.model_im_livechat_report_operator
 msgid "Livechat Support Operator Report"
-msgstr "及時聊天支援客服人員報告"
+msgstr "線上客服支援客服人員報告"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_channel_view_graph
@@ -918,9 +918,14 @@ msgid "Matching order"
 msgstr "匹配的訂單"
 
 #. module: im_livechat
+#: model:ir.model,name:im_livechat.model_mail_message
+msgid "Message"
+msgstr "訊息"
+
+#. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_channel_view_search
 msgid "Missed sessions"
-msgstr "錯過的對話"
+msgstr "錯過的對話視窗"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_channel__name
@@ -953,12 +958,12 @@ msgstr ""
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.rating_rating_action_livechat_report
 msgid "No customer ratings on live chat session yet"
-msgstr "在及時聊天對話窗口中還沒有客戶評分"
+msgstr "在線上客服對話視窗中還沒有客戶評分"
 
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.im_livechat_report_channel_time_to_answer_action
 msgid "No data yet!"
-msgstr "暫無數據！"
+msgstr "暫無資料！"
 
 #. module: im_livechat
 #: code:addons/im_livechat/models/mail_channel.py:0
@@ -1191,7 +1196,7 @@ msgstr "點評"
 #. module: im_livechat
 #: model:ir.actions.act_window,name:im_livechat.rating_rating_action_livechat
 msgid "Ratings for livechat channel"
-msgstr "及時聊天頻道的評價"
+msgstr "線上客服頻道的評價"
 
 #. module: im_livechat
 #. openerp-web
@@ -1339,12 +1344,12 @@ msgstr "已發送"
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_form
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_tree
 msgid "Session Date"
-msgstr "對話窗口日期"
+msgstr "對話視窗日期"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.mail_channel_view_form
 msgid "Session Form"
-msgstr "對話窗口表格"
+msgstr "對話視窗表格"
 
 #. module: im_livechat
 #: model:ir.actions.act_window,name:im_livechat.im_livechat_report_channel_action
@@ -1377,18 +1382,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_kanban
 msgid "Sessions"
-msgstr "對話窗口對話"
+msgstr "對話視窗"
 
 #. module: im_livechat
 #: model:ir.ui.menu,name:im_livechat.session_history
 msgid "Sessions History"
-msgstr "對話窗口歷史"
+msgstr "對話視窗歷程"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_channel__start_date
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_operator__start_date
 msgid "Start Date of session"
-msgstr "對話窗口的開始日期"
+msgstr "對話視窗的開始日期"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_channel__start_hour
@@ -1520,7 +1525,7 @@ msgstr "今天"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_report_channel_view_search
 msgid "Treated sessions"
-msgstr "已處理的對話窗口"
+msgstr "已處理的對話視窗"
 
 #. module: im_livechat
 #. openerp-web
@@ -1587,6 +1592,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "User"
 msgstr "使用者"
+
+#. module: im_livechat
+#: model:ir.model.fields,field_description:im_livechat.field_res_partner__user_livechat_username
+#: model:ir.model.fields,field_description:im_livechat.field_res_users__user_livechat_username
+msgid "User Livechat Username"
+msgstr ""
 
 #. module: im_livechat
 #: model:ir.model,name:im_livechat.model_res_users_settings
@@ -1721,7 +1732,7 @@ msgid ""
 "                visitors to talk in real time with your operators."
 msgstr ""
 "您可以為每個想要\n"
-" 集成網站及時聊天小工具的網站創建頻道，這樣您的網站訪客便能夠與操作人員及時交流。"
+" 整合網站線上客服小工具的網站建立頻道，這樣您的網站訪客便能夠與操作人員及時交流。"
 
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.mail_channel_action

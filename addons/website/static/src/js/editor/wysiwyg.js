@@ -55,6 +55,7 @@ Wysiwyg.include({
         var $dropdownMenuToggles = this.$('.o_mega_menu_toggle, #top_menu_container .dropdown-toggle');
         $dropdownMenuToggles.removeAttr('data-toggle').dropdown('dispose');
         $dropdownMenuToggles.on('click.wysiwyg_megamenu', ev => {
+            this.odooEditor.observerUnactive();
             var $toggle = $(ev.currentTarget);
 
             // Each time we toggle a dropdown, we will destroy the dropdown
@@ -67,7 +68,12 @@ Wysiwyg.include({
             // Then toggle the clicked one
             toggleDropdown($toggle)
                 .then(dispose)
-                .then(() => this._toggleMegaMenu($toggle[0]));
+                .then(() => {
+                    if (!this.options.enableTranslation) {
+                        this._toggleMegaMenu($toggle[0]);
+                    }
+                })
+                .then(() => this.odooEditor.observerActive());
         });
 
         // Ensure :blank oe_structure elements are in fact empty as ':blank'
@@ -116,6 +122,13 @@ Wysiwyg.include({
         var resID = parseInt(el.dataset.resId);
         if (!resModel || !resID) {
             throw new Error('There should be a model and id associated to the cover');
+        }
+
+        // The cover might be dirty for another reason than cover properties
+        // values only (like an editable text inside). In that case, do not
+        // update the cover properties values.
+        if (!('coverClass' in el.dataset)) {
+            return;
         }
 
         this.__savedCovers = this.__savedCovers || {};

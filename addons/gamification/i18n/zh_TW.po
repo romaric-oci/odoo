@@ -113,7 +113,7 @@ msgstr ""
 #: model:mail.template,body_html:gamification.email_template_goal_reminder
 msgid ""
 "<div>\n"
-"    <strong>Reminder <t t-out=\"object.name or ''\"/></strong><br/>\n"
+"    <strong>Reminder</strong><br/>\n"
 "    You have not updated your progress for the goal <t t-out=\"object.definition_id.name or ''\"/> (currently reached at <t t-out=\"object.completeness or ''\"/>%) for at least <t t-out=\"object.remind_update_delay or ''\"/> days. Do not forget to do it.\n"
 "    <br/><br/>\n"
 "    Thank you,\n"
@@ -123,16 +123,6 @@ msgid ""
 "    </t>\n"
 "</div>"
 msgstr ""
-"<div>\n"
-"<strong>提醒</strong><t t-out=\"object.name or ''\"/><br/>\n"
-"您尚未更新目標進度<t t-out=\"object.definition_id.name or ''\"/>（目前達到<t t-out=\"object.completeness or ''\"/>%) 至少<t t-out=\"object.remind_update_delay or ''\"/>不要忘記。\n"
-"<br/><br/>\n"
-"謝謝，\n"
-"<t t-if=\"object.challenge_id.manager_id.signature\">\n"
-"<br/>\n"
-"<t t-out=\"object.challenge_id.manager_id.signature or ''\"/>\n"
-"</t>\n"
-"</div>"
 
 #. module: gamification
 #: model_terms:ir.ui.view,arch_db:gamification.goal_kanban_view
@@ -501,7 +491,7 @@ msgid ""
 "                Goals can be created automatically by using challenges."
 msgstr ""
 "目標由使用者和目標定義進行定義。\n"
-" 可使用挑戰自動創建目標。"
+" 可使用挑戰自動建立目標。"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.gamification_karma_ranks_action
@@ -557,7 +547,7 @@ msgstr "出現在"
 #: model_terms:ir.ui.view,arch_db:gamification.badge_form_view
 #: model_terms:ir.ui.view,arch_db:gamification.gamification_badge_view_search
 msgid "Archived"
-msgstr "封存"
+msgstr "已歸檔"
 
 #. module: gamification
 #: model_terms:ir.ui.view,arch_db:gamification.challenge_form_view
@@ -572,8 +562,8 @@ msgid ""
 "                The goals are created for the specified users or member of the group."
 msgstr ""
 "給選定的使用者分配一個目標列表以進行評估。\n"
-" 挑戰可利用週期（每週、每月...）自動創建目標。\n"
-" 目標的創建對像為特定使用者或組成員。"
+" 挑戰可利用週期（每週、每月...）自動建立目標。\n"
+" 目標的建立對像為特定使用者或組成員。"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge__message_attachment_count
@@ -599,7 +589,7 @@ msgstr "自動：記錄數"
 #. module: gamification
 #: model:ir.model.fields.selection,name:gamification.selection__gamification_goal_definition__computation_mode__sum
 msgid "Automatic: sum on a field"
-msgstr "自動：字段加總"
+msgstr "自動：欄位加總"
 
 #. module: gamification
 #: model:gamification.karma.rank,name:gamification.rank_bachelor
@@ -648,7 +638,7 @@ msgid ""
 "of a running period (eg: end of the month for a monthly challenge), at the "
 "end date of a challenge (if no periodicity is set) or when the challenge is "
 "manually closed."
-msgstr "當挑戰完成時授予獎章，這是在一個運行週期關閉時（如：最後的每月挑戰月），在一個挑戰的結束日期（如果沒有週期性設定）或當挑戰被手動關閉時。"
+msgstr "當挑戰完成時授予獎章，這是在一個執行週期關閉時（如：最後的每月挑戰月），在一個挑戰的結束日期（如果沒有週期性設定）或當挑戰被手動關閉時。"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__batch_mode
@@ -794,32 +784,32 @@ msgstr "綜合"
 #. module: gamification
 #: model:ir.actions.act_window,name:gamification.action_new_simplified_res_users
 msgid "Create User"
-msgstr "創建使用者"
+msgstr "建立使用者"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.badge_list_action
 msgid "Create a new badge"
-msgstr "創建一個新的獎章"
+msgstr "建立一個新獎章"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.challenge_list_action
 msgid "Create a new challenge"
-msgstr "創建一個挑戰"
+msgstr "建立一個挑戰"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.goal_list_action
 msgid "Create a new goal"
-msgstr "創建一個新的目標"
+msgstr "建立一個新目標"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.goal_definition_list_action
 msgid "Create a new goal definition"
-msgstr "創建一個自定義目標"
+msgstr "建立一個自訂目標"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.gamification_karma_ranks_action
 msgid "Create a new rank"
-msgstr "創建一個新的等級"
+msgstr "建立一個新的等級"
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.action_new_simplified_res_users
@@ -828,7 +818,7 @@ msgid ""
 "deactivated should there be a period of time during which they will/should "
 "not connect to the system. You can assign them groups in order to give them "
 "specific access to the applications they need to use in the system."
-msgstr "為系統創建和管理使用者。在一段時間內用該系統的使用者可以暫不啟動。您還可以給使用者分配某一個組，以便他們能用到系統的指定功能。"
+msgstr "為系統建立和管理使用者。在一段時間內用該系統的使用者可以暫不啟動。您還可以給使用者分配某一個組，以便他們能用到系統的指定功能。"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge__create_uid
@@ -882,7 +872,7 @@ msgstr "資料"
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__field_date_id
 msgid "Date Field"
-msgstr "日期字段"
+msgstr "日期欄位"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal__computation_mode
@@ -890,7 +880,7 @@ msgstr "日期字段"
 msgid ""
 "Define how the goals will be computed. The result of the operation will be "
 "stored in the field 'Current'."
-msgstr "定義目標的計算方式。操作的結果將存儲在“當前”字段中。"
+msgstr "定義目標的計算方式。操作的結果將存儲在“當前”欄位中。"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge__challenge_category
@@ -959,7 +949,7 @@ msgstr "顯示為"
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__batch_distinctive_field
 msgid "Distinctive field for batch user"
-msgstr "批處理使用者的特有字段"
+msgstr "批處理使用者的特有欄位"
 
 #. module: gamification
 #: model:gamification.karma.rank,name:gamification.rank_doctor
@@ -973,7 +963,7 @@ msgid ""
 "[('state', '=', 'done')]. The expression can contain reference to 'user' "
 "which is a browse record of the current user if not in batch mode."
 msgstr ""
-"用於篩選記錄的域名。一般規則，不是使用者依賴的，例如[('state', '=', "
+"用於篩選記錄的domain。一般規則，不是使用者依賴的，例如[('state', '=', "
 "'done')]。如果不是在批處理模式下，該表述可以包含目前使用者的瀏覽記錄作為參考給「user」。"
 
 #. module: gamification
@@ -1029,12 +1019,12 @@ msgstr "失敗的"
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__field_id
 msgid "Field to Sum"
-msgstr "字段總計"
+msgstr "欄位總計"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__domain
 msgid "Filter Domain"
-msgstr "篩選域名"
+msgstr "篩選domain"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge__message_follower_ids
@@ -1267,7 +1257,7 @@ msgstr "授予"
 #: model_terms:ir.ui.view,arch_db:gamification.goal_definition_search_view
 #: model_terms:ir.ui.view,arch_db:gamification.goal_search_view
 msgid "Group By"
-msgstr "分組按"
+msgstr "分組依據"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_challenge__report_message_group_id
@@ -1317,7 +1307,7 @@ msgstr "ID"
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_goal_definition__res_id_field
 msgid "ID Field of user"
-msgstr "使用者ID字段"
+msgstr "使用者ID欄位"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge__remaining_sending
@@ -1383,14 +1373,14 @@ msgstr "進行中"
 msgid ""
 "In batch mode, the domain is evaluated globally. If enabled, do not use "
 "keyword 'user' in above filter domain."
-msgstr "在批處理模式下，評估範圍是全球。如果啟用，不要在篩選字段使用關鍵詞'user'。"
+msgstr "在批處理模式下，評估範圍是全球。如果啟用，不要在篩選欄位使用關鍵詞'user'。"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition__batch_distinctive_field
 msgid ""
 "In batch mode, this indicates which field distinguishes one user from the "
 "other, e.g. user_id, partner_id..."
-msgstr "在批處理模式下，這表明哪個字段將一個用戶與另一個用戶區分開來，例如用戶 ID、合作夥伴 ID..."
+msgstr "在批處理模式下，這表明哪個欄位將一個用戶與另一個用戶區分開來，例如用戶 ID、合作夥伴 ID..."
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal__last_update
@@ -1813,7 +1803,7 @@ msgstr "Python 代碼"
 msgid ""
 "Python code to be executed for each user. 'result' should contains the new "
 "current value. Evaluated user can be access through object.user_id."
-msgstr "Python代碼必須為每個使用者執行。 '結果'應包含新的目前值。評估的使用者可以通過object.user_id訪問。"
+msgstr "Python代碼必須為每個使用者執行。 '結果'應包含新的目前值。評估的使用者可以通過object.user_id存取。"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_res_users__rank_id
@@ -1900,7 +1890,7 @@ msgstr "相關目標"
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_badge_user_wizard__user_id
 msgid "Related user name for the resource to manage its access."
-msgstr "用於管理資源訪問權限的使用者名"
+msgstr "用於管理資源存取權限的使用者名"
 
 #. module: gamification
 #: model:ir.model.fields,field_description:gamification.field_gamification_badge__remaining_sending
@@ -1986,12 +1976,12 @@ msgstr "挑戰的獎勵"
 #. module: gamification
 #: model_terms:ir.ui.view,arch_db:gamification.goal_search_view
 msgid "Running"
-msgstr "運行中"
+msgstr "執行中"
 
 #. module: gamification
 #: model_terms:ir.ui.view,arch_db:gamification.challenge_search_view
 msgid "Running Challenges"
-msgstr "運行中的挑戰"
+msgstr "執行中的挑戰"
 
 #. module: gamification
 #: model_terms:ir.ui.view,arch_db:gamification.goal_form_view
@@ -2069,7 +2059,7 @@ msgstr "設定您已經達到這個目標的目前值"
 #: model:gamification.challenge.line,name:gamification.line_base_admin1
 #: model:gamification.goal.definition,name:gamification.definition_base_company_data
 msgid "Set your Company Data"
-msgstr "設定您的公司數據"
+msgstr "設定您的公司資料"
 
 #. module: gamification
 #: model:gamification.challenge.line,name:gamification.line_base_admin2
@@ -2186,7 +2176,7 @@ msgstr "挑戰 %s 已完成。"
 #: model:ir.model.fields,help:gamification.field_gamification_goal__definition_suffix
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition__full_suffix
 msgid "The currency and suffix field"
-msgstr "幣別和後綴字段"
+msgstr "幣別和後綴欄位"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition__field_date_id
@@ -2222,14 +2212,14 @@ msgstr ""
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition__field_id
 msgid "The field containing the value to evaluate"
-msgstr "該字段包含評估值"
+msgstr "該欄位包含評估值"
 
 #. module: gamification
 #: model:ir.model.fields,help:gamification.field_gamification_goal_definition__res_id_field
 msgid ""
 "The field name on the user profile (res.users) containing the value for "
 "res_id for action."
-msgstr "使用者配置文件中的字段名（res.users）包含值res_id行動。"
+msgstr "使用者配置文件中的欄位名（res.users）包含值res_id行動。"
 
 #. module: gamification
 #: model:ir.model.fields.selection,name:gamification.selection__gamification_goal_definition__condition__higher
@@ -2370,7 +2360,7 @@ msgid ""
 "reference to 'user' which is a browse record of the current user, e.g. "
 "user.id, user.partner_id.id..."
 msgstr ""
-"獨特字段與數值進行比較。該表達式可以包含目前使用者的瀏覽記錄作為參考給「使用者」，例如.user.id, user.partner_id.id..."
+"獨特欄位與數值進行比較。該表達式可以包含目前使用者的瀏覽記錄作為參考給「使用者」，例如.user.id, user.partner_id.id..."
 
 #. module: gamification
 #: model_terms:ir.actions.act_window,help:gamification.goals_from_challenge_act

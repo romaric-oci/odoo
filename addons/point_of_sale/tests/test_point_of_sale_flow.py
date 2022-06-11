@@ -473,10 +473,12 @@ class TestPointOfSaleFlow(TestPointOfSaleCommon):
             pos_make_payment.with_context(context_payment).check()
 
             self.assertEqual(pos_order.state, 'paid')
-            self.assertEqual(pos_order.picking_ids.move_line_ids[0].lot_id, lot)
-            self.assertFalse(pos_order.picking_ids.move_line_ids[1].lot_id)
-            self.assertEqual(pos_order.picking_ids.move_line_ids[0].location_id, shelf1_location)
-            self.assertEqual(pos_order.picking_ids.move_line_ids[1].location_id, shelf1_location)
+            tracked_line = pos_order.picking_ids.move_line_ids.filtered(lambda ml: ml.product_id.id == tracked_product.id)
+            untracked_line = pos_order.picking_ids.move_line_ids - tracked_line
+            self.assertEqual(tracked_line.lot_id, lot)
+            self.assertFalse(untracked_line.lot_id)
+            self.assertEqual(tracked_line.location_id, shelf1_location)
+            self.assertEqual(untracked_line.location_id, shelf1_location)
 
         self.pos_config.current_session_id.action_pos_session_closing_control()
 

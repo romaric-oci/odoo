@@ -308,7 +308,7 @@ class StockRule(models.Model):
                 partners = move_dest.location_dest_id.warehouse_id.partner_id
                 if len(partners) == 1:
                     partner = partners
-                    move_dest.partner_id = partner
+                move_dest.partner_id = self.location_src_id.warehouse_id.partner_id or self.company_id.partner_id
 
         move_values = {
             'name': name[:2000],
@@ -562,6 +562,9 @@ class ProcurementGroup(models.Model):
                 self = self.with_env(self.env(cr=cr))  # TDE FIXME
 
             self._run_scheduler_tasks(use_new_cursor=use_new_cursor, company_id=company_id)
+        except Exception:
+            _logger.error("Error during stock scheduler", exc_info=True)
+            raise
         finally:
             if use_new_cursor:
                 try:

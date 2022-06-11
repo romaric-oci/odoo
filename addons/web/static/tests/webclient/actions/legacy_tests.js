@@ -83,6 +83,32 @@ QUnit.module("ActionManager", (hooks) => {
         assert.strictEqual($(".modal-body").text(), "This is a warning...");
     });
 
+    QUnit.test("display multiline warning as modal", async function (assert) {
+        assert.expect(5);
+        let list;
+        patchWithCleanup(ListController.prototype, {
+            init() {
+                this._super(...arguments);
+                list = this;
+            },
+        });
+
+        const webClient = await createWebClient({ serverData });
+        await doAction(webClient, 3);
+        assert.containsOnce(webClient, ".o_list_view");
+        list.trigger_up("warning", {
+            title: "Warning!!!",
+            message: "This is a warning...\nabc",
+            type: "dialog",
+        });
+        await testUtils.nextTick();
+        await legacyExtraNextTick();
+        assert.containsOnce(webClient, ".o_list_view");
+        assert.containsOnce(document.body, ".modal");
+        assert.strictEqual($(".modal-title").text(), "Warning!!!");
+        assert.strictEqual($(".modal-body")[0].innerText, "This is a warning...\nabc");
+    });
+
     QUnit.test(
         "legacy crash manager is still properly remapped to error service",
         async function (assert) {
@@ -444,7 +470,7 @@ QUnit.module("ActionManager", (hooks) => {
     QUnit.test("correctly transports legacy Props for doAction", async (assert) => {
         assert.expect(4);
 
-        let ID=0;
+        let ID = 0;
         const MyAction = AbstractAction.extend({
             init() {
                 this._super(...arguments);
@@ -456,21 +482,52 @@ QUnit.module("ActionManager", (hooks) => {
                 const link = document.createElement("a");
                 link.setAttribute("id", `client_${this.ID}`);
                 link.addEventListener("click", () => {
-                    this.do_action("testClientAction", { clear_breadcrumbs: true, props: { chain: "never break"}});
+                    this.do_action("testClientAction", {
+                        clear_breadcrumbs: true,
+                        props: { chain: "never break" },
+                    });
                 });
 
                 this.el.appendChild(link);
                 return res;
-            }
+            },
         });
         core.action_registry.add("testClientAction", MyAction);
         registerCleanup(() => delete core.action_registry.map.testClientAction);
 
         const webClient = await createWebClient({ serverData });
         await doAction(webClient, "testClientAction");
-        assert.verifySteps(["id: 0 props: {\"breadcrumbs\":[]}"]);
+        assert.verifySteps(['id: 0 props: {"breadcrumbs":[]}']);
 
         await click(document.getElementById("client_0"));
-        assert.verifySteps(["id: 1 props: {\"chain\":\"never break\",\"breadcrumbs\":[]}"]);
+        assert.verifySteps(['id: 1 props: {"chain":"never break","breadcrumbs":[]}']);
+    });
+
+    QUnit.test("breadcrumbs are correct in stacked legacy client actions", async function (assert) {
+        const ClientAction = AbstractAction.extend({
+            hasControlPanel: true,
+            async start() {
+                this.$el.addClass("client_action");
+                return this._super(...arguments);
+            },
+            getTitle() {
+                return "Blabla";
+            },
+        });
+        core.action_registry.add("clientAction", ClientAction);
+        registerCleanup(() => delete core.action_registry.map.clientAction);
+
+        const webClient = await createWebClient({ serverData });
+
+        await doAction(webClient, 3);
+        assert.containsOnce(webClient, ".o_list_view");
+        assert.strictEqual($(webClient.el).find(".breadcrumb-item").text(), "Partners");
+
+        await doAction(webClient, {
+            type: "ir.actions.client",
+            tag: "clientAction",
+        });
+        assert.containsOnce(webClient, ".client_action");
+        assert.strictEqual($(webClient.el).find(".breadcrumb-item").text(), "PartnersBlabla");
     });
 });

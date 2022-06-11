@@ -578,7 +578,7 @@ class Module(models.Model):
         }
 
     def _button_immediate_function(self, function):
-        if getattr(threading.currentThread(), 'testing', False):
+        if getattr(threading.current_thread(), 'testing', False):
             raise RuntimeError(
                 "Module operations inside tests are not transactional and thus forbidden.\n"
                 "If you really need to perform module operations to test a specific behavior, it "
@@ -669,6 +669,16 @@ class Module(models.Model):
         self.update_list()
 
         todo = list(self)
+        if 'base' in self.mapped('name'):
+            # If an installed module is only present in the dependency graph through
+            # a new, uninstalled dependency, it will not have been selected yet.
+            # An update of 'base' should also update these modules, and as a consequence,
+            # install the new dependency.
+            todo.extend(self.search([
+                ('state', '=', 'installed'),
+                ('name', '!=', 'studio_customization'),
+                ('id', 'not in', self.ids),
+            ]))
         i = 0
         while i < len(todo):
             module = todo[i]

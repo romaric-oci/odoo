@@ -5,7 +5,7 @@
 # Translators:
 # Robert Frykelius <robert.frykelius@linserv.se>, 2021
 # Daniel Eriksson <daniel.eriksson@vertel.se>, 2021
-# STefan Rundgren <stefanrundgren@cellglas.com>, 2021
+# 3eec91a23d05c632ffac786ac42b81b8_b6fff7b <8985b7bc57db860af29969457dbb51b3_1018915>, 2021
 # Haojun Zou <apollo_zhj@msn.com>, 2021
 # Anto Nilsson <anton.nilsson@vertel.se>, 2021
 # Robin Chatfield <robin.chatfield@gmail.com>, 2021
@@ -13,23 +13,26 @@
 # Christelle Wehbe <libanon_cristelle@hotmail.com>, 2021
 # lasch a <bmail440@gmail.com>, 2021
 # Martin Trigaux, 2021
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2021
 # Martin Wilderoth <martin.wilderoth@linserv.se>, 2021
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2021
 # Fredrik Arvas <fredrik.arvas@vertel.se>, 2021
 # Kim Asplund <kim.asplund@gmail.com>, 2021
-# Chrille Hedberg <hedberg.chrille@gmail.com>, 2021
 # Daniel Osser <danielosser@gmail.com>, 2021
 # Victor Ekström, 2021
-# Simon S, 2021
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2022
+# Robin Calvin, 2022
+# Simon S, 2022
+# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2022
+# Daniel Löfgren, 2022
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:18+0000\n"
+"POT-Creation-Date: 2022-01-10 06:07+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Simon S, 2021\n"
+"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2022\n"
 "Language-Team: Swedish (https://www.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,17 +140,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "&gt;"
 msgstr ""
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.sitemap_index_xml
-#: model_terms:ir.ui.view,arch_db:website.sitemap_xml
-msgid "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
-msgstr "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.default_xml
-msgid "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;"
-msgstr "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;"
 
 #. module: website
 #. openerp-web
@@ -295,11 +287,6 @@ msgstr "/contactus"
 #: model_terms:ir.ui.view,arch_db:website.s_map_options
 msgid "1 km"
 msgstr "1 km"
-
-#. module: website
-#: model_terms:ir.ui.view,arch_db:website.default_csv
-msgid "1,2,3"
-msgstr "1,2,3"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_media_list_options
@@ -1251,23 +1238,23 @@ msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_numbers
-msgid "<span class=\"s_number display-4\">12</span>"
-msgstr "<span class=\"s_number display-4\">12</span>"
+msgid "<span class=\"s_number display-4\">12</span><br/>"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_numbers
-msgid "<span class=\"s_number display-4\">37</span>"
-msgstr "<span class=\"s_number display-4\">37</span>"
+msgid "<span class=\"s_number display-4\">37</span><br/>"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_numbers
-msgid "<span class=\"s_number display-4\">45</span>"
-msgstr "<span class=\"s_number display-4\">45</span>"
+msgid "<span class=\"s_number display-4\">45</span><br/>"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_numbers
-msgid "<span class=\"s_number display-4\">8</span>"
-msgstr "<span class=\"s_number display-4\">8</span>"
+msgid "<span class=\"s_number display-4\">8</span><br/>"
+msgstr ""
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_progress_bar
@@ -1384,7 +1371,6 @@ msgid ""
 msgstr ""
 
 #. module: website
-#: model:ir.model.fields,help:website.field_base_automation__website_published
 #: model:ir.model.fields,help:website.field_ir_actions_server__website_published
 #: model:ir.model.fields,help:website.field_ir_cron__website_published
 msgid ""
@@ -1442,6 +1428,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_features
 msgid "A small explanation of this great <br/>feature, in clear words."
 msgstr ""
+"En tydlig och kort beskrivning <br/>av den här fantastiska funktionen."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_timeline
@@ -1847,7 +1834,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Always Underlined"
-msgstr ""
+msgstr "Alltid understruken"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -2095,7 +2082,6 @@ msgid "Autosizing"
 msgstr ""
 
 #. module: website
-#: model:ir.model.fields,field_description:website.field_base_automation__website_published
 #: model:ir.model.fields,field_description:website.field_ir_actions_server__website_published
 #: model:ir.model.fields,field_description:website.field_ir_cron__website_published
 msgid "Available on the Website"
@@ -2166,7 +2152,7 @@ msgstr "Bas"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__arch_base
 msgid "Base View Architecture"
-msgstr ""
+msgstr "Arkitektur för basvy"
 
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__theme_ir_ui_view__mode__primary
@@ -2191,7 +2177,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__theme_ir_asset__directive__before
 msgid "Before"
-msgstr ""
+msgstr "Före"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_comparisons
@@ -2286,7 +2272,7 @@ msgstr "Kantfärg"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Border Radius"
-msgstr ""
+msgstr "Kantradie"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_chart_options
@@ -2335,7 +2321,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_image_gallery_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Boxed"
-msgstr ""
+msgstr "Boxad"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_countdown_options
@@ -2397,7 +2383,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_tabs_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Buttons"
-msgstr ""
+msgstr "Knappar"
 
 #. module: website
 #. openerp-web
@@ -2416,7 +2402,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website.field_res_config_settings__cdn_filters
 #: model:ir.model.fields,field_description:website.field_website__cdn_filters
 msgid "CDN Filters"
-msgstr ""
+msgstr "CDN-filter"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippets
@@ -3009,12 +2995,12 @@ msgstr "Innehåll"
 #: model:ir.model.fields,field_description:website.field_res_config_settings__cdn_activated
 #: model:ir.model.fields,field_description:website.field_website__cdn_activated
 msgid "Content Delivery Network (CDN)"
-msgstr ""
+msgstr "Content Delivery Network (CDN)"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Content Width"
-msgstr ""
+msgstr "Bredd"
 
 #. module: website
 #. openerp-web
@@ -3443,7 +3429,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website.field_website__social_default_image
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Default Social Share Image"
-msgstr ""
+msgstr "Standardbild för social delning"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -3621,6 +3607,13 @@ msgid "Directive"
 msgstr ""
 
 #. module: website
+#: model:ir.actions.server,name:website.website_disable_unused_snippets_assets_ir_actions_server
+#: model:ir.cron,cron_name:website.website_disable_unused_snippets_assets
+#: model:ir.cron,name:website.website_disable_unused_snippets_assets
+msgid "Disable unused snippets assets"
+msgstr ""
+
+#. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
 #: model_terms:ir.ui.view,arch_db:website.color_combinations_debug_view
 #: model_terms:website.page,arch_db:website.bs_debug_page
@@ -3747,7 +3740,7 @@ msgstr "Visningsnamn"
 #: model:ir.model.fields,help:website.field_website__cookies_bar
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Display a customizable cookies bar on your website."
-msgstr ""
+msgstr "Visa en anpassningsbar cookies-bar på din webbplats."
 
 #. module: website
 #: code:addons/website/models/ir_qweb_fields.py:0
@@ -3776,7 +3769,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Display this website when users visit this domain"
-msgstr ""
+msgstr "Visa den här webbplatsen när användare besöker den här domänen"
 
 #. module: website
 #. openerp-web
@@ -4204,7 +4197,6 @@ msgid "Extension View"
 msgstr ""
 
 #. module: website
-#: model:ir.model.fields,field_description:website.field_base_automation__xml_id
 #: model:ir.model.fields,field_description:website.field_ir_actions_server__xml_id
 #: model:ir.model.fields,field_description:website.field_ir_cron__xml_id
 #: model:ir.model.fields,field_description:website.field_website_page__xml_id
@@ -4441,7 +4433,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_showcase
 msgid "First feature"
-msgstr ""
+msgstr "Första funktionen"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features_grid
@@ -4457,7 +4449,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Fit content"
-msgstr ""
+msgstr "Anpassa innehåll"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4473,7 +4465,7 @@ msgstr "Fast"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Flag"
-msgstr ""
+msgstr "Flagga"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4533,12 +4525,12 @@ msgstr "Typsnitt"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Font Size"
-msgstr ""
+msgstr "Typsnittsstorlek"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Font family"
-msgstr ""
+msgstr "Typsnitt"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4560,7 +4552,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Force your user to create an account per website"
-msgstr ""
+msgstr "Tvinga användaren att skapa ett konto per webbplats"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
@@ -4592,7 +4584,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Framed"
-msgstr ""
+msgstr "Inramad"
 
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__website__auth_signup_uninvited__b2c
@@ -4630,7 +4622,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Full screen"
-msgstr ""
+msgstr "Fullskärm"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -4922,12 +4914,12 @@ msgstr "HTTP-rutt"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Half Screen"
-msgstr ""
+msgstr "Halvskärm"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Half screen"
-msgstr ""
+msgstr "Halvskärm"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -5103,6 +5095,7 @@ msgstr ""
 
 #. module: website
 #. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
 #: code:addons/website/static/src/xml/website.editor.xml:0
 #, python-format
 msgid ""
@@ -5227,7 +5220,6 @@ msgid "ID"
 msgstr "ID"
 
 #. module: website
-#: model:ir.model.fields,help:website.field_base_automation__xml_id
 #: model:ir.model.fields,help:website.field_ir_actions_server__xml_id
 #: model:ir.model.fields,help:website.field_ir_cron__xml_id
 msgid "ID of the action if defined in a XML file"
@@ -5271,6 +5263,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "If set, replaces the website logo as the default social share image."
 msgstr ""
+"Om den är inställd ersätter den webbplatsens logotyp som standardbild för "
+"sociala delningar."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.qweb_500
@@ -5303,6 +5297,8 @@ msgid ""
 "If you discard the current edits, all unsaved changes will be lost. You can "
 "cancel to return to edit mode."
 msgstr ""
+"Om du avbryter redigeringsläget så kommer alla osparade ändringar att "
+"försvinna. Du kan avbryta för att återgå till redigeringsläget."
 
 #. module: website
 #. openerp-web
@@ -5553,7 +5549,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__website_indexed
 msgid "Is Indexed"
-msgstr ""
+msgstr "Är indexerad"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_ir_module_module__is_installed_on_current_website
@@ -5811,7 +5807,7 @@ msgstr "Språk"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Languages available on your website"
-msgstr ""
+msgstr "Språk tillgängliga på din webbplats "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_odoo_menu
@@ -6097,7 +6093,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Link Style"
-msgstr ""
+msgstr "Länktyp"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.bs_debug_view
@@ -6130,7 +6126,7 @@ msgstr "Linkedin"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Links"
-msgstr ""
+msgstr "Länkar"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -6231,17 +6227,17 @@ msgstr "Huvudåtgärder"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.user_navbar
 msgid "Manage Pages"
-msgstr ""
+msgstr "Administrera sidor"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.list_website_pages
 msgid "Manage Your Pages"
-msgstr ""
+msgstr "Administrera dina sidor"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.user_navbar
 msgid "Manage Your Website Pages"
-msgstr ""
+msgstr "Administrera dina webbsidor"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.one_page_line
@@ -6440,6 +6436,7 @@ msgid "Model"
 msgstr "Modell"
 
 #. module: website
+#: model:ir.model,name:website.model_ir_model_data
 #: model:ir.model.fields,field_description:website.field_website_page__model_data_id
 msgid "Model Data"
 msgstr ""
@@ -6482,7 +6479,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_odoo_menu
 msgid "Monitors"
-msgstr ""
+msgstr "Monitorer"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_color_blocks_2
@@ -6568,7 +6565,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website.field_res_config_settings__group_multi_website
 #: model:res.groups,name:website.group_multi_website
 msgid "Multi-website"
-msgstr ""
+msgstr "Multi-webbplats"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_product_list
@@ -6640,7 +6637,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Name and favicon of your website"
-msgstr ""
+msgstr "Namn och favicon för din webbplats"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.view_view_qweb
@@ -6993,6 +6990,8 @@ msgid ""
 "Once the selection of available websites by domain is done, you can filter "
 "by country group."
 msgstr ""
+"När valet av tillgängliga webbplatser efter domän är klart kan du filtrera "
+"efter landsgrupp"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_popup_options
@@ -7144,7 +7143,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Paddings"
-msgstr ""
+msgstr "Utfyllnader"
 
 #. module: website
 #: code:addons/website/models/website.py:0
@@ -7180,7 +7179,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Page Layout"
-msgstr ""
+msgstr "Sidlayout"
 
 #. module: website
 #. openerp-web
@@ -7196,7 +7195,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.user_navbar
 #, python-format
 msgid "Page Properties"
-msgstr ""
+msgstr "Sidegenskaper"
 
 #. module: website
 #. openerp-web
@@ -7343,7 +7342,7 @@ msgstr "Väg"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Pattern"
-msgstr ""
+msgstr "Mönster"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_process_steps
@@ -7353,13 +7352,13 @@ msgstr "Betala"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_thumbnails
 msgid "Phones"
-msgstr ""
+msgstr "Telefon"
 
 #. module: website
 #: model:ir.actions.act_window,name:website.theme_install_kanban_action
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Pick a Theme"
-msgstr ""
+msgstr "Välj ett tema"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_chart_options
@@ -7399,7 +7398,7 @@ msgstr ""
 #: code:addons/website/static/src/snippets/s_website_form/000.js:0
 #, python-format
 msgid "Please fill in the form correctly."
-msgstr ""
+msgstr "Vänligen fyll i formuläret korrekt."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_big_icons_subtitles
@@ -7431,7 +7430,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Postcard"
-msgstr ""
+msgstr "Vykort"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -7509,12 +7508,12 @@ msgstr "Primär"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Primary Style"
-msgstr ""
+msgstr "Primär stil"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_thumbnails
 msgid "Printers"
-msgstr ""
+msgstr "Skrivare"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_ui_view__priority
@@ -7742,7 +7741,7 @@ msgstr ""
 #. module: website
 #: model:ir.ui.menu,name:website.menu_website_rewrite
 msgid "Redirects"
-msgstr ""
+msgstr "Omdirigeringar"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.view_website_rewrite_form
@@ -7888,7 +7887,7 @@ msgstr "Begränsa publicering på denna webbplats."
 #. module: website
 #: model:res.groups,name:website.group_website_publisher
 msgid "Restricted Editor"
-msgstr ""
+msgstr "Begränsad redigerare"
 
 #. module: website
 #: model:ir.model.fields.selection,name:website.selection__ir_ui_view__visibility__restricted_group
@@ -7921,7 +7920,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Ripple Effect"
-msgstr ""
+msgstr "Krusningseffekt"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_map_options
@@ -8100,7 +8099,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Scroll down button"
-msgstr ""
+msgstr "Nedåtskrollningsknapp"
 
 #. module: website
 #. openerp-web
@@ -8165,7 +8164,7 @@ msgstr "Sök..."
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features
 msgid "Second Feature"
-msgstr ""
+msgstr "Andra funktionen"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_multi_menus
@@ -8175,7 +8174,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_showcase
 msgid "Second feature"
-msgstr ""
+msgstr "Andra funktionen"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features_grid
@@ -8186,12 +8185,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_alert_options
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Secondary"
-msgstr ""
+msgstr "Sekundär"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Secondary Style"
-msgstr ""
+msgstr "Sekundär stil"
 
 #. module: website
 #. openerp-web
@@ -8244,7 +8243,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Select the Website to Configure"
-msgstr ""
+msgstr "Välj den webbplats som ska konfigureras"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -8334,6 +8333,7 @@ msgstr "Inställningar"
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Settings on this page will apply to this website"
 msgstr ""
+"Inställningarna på den här sidan kommer att gälla för den här webbplatsen "
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -8390,7 +8390,7 @@ msgstr "Visa som extra arv"
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Show Header"
-msgstr ""
+msgstr "Visa sidhuvud"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_website_form_options
@@ -8410,7 +8410,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Show Sign In"
-msgstr ""
+msgstr "Visa Logga in"
 
 #. module: website
 #: model:ir.actions.act_window,name:website.action_show_viewhierarchy
@@ -8455,7 +8455,7 @@ msgstr "Logga in"
 #: model:ir.model.fields.selection,name:website.selection__ir_ui_view__visibility__connected
 #, python-format
 msgid "Signed In"
-msgstr ""
+msgstr "Inloggad"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
@@ -8629,7 +8629,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:website.field_res_config_settings__specific_user_account
 #: model:ir.model.fields,field_description:website.field_website__specific_user_account
 msgid "Specific User Account"
-msgstr ""
+msgstr "Specifikt användarkonto"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.list_hybrid
@@ -8711,7 +8711,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Status Colors"
-msgstr ""
+msgstr "Statusfärger"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_cards
@@ -8728,7 +8728,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_mega_menu_thumbnails
 msgid "Storage"
-msgstr ""
+msgstr "Lager"
 
 #. module: website
 #: model:website.configurator.feature,name:website.feature_module_stores_locator
@@ -8902,7 +8902,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_features
 msgid "Tell what's the value for the <br/>customer for this feature."
-msgstr ""
+msgstr "Berätta vilket värde den här funktionen har för <br/>kunden."
 
 #. module: website
 #: code:addons/website/models/website.py:0
@@ -9083,7 +9083,6 @@ msgid "The full URL to access the document through the website."
 msgstr "Den fullständiga sökvägen för att nå dokument via webbplatsen."
 
 #. module: website
-#: model:ir.model.fields,help:website.field_base_automation__website_url
 #: model:ir.model.fields,help:website.field_ir_actions_server__website_url
 #: model:ir.model.fields,help:website.field_ir_cron__website_url
 msgid "The full URL to access the server action through the website."
@@ -9175,7 +9174,7 @@ msgstr ""
 #: model_terms:website.page,arch_db:website.color_combinations_debug_page
 #, python-format
 msgid "Theme Colors"
-msgstr ""
+msgstr "Temafärger"
 
 #. module: website
 #. openerp-web
@@ -9224,7 +9223,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/website.backend.xml:0
 #, python-format
 msgid "There is no data currently available."
-msgstr ""
+msgstr "Det finns för närvarande ingen data tillgänglig."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
@@ -9326,6 +9325,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_popup_options
 msgid "This page"
 msgstr ""
+
+#. module: website
+#: code:addons/website/models/website_visitor.py:0
+#, python-format
+msgid "This operator is not supported"
+msgstr "Icke giltig operator"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.page_404
@@ -9546,7 +9551,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Track visits in Google Analytics"
-msgstr ""
+msgstr "Spåra besök med Google Analytics"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_pages_view_search
@@ -9666,7 +9671,7 @@ msgstr "URL"
 #: model:ir.model.fields,field_description:website.field_website_rewrite__url_from
 #: model_terms:ir.ui.view,arch_db:website.view_website_rewrite_form
 msgid "URL from"
-msgstr ""
+msgstr "URL från"
 
 #. module: website
 #: model:ir.model.fields,help:website.field_res_config_settings__cdn_filters
@@ -9677,7 +9682,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_rewrite__url_to
 msgid "URL to"
-msgstr ""
+msgstr "URL till"
 
 #. module: website
 #. openerp-web
@@ -9689,7 +9694,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Underline On Hover"
-msgstr ""
+msgstr "Understruken vid muspekaren"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -9770,7 +9775,7 @@ msgstr "Url"
 #. module: website
 #: model:ir.model.fields,help:website.field_website_visitor__country_flag
 msgid "Url of static flag image"
-msgstr ""
+msgstr "Url till statisk bild på flagga"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.website_visitor_page_view_search
@@ -9780,7 +9785,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Use Google Map on your website ("
-msgstr ""
+msgstr "Använd Google Maps på din webbplats ("
 
 #. module: website
 #. openerp-web
@@ -9788,11 +9793,13 @@ msgstr ""
 #, python-format
 msgid "Use Google Map on your website (Contact Us page, snippets, etc)."
 msgstr ""
+"Använd Google Maps på din webbplats (Kontakta oss-sida, snippets, etc)."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Use a CDN to optimize the availability of your website's content"
 msgstr ""
+"Använd ett CDN för att optimera tillgängligheten av webbplatsens innehåll"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_res_config_settings__has_default_share_image
@@ -9983,7 +9990,7 @@ msgstr "Typ av vy"
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__mode
 msgid "View inheritance mode"
-msgstr ""
+msgstr "Visa ärvsläget"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_theme_ir_ui_view__copy_ids
@@ -9993,7 +10000,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_page__inherit_children_ids
 msgid "Views which inherit from this one"
-msgstr ""
+msgstr "Vyer som ärver från denna"
 
 #. module: website
 #. openerp-web
@@ -10069,7 +10076,7 @@ msgstr ""
 #. module: website
 #: model:ir.model.fields,field_description:website.field_website_track__visit_datetime
 msgid "Visit Date"
-msgstr ""
+msgstr "Besöksdatum"
 
 #. module: website
 #. openerp-web
@@ -10166,6 +10173,8 @@ msgid ""
 "We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.\n"
 "                            <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance."
 msgstr ""
+"Vi är ett team av passionerade människor vars mål är att förbättra allas liv genom rebelliska produkter. Vi bygger fantastiska produkter för att lösa dina affärsproblem.\n"
+"<br/><br/>Våra produkter är designade för små till medelstora företag som vill optimera sin prestanda."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_descriptive
@@ -10175,6 +10184,10 @@ msgid ""
 "problems. Our products are designed for small to medium size companies "
 "willing to optimize their performance."
 msgstr ""
+"Vi är ett team av passionerade människor vars mål är att förbättra allas liv"
+" genom rebelliska produkter. Vi bygger fantastiska produkter för att lösa "
+"dina affärsproblem. Våra produkter är designade för små till medelstora "
+"företag som vill optimera sin prestanda."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_headline
@@ -10199,6 +10212,8 @@ msgid ""
 "We do not currently support Do Not Track signals, as there is no industry "
 "standard for compliance."
 msgstr ""
+"Vi stöder för närvarande inte Antispårare, eftersom det inte finns någon "
+"industristandard för detta."
 
 #. module: website
 #. openerp-web
@@ -10373,7 +10388,6 @@ msgid "Website Pages"
 msgstr "Webbsidor"
 
 #. module: website
-#: model:ir.model.fields,field_description:website.field_base_automation__website_path
 #: model:ir.model.fields,field_description:website.field_ir_actions_server__website_path
 #: model:ir.model.fields,field_description:website.field_ir_cron__website_path
 msgid "Website Path"
@@ -10415,7 +10429,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.res_config_settings_view_form
 msgid "Website Title"
-msgstr ""
+msgstr "Webbplatsens titel"
 
 #. module: website
 #: model:ir.model.fields,field_description:website.field_ir_attachment__website_url
@@ -10429,7 +10443,6 @@ msgid "Website URL"
 msgstr "Webbplatsens URL"
 
 #. module: website
-#: model:ir.model.fields,field_description:website.field_base_automation__website_url
 #: model:ir.model.fields,field_description:website.field_ir_actions_server__website_url
 #: model:ir.model.fields,field_description:website.field_ir_cron__website_url
 msgid "Website Url"
@@ -10611,7 +10624,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website.s_features
 msgid ""
 "Write what the customer would like to know, <br/>not what you want to show."
-msgstr ""
+msgstr "Skriv vad kunden skulle vilja veta, <br/>inte vad du vill visa."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.s_timeline_options
@@ -10836,7 +10849,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Zoom In"
-msgstr ""
+msgstr "Zooma in"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
@@ -10856,7 +10869,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zooma ut"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.cookie_policy
@@ -11055,12 +11068,12 @@ msgstr ""
 #. module: website
 #: model:ir.ui.menu,name:website.menu_website_dashboard
 msgid "eCommerce Dashboard"
-msgstr "eCommerce kontrollpanel"
+msgstr "Anslagstavla för eCommerce"
 
 #. module: website
 #: model:website.configurator.feature,name:website.feature_module_elearning
 msgid "eLearning"
-msgstr ""
+msgstr "eLearning"
 
 #. module: website
 #. openerp-web
@@ -11098,7 +11111,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.brand_promotion
 msgid "free website"
-msgstr ""
+msgstr "gratis webbsida"
 
 #. module: website
 #. openerp-web
@@ -11181,7 +11194,7 @@ msgstr ""
 #: code:addons/website/static/src/xml/website.editor.xml:0
 #, python-format
 msgid "in the top right corner to start designing."
-msgstr ""
+msgstr "i det övre högra hörnet för att börja designa."
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.template_footer_links
@@ -11274,7 +11287,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.theme_view_form_preview
 msgid "phone"
-msgstr ""
+msgstr "telefon"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.color_combinations_debug_view
@@ -11423,7 +11436,7 @@ msgstr ""
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options
 msgid "⌙ Buttons"
-msgstr ""
+msgstr "⌙ Knappar"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_shadow_widgets
@@ -11512,6 +11525,7 @@ msgstr ""
 
 #. module: website
 #. openerp-web
+#: code:addons/website/static/src/js/editor/snippets.options.js:0
 #: code:addons/website/static/src/xml/website.editor.xml:0
 #, python-format
 msgid "⌙ Page Anchor"

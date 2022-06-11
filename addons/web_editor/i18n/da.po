@@ -5,17 +5,17 @@
 # Translators:
 # lhmflexerp <lhm@flexerp.dk>, 2021
 # Mads Søndergaard, 2021
-# Mads Søndergaard, 2021
 # Martin Trigaux, 2021
 # Pernille Kristensen <pernillekristensen1994@gmail.com>, 2021
+# Mads Søndergaard, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 07:16+0000\n"
+"POT-Creation-Date: 2022-01-24 08:20+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Pernille Kristensen <pernillekristensen1994@gmail.com>, 2021\n"
+"Last-Translator: Mads Søndergaard, 2022\n"
 "Language-Team: Danish (https://www.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,7 +230,7 @@ msgstr ""
 #: code:addons/web_editor/static/src/xml/editor.xml:0
 #, python-format
 msgid "Add Row"
-msgstr ""
+msgstr "Tilføj Række"
 
 #. module: web_editor
 #. openerp-web
@@ -1273,7 +1273,7 @@ msgstr "Usynlige Elementer"
 #: code:addons/web_editor/static/src/js/editor/snippets.options.js:0
 #, python-format
 msgid "Item"
-msgstr ""
+msgstr "Genstand"
 
 #. module: web_editor
 #. openerp-web
@@ -1451,13 +1451,6 @@ msgstr "Intet sted at sætte ind"
 #, python-format
 msgid "No more records"
 msgstr ""
-
-#. module: web_editor
-#. openerp-web
-#: code:addons/web_editor/static/lib/odoo-editor/src/powerbox/Powerbox.js:0
-#, python-format
-msgid "No results"
-msgstr "Ingen resultater"
 
 #. module: web_editor
 #. openerp-web
@@ -1704,6 +1697,13 @@ msgstr ""
 #, python-format
 msgid "Readonly field"
 msgstr "Readonly felt"
+
+#. module: web_editor
+#. openerp-web
+#: code:addons/web_editor/static/src/xml/image_link_tools.xml:0
+#, python-format
+msgid "Redirect the user elsewhere when he clicks on the media."
+msgstr ""
 
 #. module: web_editor
 #. openerp-web
@@ -2449,13 +2449,6 @@ msgstr "Type"
 
 #. module: web_editor
 #. openerp-web
-#: code:addons/web_editor/static/lib/odoo-editor/src/OdooEditor.js:0
-#, python-format
-msgid "Type \"/\" for commands"
-msgstr ""
-
-#. module: web_editor
-#. openerp-web
 #: code:addons/web_editor/static/src/xml/wysiwyg.xml:0
 #, python-format
 msgid "URL or Email"
@@ -2749,6 +2742,13 @@ msgstr "videoer"
 
 #. module: web_editor
 #. openerp-web
+#: code:addons/web_editor/static/src/xml/image_link_tools.xml:0
+#, python-format
+msgid "www.example.com"
+msgstr ""
+
+#. module: web_editor
+#. openerp-web
 #: code:addons/web_editor/static/src/xml/wysiwyg.xml:0
 #, python-format
 msgid "⌙ Autoconvert to relative link"
@@ -2808,6 +2808,7 @@ msgstr ""
 
 #. module: web_editor
 #. openerp-web
+#: code:addons/web_editor/static/src/xml/image_link_tools.xml:0
 #: code:addons/web_editor/static/src/xml/wysiwyg.xml:0
 #, python-format
 msgid "⌙ Open in new window"
@@ -2851,3 +2852,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options_background_options
 msgid "⌙ Width"
 msgstr "⌙ Bredde"
+
+#. module: web_editor
+#. openerp-web
+#: code:addons/web_editor/static/src/xml/image_link_tools.xml:0
+#, python-format
+msgid "⌙ Your URL"
+msgstr ""

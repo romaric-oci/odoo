@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import re
-from odoo import api, models
+from odoo import api, models, Command
 from odoo.tools import email_normalize
 
 from odoo.addons.google_calendar.utils.google_calendar import GoogleCalendarService
@@ -89,7 +89,7 @@ class RecurrenceRule(models.Model):
         # We update the attendee status for all events in the recurrence
         google_attendees = gevent.attendees or []
         emails = [a.get('email') for a in google_attendees]
-        partners = self.env['mail.thread']._mail_find_partner_from_emails(emails, records=self, force_create=True)
+        partners = self.env['mail.thread']._mail_find_partner_from_emails(emails, records=self, force_create=True, extra_domain=[('type', '!=', 'private')])
         existing_attendees = self.calendar_event_ids.attendee_ids
         for attendee in zip(emails, partners, google_attendees):
             email = attendee[0]
@@ -107,10 +107,10 @@ class RecurrenceRule(models.Model):
                     partner.name = attendee[2].get('displayName')
 
         for odoo_attendee_email in set(existing_attendees.mapped('email')):
-            # Remove old attendees
+            # Remove old attendees. Sometimes, several partners have the same email.
             if email_normalize(odoo_attendee_email) not in emails:
-                attendee = existing_attendees.filtered(lambda att: att.email == email_normalize(odoo_attendee_email))
-                self.calendar_event_ids.write({'need_sync': False, 'partner_ids': [(3, attendee.partner_id.id)]})
+                attendees = existing_attendees.exists().filtered(lambda att: att.email == email_normalize(odoo_attendee_email))
+                self.calendar_event_ids.write({'need_sync': False, 'partner_ids': [Command.unlink(att.partner_id.id) for att in attendees]})
 
         # Update the recurrence values
         old_event_values = self.base_event_id and self.base_event_id.read(base_event_time_fields)[0]

@@ -1008,6 +1008,32 @@ class TestQWebBasic(TransactionCase):
         rendered = self.env['ir.qweb']._render(t.id, {})
         self.assertEqual(rendered.strip(), result.strip())
 
+    def test_out_default_value(self):
+        t = self.env['ir.ui.view'].create({
+            'name': 'test',
+            'type': 'qweb',
+            'arch_db': '''<t t-name="out-default">
+                <span rows="10" t-out="a">
+                    DEFAULT
+                    <t t-out="'Text'" />
+                </span>
+            </t>'''
+        })
+        result = """
+                <span rows="10">Hello</span>
+        """
+        rendered = self.env['ir.qweb']._render(t.id, {'a': 'Hello'})
+        self.assertEqual(str(rendered.strip()), result.strip())
+
+        result = """
+                <span rows="10">
+                    DEFAULT
+                    Text
+                </span>
+        """
+        rendered = self.env['ir.qweb']._render(t.id, {})
+        self.assertEqual(str(rendered.strip()), result.strip())
+
     def test_esc_markup(self):
         # t-esc is equal to t-out
         t = self.env['ir.ui.view'].create({
@@ -1084,7 +1110,7 @@ class TestQWebBasic(TransactionCase):
         try:
             self.env['ir.qweb']._render(t.id)
         except QWebException as e:
-            self.assertIn('Can not compile expression', e.message)
+            self.assertIn('Cannot compile expression', e.message)
             self.assertIn('<div t-esc="abc + def + ("/>', e.message)
 
 from copy import deepcopy

@@ -12,14 +12,13 @@
 # Andrzej Donczew <a.donczew@hadron.eu.com>, 2021
 # Wiktor Kaźmierczak <wik92tor@wp.pl>, 2021
 # Krystian Harkot <kharkot@trilab.pl>, 2021
-# Daniel Demedziuk <daniel.demedziuk@gmail.com>, 2021
+# DanielDemedziuk <daniel.demedziuk@gmail.com>, 2021
 # taksun <taksun@o2.pl>, 2021
 # Dariusz Żbikowski <darek@krokus.com.pl>, 2021
 # zieloo <zieloo@gmail.com>, 2021
 # Monika Grzelak <m.e.grzelak@gmail.com>, 2021
 # Grzegorz Krukar <grzegorzgk1@gmail.com>, 2021
 # Piotr Strębski <strebski@gmail.com>, 2021
-# Martin Trigaux, 2021
 # Grzegorz Grzelak <grzegorz.grzelak@openglobe.pl>, 2021
 # Grażyna Grzelak <grazyna.grzelak@openglobe.pl>, 2021
 # Judyta Kaźmierczak <judyta.kazmierczak@openglobe.pl>, 2021
@@ -37,14 +36,16 @@
 # Maksym <ms@myodoo.pl>, 2021
 # Rafał Kozak <rafal.kozak@openglobe.pl>, 2021
 # Wojciech Warczakowski <w.warczakowski@gmail.com>, 2021
+# Dawid Prus, 2021
+# Martin Trigaux, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 10:54+0000\n"
+"POT-Creation-Date: 2022-01-24 08:20+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Wojciech Warczakowski <w.warczakowski@gmail.com>, 2021\n"
+"Last-Translator: Martin Trigaux, 2022\n"
 "Language-Team: Polish (https://www.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -447,6 +448,13 @@ msgstr "Dostęp do wszystkich aplikacji Enterprise"
 #. openerp-web
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
+msgid "Action"
+msgstr "Akcja"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
 msgid "Action ID:"
 msgstr "ID akcji:"
 
@@ -589,6 +597,13 @@ msgstr "Dodaj znacznik"
 #, python-format
 msgid "Add to Favorites"
 msgstr "Dodaj do ulubionych"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
+msgid "Additional actions"
+msgstr ""
 
 #. module: web
 #. openerp-web
@@ -2395,6 +2410,8 @@ msgstr "Wczytaj więcej... ("
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/webclient/loading_indicator/loading_indicator.xml:0
 #, python-format
 msgid "Loading"
@@ -2661,8 +2678,8 @@ msgstr "Tekst wielowierszowy"
 #. openerp-web
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
-msgid "My Odoo.com.account"
-msgstr ""
+msgid "My Odoo.com account"
+msgstr "Moje konto Odoo.com"
 
 #. module: web
 #. openerp-web
@@ -2806,6 +2823,7 @@ msgstr ""
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
+#: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "No records"
 msgstr "Brak rekordów"
@@ -2822,14 +2840,7 @@ msgstr ""
 #: code:addons/web/static/src/core/commands/command_palette.js:0
 #, python-format
 msgid "No results found"
-msgstr ""
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
-#, python-format
-msgid "No results to show..."
-msgstr "Brak wyników do pokazania"
+msgstr "Nic nie znaleziono"
 
 #. module: web
 #: code:addons/web/controllers/main.py:0
@@ -3422,6 +3433,13 @@ msgstr "Drukuj"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/legacy/xml/report.xml:0
+#, python-format
+msgid "Printing options"
+msgstr ""
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Priority"
@@ -3568,6 +3586,14 @@ msgstr ""
 #, python-format
 msgid "Red"
 msgstr "Czerwony"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
+msgid "Refresh"
+msgstr ""
 
 #. module: web
 #. openerp-web
@@ -4858,6 +4884,12 @@ msgstr "Tak"
 #, python-format
 msgid "Yesterday"
 msgstr "Wczoraj"
+
+#. module: web
+#: code:addons/web/controllers/main.py:0
+#, python-format
+msgid "You are not allowed to upload an attachment here."
+msgstr ""
 
 #. module: web
 #. openerp-web

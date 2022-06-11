@@ -441,9 +441,9 @@ class WebsiteSale(http.Controller):
 
     @http.route(['/shop/change_pricelist/<model("product.pricelist"):pl_id>'], type='http', auth="public", website=True, sitemap=False)
     def pricelist_change(self, pl_id, **post):
+        redirect_url = request.httprequest.referrer
         if (pl_id.selectable or pl_id == request.env.user.partner_id.property_product_pricelist) \
                 and request.website.is_pricelist_available(pl_id.id):
-            redirect_url = request.httprequest.referrer
             if redirect_url and request.website.is_view_active('website_sale.filter_products_price'):
                 decoded_url = url_parse(redirect_url)
                 args = url_decode(decoded_url.query)
@@ -823,7 +823,7 @@ class WebsiteSale(http.Controller):
                 return request.redirect('/shop/checkout')
 
         # IF POSTED
-        if 'submitted' in kw:
+        if 'submitted' in kw and request.httprequest.method == "POST":
             pre_values = self.values_preprocess(order, mode, kw)
             errors, error_msg = self.checkout_form_validate(mode, kw, pre_values)
             post, errors, error_msg = self.values_postprocess(order, mode, pre_values, errors, error_msg)
@@ -833,6 +833,10 @@ class WebsiteSale(http.Controller):
                 values = kw
             else:
                 partner_id = self._checkout_form_save(mode, post, kw)
+                # We need to validate _checkout_form_save return, because when partner_id not in shippings
+                # it returns Forbidden() instead the partner_id
+                if isinstance(partner_id, Forbidden):
+                    return partner_id
                 if mode[1] == 'billing':
                     order.partner_id = partner_id
                     order.with_context(not_self_saleperson=True).onchange_partner_id()
@@ -841,6 +845,10 @@ class WebsiteSale(http.Controller):
                     if not kw.get('use_same'):
                         kw['callback'] = kw.get('callback') or \
                             (not order.only_services and (mode[0] == 'edit' and '/shop/checkout' or '/shop/address'))
+                    # We need to update the pricelist(by the one selected by the customer), because onchange_partner reset it
+                    # We only need to update the pricelist when it is not redirected to /confirm_order
+                    if kw.get('callback', '') != '/shop/confirm_order':
+                        request.website.sale_get_order(update_pricelist=True)
                 elif mode[1] == 'shipping':
                     order.partner_shipping_id = partner_id
 

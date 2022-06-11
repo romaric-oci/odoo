@@ -205,6 +205,9 @@ function factory(dependencies) {
             if ('group_based_subscription' in data) {
                 data2.group_based_subscription = data.group_based_subscription;
             }
+            if ('guestMembers' in data) {
+                data2.guestMembers = data.guestMembers;
+            }
             if ('id' in data) {
                 data2.id = data.id;
             }
@@ -704,25 +707,49 @@ function factory(dependencies) {
             )];
         }
 
-        /**
-         * Fetch attachments linked to a record. Useful for populating the store
-         * with these attachments, which are used by attachment box in the chatter.
-         */
+         /**
+          * Fetch attachments linked to a record. Useful for populating the store
+          * with these attachments, which are used by attachment box in the chatter.
+          */
         async fetchAttachments() {
-            const attachmentsData = await this.async(() => this.env.services.rpc({
-                model: 'ir.attachment',
-                method: 'search_read',
-                domain: [
-                    ['res_id', '=', this.id],
-                    ['res_model', '=', this.model],
-                ],
-                fields: ['id', 'name', 'mimetype'],
-                orderBy: [{ name: 'id', asc: false }],
-            }, { shadow: true }));
-            this.update({
-                originThreadAttachments: insertAndReplace(attachmentsData),
-            });
-            this.update({ areAttachmentsLoaded: true });
+            return this.fetchData(['attachments']);
+        }
+
+        /**
+         * Requests the given `requestList` data from the server.
+         *
+         * @param {string[]} requestList
+         */
+        async fetchData(requestList) {
+            if (this.isTemporary) {
+                return;
+            }
+            const requestSet = new Set(requestList);
+            if (requestSet.has('attachments')) {
+                this.update({ isLoadingAttachments: true });
+            }
+            const {
+                attachments: attachmentsData,
+            } = await this.env.services.rpc({
+                route: '/mail/thread/data',
+                params: {
+                    request_list: [...requestSet],
+                    thread_id: this.id,
+                    thread_model: this.model,
+                },
+            }, { shadow: true });
+            if (!this.exists()) {
+                return;
+            }
+            const values = {};
+            if (attachmentsData) {
+                Object.assign(values, {
+                    areAttachmentsLoaded: true,
+                    isLoadingAttachments: false,
+                    originThreadAttachments: insertAndReplace(attachmentsData),
+                });
+            }
+            this.update(values);
         }
 
         /**
@@ -844,6 +871,16 @@ function factory(dependencies) {
             if (this.rtc && !this.rtc.currentRtcSession) {
                 this.endCall();
             }
+        }
+
+        /**
+         * Returns the name of the given partner in the context of this thread.
+         *
+         * @param {mail.partner} partner
+         * @returns {string}
+         */
+        getMemberName(partner) {
+            return partner.nameOrDisplayName;
         }
 
         /**
@@ -1061,9 +1098,7 @@ function factory(dependencies) {
                 return;
             }
             this.loadNewMessages();
-            this.update({ isLoadingAttachments: true });
             await this.async(() => this.fetchAttachments());
-            this.update({ isLoadingAttachments: false });
         }
 
         async refreshActivities() {
@@ -1351,14 +1386,34 @@ function factory(dependencies) {
 
         /**
          * @private
+         * @returns {FieldCommand}
+         */
+        _computeDiscussSidebarCategoryItem() {
+            if (this.model !== 'mail.channel') {
+                return clear();
+            }
+            if (!this.isPinned) {
+                return clear();
+            }
+            const discussSidebarCategory = this._getDiscussSidebarCategory();
+            if (!discussSidebarCategory) {
+                return clear();
+            }
+            return insertAndReplace({ category: replace(discussSidebarCategory) });
+        }
+
+        /**
+         * @private
          * @returns {string}
          */
         _computeDisplayName() {
             if (this.channel_type === 'chat' && this.correspondent) {
                 return this.custom_channel_name || this.correspondent.nameOrDisplayName;
             }
-            if (this.channel_type === 'group') {
-                return this.name || this.members.map(partner => partner.nameOrDisplayName).join(', ');
+            if (this.channel_type === 'group' && !this.name) {
+                const partnerNames = this.members.map(partner => partner.nameOrDisplayName);
+                const guestNames = this.guestMembers.map(guest => guest.name);
+                return [...partnerNames, ...guestNames].join(this.env._t(", "));
             }
             return this.name;
         }
@@ -1411,6 +1466,14 @@ function factory(dependencies) {
          * @private
          * @returns {boolean}
          */
+        _computeHasCallFeature() {
+            return ['channel', 'chat', 'group'].includes(this.channel_type);
+        }
+
+        /**
+         * @private
+         * @returns {boolean}
+         */
         _computeHasInviteFeature() {
             return this.model === 'mail.channel';
         }
@@ -1432,6 +1495,18 @@ function factory(dependencies) {
         */
         _computeIsChannelDescriptionChangeable() {
             return this.model === 'mail.channel' && ['channel', 'group'].includes(this.channel_type);
+        }
+
+        /**
+         * @private
+         * @returns {boolean}
+         */
+        _computeIsDescriptionEditableByCurrentUser() {
+            return Boolean(
+                this.messaging.currentUser &&
+                this.messaging.currentUser.isInternalUser &&
+                this.isChannelDescriptionChangeable
+            );
         }
 
         /**
@@ -1783,20 +1858,20 @@ function factory(dependencies) {
             if (this.orderedOtherTypingMembers.length === 1) {
                 return _.str.sprintf(
                     this.env._t("%s is typing..."),
-                    this.orderedOtherTypingMembers[0].nameOrDisplayName
+                    this.getMemberName(this.orderedOtherTypingMembers[0])
                 );
             }
             if (this.orderedOtherTypingMembers.length === 2) {
                 return _.str.sprintf(
                     this.env._t("%s and %s are typing..."),
-                    this.orderedOtherTypingMembers[0].nameOrDisplayName,
-                    this.orderedOtherTypingMembers[1].nameOrDisplayName
+                    this.getMemberName(this.orderedOtherTypingMembers[0]),
+                    this.getMemberName(this.orderedOtherTypingMembers[1])
                 );
             }
             return _.str.sprintf(
                 this.env._t("%s, %s and more are typing..."),
-                this.orderedOtherTypingMembers[0].nameOrDisplayName,
-                this.orderedOtherTypingMembers[1].nameOrDisplayName
+                this.getMemberName(this.orderedOtherTypingMembers[0]),
+                this.getMemberName(this.orderedOtherTypingMembers[1])
             );
         }
 
@@ -1828,6 +1903,23 @@ function factory(dependencies) {
          */
         _computeVideoCount() {
             return this.rtcSessions.filter(session => session.videoStream).length;
+        }
+
+        /**
+         * Returns the discuss sidebar category that corresponds to this channel
+         * type.
+         *
+         * @private
+         * @returns {mail.discuss_sidebar_category}
+         */
+        _getDiscussSidebarCategory() {
+            switch (this.channel_type) {
+                case 'channel':
+                    return this.messaging.discuss.categoryChannel;
+                case 'chat':
+                case 'group':
+                    return this.messaging.discuss.categoryChat;
+            }
         }
 
         /**
@@ -1929,6 +2021,28 @@ function factory(dependencies) {
                     },
                 },
             });
+        }
+
+        /**
+         * @private
+         * @returns {Array[]}
+         */
+        _sortGuestMembers() {
+            return [
+                ['defined-first', 'name'],
+                ['case-insensitive-asc', 'name'],
+            ];
+        }
+
+        /**
+         * @private
+         * @returns {Array[]}
+         */
+        _sortPartnerMembers() {
+            return [
+                ['defined-first', 'nameOrDisplayName'],
+                ['case-insensitive-asc', 'nameOrDisplayName'],
+            ];
         }
 
         /**
@@ -2082,9 +2196,15 @@ function factory(dependencies) {
          * States the description of this thread. Only applies to channels.
          */
         description: attr(),
-        discussSidebarCategoryItem: one2many('mail.discuss_sidebar_category_item', {
+        /**
+         * Determines the discuss sidebar category item that displays this
+         * thread (if any). Only applies to channels.
+         */
+        discussSidebarCategoryItem: one2one('mail.discuss_sidebar_category_item', {
+            compute: '_computeDiscussSidebarCategoryItem',
             inverse: 'channel',
             isCausal: true,
+            readonly: true,
         }),
         displayName: attr({
             compute: '_computeDisplayName',
@@ -2111,12 +2231,20 @@ function factory(dependencies) {
         group_based_subscription: attr({
             default: false,
         }),
-        guestMembers: many2many('mail.guest'),
+        guestMembers: many2many('mail.guest', {
+            sort: '_sortGuestMembers',
+        }),
         /**
          * States whether `this` has activities (`mail.activity.mixin` server side).
          */
         hasActivities: attr({
             default: false,
+        }),
+        /**
+         * Determines whether the RTC call feature should be displayed.
+         */
+        hasCallFeature: attr({
+            compute: '_computeHasCallFeature',
         }),
         /**
          * States whether this thread should has the invite feature. Only makes
@@ -2190,6 +2318,12 @@ function factory(dependencies) {
         isCurrentPartnerFollowing: attr({
             compute: '_computeIsCurrentPartnerFollowing',
             default: false,
+        }),
+        /**
+         * States whether this thread description is editable by the current user.
+         */
+        isDescriptionEditableByCurrentUser: attr({
+            compute: '_computeIsDescriptionEditableByCurrentUser',
         }),
         /**
          * States whether `this` is currently loading attachments.
@@ -2281,6 +2415,7 @@ function factory(dependencies) {
         memberCount: attr(),
         members: many2many('mail.partner', {
             inverse: 'memberThreads',
+            sort: '_sortPartnerMembers',
         }),
         /**
          * Determines the last mentioned channels of the last composer related

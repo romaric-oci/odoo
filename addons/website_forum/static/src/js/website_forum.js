@@ -13,6 +13,9 @@ var _t = core._t;
 publicWidget.registry.websiteForum = publicWidget.Widget.extend({
     selector: '.website_forum',
     xmlDependencies: [
+        // TODO Move the toolbar template out of the website_forum_templates
+        // file in master, as explained by the comment in the creation dialog
+        // widget.
         '/web_editor/static/src/xml/editor.xml',
         '/website_forum/static/src/xml/website_forum_templates.xml',
         '/website_forum/static/src/xml/website_forum_share_templates.xml',
@@ -355,7 +358,7 @@ publicWidget.registry.websiteForum = publicWidget.Widget.extend({
                 } else if (data.error === 'anonymous_user') {
                     message = _t('Sorry you must be logged to vote');
                 }
-                this.displayNotification({
+                self.displayNotification({
                     message: message,
                     title: _t("Access Denied"),
                     sticky: false,

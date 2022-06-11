@@ -3,53 +3,23 @@
 # 	* payment
 # 
 # Translators:
-# Martin Trigaux, 2021
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2021
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2021
+# Martin Trigaux, 2022
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2022
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 10:29+0000\n"
+"POT-Creation-Date: 2022-05-10 14:27+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2021\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"Error: %s"
-msgstr ""
-"\n"
-"Fout: %s"
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"Reason: %s"
-msgstr ""
-"\n"
-"Reden: %s"
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"The related payment is posted: %s"
-msgstr ""
-"\n"
-"De gerelateerde betaling is geboekt: %s"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard___data_fetched
@@ -276,6 +246,11 @@ msgid "Activate"
 msgstr "Activeer"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Activate Stripe"
+msgstr "Activeer Stripe"
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token__active
 msgid "Active"
 msgstr "Actief"
@@ -496,11 +471,6 @@ msgid "Choose a payment method"
 msgstr "Kies een betalinsgmethode"
 
 #. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Choose your default customer payment method."
-msgstr "Kies je standaard betaalmethode voor klanten."
-
-#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_city
 #: model_terms:ir.ui.view,arch_db:payment.payment_transaction_form
 msgid "City"
@@ -641,6 +611,11 @@ msgid "Credentials"
 msgstr "Inloggegevens"
 
 #. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_stripe
+msgid "Credit & Debit Card"
+msgstr "Creditcard / betaalkaart"
+
+#. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_adyen
 msgid "Credit Card (powered by Adyen)"
 msgstr "Credit Card (aangeboden via Adyen)"
@@ -679,11 +654,6 @@ msgstr "Credit Card (mogelijk gemaakt door PayUmoney)"
 #: model:payment.acquirer,display_as:payment.payment_acquirer_sips
 msgid "Credit Card (powered by Sips)"
 msgstr "Credit Card (mogelijk gemaakt door Sips)"
-
-#. module: payment
-#: model:payment.acquirer,display_as:payment.payment_acquirer_stripe
-msgid "Credit Card (powered by Stripe)"
-msgstr "Credit Card (mogelijk gemaakt door Stripe)"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_acquirer_onboarding_wizard__payment_method__stripe
@@ -773,6 +743,11 @@ msgid "Email"
 msgstr "E-mail"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Enable credit &amp; debit card payments supported by Stripe"
+msgstr "Inschakelen creditcard &amp; betaalkaart betalingen door Stripe"
+
+#. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__state__enabled
 msgid "Enabled"
 msgstr "Ingeschakeld"
@@ -784,6 +759,7 @@ msgstr "Fout"
 
 #. module: payment
 #. openerp-web
+#: code:addons/payment/models/payment_transaction.py:0
 #: code:addons/payment/static/src/js/payment_form_mixin.js:0
 #, python-format
 msgid "Error: %s"
@@ -1209,6 +1185,11 @@ msgid "Ok"
 msgstr "Ok"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Online Payments"
+msgstr "Online betalingen"
+
+#. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__online_direct
 msgid "Online direct payment"
 msgstr "Online directe betaling"
@@ -1222,6 +1203,11 @@ msgstr "Online betaling per token"
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__online_redirect
 msgid "Online payment with redirection"
 msgstr "Online betalen met omleiding"
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Online payments enabled"
+msgstr "Online betalingen ingeschakeld"
 
 #. module: payment
 #: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
@@ -1376,7 +1362,6 @@ msgstr "Betaal ink"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__payment_method
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
 msgid "Payment Method"
 msgstr "Betalingsmethode"
 
@@ -1446,9 +1431,9 @@ msgid "Payment acquire onboarding wizard"
 msgstr "Betalingsprovider onboarding wizard"
 
 #. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Payment method set!"
-msgstr "Betalingsmethode ingesteld"
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__payment_acquirer_selection
+msgid "Payment acquirer selected"
+msgstr "Betaalprovider geselecteerd"
 
 #. module: payment
 #: model:ir.model,name:payment.model_account_payment
@@ -1511,6 +1496,12 @@ msgid "Please set an amount smaller than %s."
 msgstr "Stel een bedrag in dat kleiner is dan %s."
 
 #. module: payment
+#: code:addons/payment/controllers/portal.py:0
+#, python-format
+msgid "Please switch to company '%s' to make this payment."
+msgstr "Schakel over naar bedrijf '%s' om deze betaling te doen."
+
+#. module: payment
 #: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
 msgid "Please use the following transfer details"
 msgstr "Gebruik de volgende tranfer details."
@@ -1547,6 +1538,12 @@ msgstr "Provider"
 #, python-format
 msgid "Reason:"
 msgstr "Reden:"
+
+#. module: payment
+#: code:addons/payment/models/payment_transaction.py:0
+#, python-format
+msgid "Reason: %s"
+msgstr "Reden: %s"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__redirect_form_view_id
@@ -1674,11 +1671,6 @@ msgstr "Serverfout"
 #, python-format
 msgid "Server error:"
 msgstr "Serverfout:"
-
-#. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Set payments"
-msgstr "Stel betaling in"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__show_allow_tokenization
@@ -1935,6 +1927,12 @@ msgid ""
 "The payment should either be direct, with redirection, or made by a token."
 msgstr ""
 "De betaling moet ofwel direct zijn, met omleiding, ofwel met een token."
+
+#. module: payment
+#: code:addons/payment/models/payment_transaction.py:0
+#, python-format
+msgid "The related payment is posted: %s"
+msgstr "De gekoppelde betaling is geboekt: %s"
 
 #. module: payment
 #: model:ir.model.fields,help:payment.field_payment_transaction__landing_route
@@ -2274,10 +2272,10 @@ msgstr ""
 "verwijderen."
 
 #. module: payment
-#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#: code:addons/payment/controllers/portal.py:0
 #, python-format
-msgid "You have to set a journal for your payment acquirer %s."
-msgstr "Je dient een dagboek te definiëren voor je betaalprovider %s."
+msgid "You do not have access to this payment token."
+msgstr "Je hebt geen toegang tot deze betaaltoken."
 
 #. module: payment
 #. openerp-web

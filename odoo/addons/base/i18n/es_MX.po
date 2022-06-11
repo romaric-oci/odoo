@@ -4,22 +4,22 @@
 # 
 # Translators:
 # Martin Trigaux, 2021
-# Braulio D. López Vázquez <bdl@odoo.com>, 2021
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2021
+# Braulio D. López Vázquez <bdl@odoo.com>, 2022
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:42+0000\n"
+"POT-Creation-Date: 2022-01-24 09:03+0000\n"
 "PO-Revision-Date: 2021-09-14 12:18+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2021\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2022\n"
 "Language-Team: Spanish (Mexico) (https://www.transifex.com/odoo/teams/41243/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es_MX\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_at_reports
@@ -627,6 +627,14 @@ msgstr ""
 "    "
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_pk_reports
+msgid ""
+"\n"
+"        Accounting reports for Pakistan\n"
+"    "
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_l10n_es_reports
 msgid ""
 "\n"
@@ -943,7 +951,7 @@ msgid ""
 msgstr ""
 "\n"
 "        Define el diario de compra predeterminado en el almacén,\n"
-"        le ayuda a elegir el diario de compra correcto en el pedido de compra cuando\n"
+"        le ayuda a elegir el diario de compra correcto en la orden de compra cuando\n"
 "        cambie la operación de picking.\n"
 "        Útil al configurar las múltiples unidades GSTIN.\n"
 "    "
@@ -1681,6 +1689,16 @@ msgstr ""
 "    Árabe/ínglés para CCEAG\n"
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_mx_edi_stock_extended
+msgid ""
+"\n"
+"    Bridge module to extend the delivery guide (Complemento XML Carta de Porte)\n"
+"    - exported goods (COMEX)\n"
+"    - extended address fields\n"
+"    "
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_mrp_workorder_iot
 msgid ""
 "\n"
@@ -1889,6 +1907,18 @@ msgstr ""
 "\n"
 "    Soporte para Exportación/Importación en formato Factur-x (1.0.04).\n"
 "    "
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_mx_edi_stock
+msgid ""
+"\n"
+"    The delivery guide (Complemento XML Carta de Porte) is needed as a proof\n"
+"    that you are sending goods between A and B.\n"
+"\n"
+"    It is only when a delivery order is validated that you can create the delivery\n"
+"    guide.\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_cl_edi_stock
@@ -5033,6 +5063,15 @@ msgstr ""
 "    "
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_gcc_pos
+msgid ""
+"\n"
+"GCC POS Localization\n"
+"=======================================================\n"
+"    "
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,description:base.module_gamification
 msgid ""
 "\n"
@@ -5545,6 +5584,15 @@ msgstr ""
 "\n"
 "Permite comparar productos de la lista de deseos\n"
 "    "
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_sa_pos
+msgid ""
+"\n"
+"K.S.A. POS Localization\n"
+"=======================================================\n"
+"    "
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_l10n_sa_hr_payroll
@@ -9853,6 +9901,13 @@ msgstr ""
 "para Hong Kong"
 
 #. module: base
+#: model:ir.module.module,description:base.module_l10n_pk
+msgid ""
+" This is the base module to manage chart of accounts and localization for "
+"the Pakistan "
+msgstr ""
+
+#. module: base
 #: code:addons/model.py:0
 #, python-format
 msgid ""
@@ -11215,6 +11270,11 @@ msgid "Account Holder Name"
 msgstr "Nombre del titular de la cuenta"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_account_intrastat_expiry
+msgid "Account Invoice Expiry"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_account_invoice_extract
 msgid "Account Invoice Extract"
 msgstr "Extracto de la factura"
@@ -11727,6 +11787,11 @@ msgstr ""
 "Addison trabaja en el sector de IT <b>desde hace 10 años</b>. También es famoso\n"
 "por vender trampas para ratones. Con este truco logró reducir\n"
 "el presupuesto de IT a casi la mitad en los últimos 2 años."
+
+#. module: base
+#: model:ir.module.module,summary:base.module_l10n_be_hr_payroll_report_measures
+msgid "Additional Measures in Reporting"
+msgstr ""
 
 #. module: base
 #: code:addons/base/models/ir_qweb_fields.py:0
@@ -13274,6 +13339,11 @@ msgstr "Bielorrusia"
 #: model:ir.module.module,shortdesc:base.module_l10n_be_intrastat
 msgid "Belgian Intrastat Declaration"
 msgstr "Declaración Intrasat de Bélgica"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_report_measures
+msgid "Belgian Payroll - Addition Measures in Reporting"
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_be_hr_payroll_holiday_pay_recovery
@@ -18432,7 +18502,7 @@ msgstr "Desde"
 #. module: base
 #: model:ir.model.fields,field_description:base.field_ir_mail_server__from_filter
 msgid "From Filter"
-msgstr "Del filtro"
+msgstr "Filtro \"De\""
 
 #. module: base
 #: model_terms:ir.actions.act_window,help:base.action_res_partner_bank_account_form
@@ -19030,6 +19100,11 @@ msgstr "Guinea-Bisáu"
 #: model:res.country.group,name:base.gulf_cooperation_council
 msgid "Gulf Cooperation Council (GCC)"
 msgstr "Consejo de Cooperación para los Estados Árabes del Golfo (CCEAG)"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_gcc_pos
+msgid "Gulf Cooperation Council - Point of Sale"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.gy
@@ -20903,6 +20978,11 @@ msgid "K.S.A. - Payroll with Accounting"
 msgstr "Reino de Arabia Saudita - Nómina con contabilidad"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_sa_pos
+msgid "K.S.A. - Point of Sale"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_digest
 msgid "KPI Digests"
 msgstr "Resúmenes de KPI"
@@ -21671,7 +21751,7 @@ msgstr "Chat en vivo de la empresa"
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_language_install
 msgid "Load a Translation"
-msgstr "Cargar una traducción"
+msgstr "Desgargar una traducción"
 
 #. module: base
 #: model:ir.actions.act_window,name:base.demo_force_install_action
@@ -22515,6 +22595,16 @@ msgstr "México"
 #: model:ir.module.module,shortdesc:base.module_l10n_mx
 msgid "Mexico - Accounting"
 msgstr "México - Contabilidad"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_mx_edi_stock
+msgid "Mexico - Electronic Delivery Guide"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_mx_edi_stock_extended
+msgid "Mexico - Electronic Delivery Guide Comex"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.fm
@@ -24736,7 +24826,7 @@ msgstr "Exportación en XML de pólizas mexicanas de Odoo"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_mx_edi_landing
 msgid "Odoo Mexico Localization for Stock/Landing"
-msgstr "México - Números de Pedimento/Almacén"
+msgstr "Localización de Odoo México para las existencias/almacenamiento"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_web_mobile
@@ -25338,118 +25428,118 @@ msgid ""
 "\n"
 "Schedule, organize, promote or sell events online; conferences, trainings, webinars, etc.\n"
 msgstr ""
-"Odoo Website Builder\n"
+"Creador de sitios web de Odoo\n"
 "--------------------\n"
 "\n"
-"Get an awesome and <a href=\"https://www.odoo.com/app/website\">free website</a>,\n"
-"easily customizable with the Odoo <a href=\"https://www.odoo.com/app/website\">website builder</a>.\n"
+"Construye un <a href=\"https://www.odoo.com/app/website\">sitio web gratis</a> e increíble\n"
+"que podrás personalizar fácilmente con el<a href=\"https://www.odoo.com/app/website\">creador de sitios web de Odoo</a>.\n"
 "\n"
-"Create enterprise grade website with our super easy builder. Use finely\n"
-"designed building blocks and edit everything inline.\n"
+"Cree un sitio web empresarial de nivel con nuestro sencillísimo creador de sitios web. Use bloques\n"
+"de creación diseñados cuidadosamente y edite todo edn línea.\n"
 "\n"
-"Benefit from out-of-the-box business features; e-Commerce, events, blogs, jobs\n"
-"announces, customer references, call-to-actions, etc.\n"
+"Obtenga los beneficios de nuestras funciones empresariales listas para usar: comercio electrónico, eventos, blogs, anuncios de\n"
+"reclutamien to, referencias de clientes, llamadas a la acción, etc.\n"
 "\n"
-"Edit Anything Inline\n"
+"Edite lo que sea en línea\n"
 "--------------------\n"
 "\n"
-"Create beautiful websites with no technical knowledge. Odoo's unique *'edit\n"
-"inline'* approach makes website creation surprisingly easy. No more complex\n"
-"backend; just click anywhere to change any content.\n"
+"Cree sitios web hermosos sin necesidad de conocimiento técnico. El enfoque único de Odoo \"editar\n"
+"en línea\" hacde que crear un sitio web sea sorprendentemente fácil. Olvídate de tener\n"
+"un backend complejo, solo tiene que dar clic en cualquier lugar para cambiar el contenido que quiera.\n"
 "\n"
-"\"Want to change the price of a product? or put it in bold? Want to change a\n"
-"blog title?\" Just click and change. What you see is what you get. Really.\n"
+"\"¿Quiere cambiar el precio de un producto? ¿O ponerlo en negritas? ¿Quiere cambiar\n"
+"el título de un blog?\" Solo de clic y cámbielo. Lo que ve es lo que recibe. En serio.\n"
 "\n"
-"Awesome. Astonishingly Beautiful.\n"
+"Increíble. Tan hermoso que te quitará el aliento.\n"
 "---------------------------------\n"
 "\n"
-"Odoo's building blocks allow to design modern websites that are not possible\n"
-"with traditional WYSIWYG page editors.\n"
+"Los bloques de creación de Odoo te permitirán diseñar sitios web modernos que no podrás crear\n"
+"en páginas de edición WYSIWYG tradicionales.\n"
 "\n"
-"Whether it's for products descriptions, blogs or static pages, you don't need\n"
-"to be a professional designer to create clean contents. Just drag and drop and\n"
-"customize predefined building blocks.\n"
+"Ya sea par la descripción de productos, blogs o páginas estadísticas, no necesita ser\n"
+"un diseñador profesional para crear contenidos limpios. Solo arrastre y suelte y\n"
+"personalice sus bloques de creación\n"
 "\n"
-"Enterprise-Ready, out-of-the-box\n"
+"Listo para la empresa y úselo de inmediato\n"
 "--------------------------------\n"
 "\n"
-"Activate ready-to-use enterprise features in just a click; e-commerce,\n"
-"call-to-actions, jobs announces, events, customer references, blogs, etc.\n"
+"Active funciones empresariales en un solo clic, comercio electrónico, \n"
+"llamadas a la acción, anuncios de reclutamiento, eventos, referencias de clientes, blogs, etc.\n"
 "\n"
-"Traditional eCommerce and CMS have poorly designed backends as it's not their\n"
-"core focus. With the Odoo integration, you benefit from the best management\n"
-"software to follow-up on your orders, your jobs applicants, your leads, etc.\n"
+"El backend de comercio electrónico y CSM tradicionales no está bien diseñado y no es\n"
+"su enfoque inicial. Con la integración de Odoo se beneficiará de un mejor gestionamiento,\n"
+"el seguimiento que el software le da a sus órdenes, lols aplicantes a sus vacantes, sus leads, etc.\n"
 "\n"
-"A Great Mobile Experience\n"
+"Una gran experiencia móvil\n"
 "-------------------------\n"
 "\n"
-"Get a mobile friendly website thanks to our responsive design based on\n"
-"bootstrap. All your pages adapt automatically to the screen size. (mobile\n"
-"phones, tablets, desktop) You don't have to worry about mobile contents, it\n"
-"works by default.\n"
+"Podrás obtener un sitio web amigable para móviles gracias a nuestro diseño sensible basado en\n"
+"bootstrap. Todas sus páginas se adaptan automáticamente al tamaño de la pantalla (móviles,\n"
+"celulares, tabletas, escritorio). No tienes que preocuparte por contenidos en los celulares,\n"
+"trabaja automáticamente.\n"
 "\n"
-"SEO tools at your finger tips\n"
+"Herramientas SEO al alcance de tus manos\n"
 "-----------------------------\n"
 "\n"
-"The *Promote* tool suggests keywords according to Google most searched terms.\n"
-"Search Engine Optimization tools are ready to use, with no configuration\n"
-"required.\n"
+"La herramienta de \"promocionar\" sugiera palabras clave de acuerdo con los términos más buscados en Google.\n"
+"Las herramientas de optimización para buscadores se pueden utilizar de inmediato, sin tener que\n"
+"configurarlos.\n"
 "\n"
-"Google Analytics tracks your shopping cart events by default. Sitemap and\n"
-"structured content are created automatically for Google indexation.\n"
+"Google Analytics rastrea su carrito de compras automáticamente. El mapa del sitio web y\n"
+"contenido estructurado se crean automáticamente por la indexación se Google.\n"
 "\n"
-"Multi-Languages Made Easy\n"
+"Varios idiomas de la manera más fácil\n"
 "-------------------------\n"
 "\n"
-"Get your website translated in multiple languages with no effort. Odoo proposes\n"
-"and propagates translations automatically across pages, following what you edit\n"
-"on the master page.\n"
+"Traduce tu sitio web a varios idiomas sin problemas. Odoo propone\n"
+"y propaga traducciones automáticamente a través de diversas páginas, después de lo que edites\n"
+"en la página principal.\n"
 "\n"
-"Designer-Friendly Templates\n"
+"Plantillas amigables para diseñadores\n"
 "---------------------------\n"
 "\n"
-"Templates are awesome and easy to design. You don't need to develop to create\n"
-"new pages, themes or building blocks. We use a clean HTML structure, a\n"
+"Las plantillas son asombrosas y fáciles de diseñar. No tiene que desarrollar para crear\n"
+"nuevas páginas, plantillas o bloques de creación. Usamos una estructura HTML limpia, con\n"
 "[bootstrap](http://getbootstrap.com/) CSS.\n"
 "\n"
-"Customize every page on the fly with the integrated template editor. Distribute\n"
-"your work easily as an Odoo module.\n"
+"Personaliza todas las páginas en el momento con un editor de plantillas integrado. Distribuya\n"
+"tu trabajo fácilmente como un módulo de Odoo.\n"
 "\n"
-"Fluid Grid Layouting\n"
+"Diseño de tabla fluido\n"
 "--------------------\n"
 "\n"
-"Design perfect pages by drag and dropping building blocks. Move and scale them\n"
-"to fit the layout you are looking for.\n"
+"Solo tiene que arrastrar y soltar bloques de construcción para diseñar páginas perfectas. Mueva o escálelas\n"
+"para quedar en el diseño que está buscando.\n"
 "\n"
-"Building blocks are based on a responsive, mobile friendly fluid grid system\n"
-"that appropriately scales up to 12 columns as the device or viewport size\n"
-"increases.\n"
+"Los bloques de creación se basan en un sistema de tabla fluido que es sensible y amigable con el celular.\n"
+"Con este sistema puede escalar hasta 12 columnas para que se vean en el dispositivo o el tamaño del punto de vista\n"
+"aumenta.\n"
 "\n"
-"Professional Themes\n"
+"Plantillas profesionales\n"
 "-------------------\n"
 "\n"
-"Design a custom theme or reuse pre-defined themes to customize the look and\n"
-"feel of your website.\n"
+"Diseñe una plantilla personalizada o vuelva a usar una plantilla predefinida para personalizar el el diseño y\n"
+"la onda de su sitio web.\n"
 "\n"
-"Test new color scheme easily; you can change your theme at any time in just a\n"
-"click.\n"
+"Pruebe el nuevo esquema de colores fácilmente. Puede cambiar el tema en cualquier momento  con solo un\n"
+"clic.\n"
 "\n"
-"Integrated With Odoo Apps\n"
+"Integrado con las otras apps de Google\n"
 "-------------------------\n"
 "\n"
-"### e-Commerce\n"
+"### Comercio electrónico\n"
 "\n"
-"Promote products, sell online, optimize visitors' shopping experience.\n"
+"Promocione productos, venda en línea, optimice la experiencia de sus clientes.\n"
 "\n"
 "\n"
 "### Blogs\n"
 "\n"
-"Write news, attract new visitors, build customer loyalty.\n"
+"Escriba noticias, atraiga a nuevos visitantes, construya lealtad del cliente.\n"
 "\n"
 "\n"
-"### Online Events\n"
+"### Eventos en línea\n"
 "\n"
-"Schedule, organize, promote or sell events online; conferences, trainings, webinars, etc.\n"
+"Agende, organice, promueba o venda eventos en línea, como conferenias, capacitaciones, webinarios, entre otros.\n"
 
 #. module: base
 #: model:ir.module.module,description:base.module_website_sale
@@ -26682,6 +26772,16 @@ msgstr "Ancho de página (mm)"
 #: model:res.country,name:base.pk
 msgid "Pakistan"
 msgstr "Pakistán"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_pk
+msgid "Pakistan - Accounting"
+msgstr ""
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_pk_reports
+msgid "Pakistan - Accounting Reports"
+msgstr ""
 
 #. module: base
 #: model:res.country,name:base.pw
@@ -30600,6 +30700,11 @@ msgid "Sweden"
 msgstr "Suecia"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_se
+msgid "Sweden - Accounting"
+msgstr ""
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_l10n_se_reports
 msgid "Sweden - Accounting Reports"
 msgstr "Suecia -  reportes contables"
@@ -30608,11 +30713,6 @@ msgstr "Suecia -  reportes contables"
 #: model:ir.module.module,shortdesc:base.module_pos_l10n_se
 msgid "Sweden Registered Cash Register"
 msgstr "Caja registradora inscrita Suecia"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_l10n_se
-msgid "Swedish - Accounting"
-msgstr "Suecia - Contabilidad"
 
 #. module: base
 #: model_terms:ir.ui.view,arch_db:base.view_base_language_install
@@ -31795,6 +31895,12 @@ msgstr "Esta es la divisa de su empresa."
 #, python-format
 msgid "This method can only be accessed over HTTP"
 msgstr "Solo se puede acceder a este método mediante HTTP"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_account_intrastat_expiry
+msgid ""
+"This module adds an expiry feature to transaction account intrastat codes."
+msgstr ""
 
 #. module: base
 #: model:ir.module.module,description:base.module_mail_bot_hr
@@ -34832,6 +34938,12 @@ msgstr "mail_bot_hr"
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__many2many
 msgid "many2many"
 msgstr "many2many"
+
+#. module: base
+#: code:addons/base/models/ir_actions.py:0
+#, python-format
+msgid "many2many fields cannot be evaluated by reference"
+msgstr "los campos many2many no se pueden evaluar por referencia"
 
 #. module: base
 #: model:ir.model.fields.selection,name:base.selection__ir_model_fields__ttype__many2one

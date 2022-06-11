@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registerNewModel } from '@mail/model/model_core';
-import { attr, many2one } from '@mail/model/model_field';
+import { attr, many2one, one2one } from '@mail/model/model_field';
 import { clear, link } from '@mail/model/model_field_command';
 import { isEventHandled } from '@mail/utils/utils';
 
@@ -34,19 +34,25 @@ function factory(dependencies) {
                 case 'group':
                     return `/web/image/mail.channel/${this.channel.id}/avatar_128?unique=${this.channel.avatarCacheKey}`;
                 case 'chat':
-                    return this.channel.correspondent.avatarUrl;
+                    if (this.channel.correspondent) {
+                        return this.channel.correspondent.avatarUrl;
+                    }
             }
+            return '/mail/static/src/img/smiley/avatar.jpg';
         }
 
         /**
          * @private
-         * @returns {mail.thread}
+         * @returns {integer}
          */
-        _computeChannel() {
-            return link(this.messaging.models['mail.thread'].findFromIdentifyingData({
-                id: this.channel.id,
-                model: 'mail.channel',
-            }));
+        _computeCategoryCounterContribution() {
+            switch (this.channel.channel_type) {
+                case 'channel':
+                    return this.channel.message_needaction_counter > 0 ? 1 : 0;
+                case 'chat':
+                case 'group':
+                    return this.channel.localMessageUnreadCounter > 0 ? 1 : 0;
+            }
         }
 
         /**
@@ -117,7 +123,7 @@ function factory(dependencies) {
         _computeHasThreadIcon() {
             switch (this.channelType) {
                 case 'channel':
-                    return this.channel.public === 'private';
+                    return ['private', 'public'].includes(this.channel.public);
                 case 'chat':
                     return true;
                 case 'group':
@@ -241,12 +247,20 @@ function factory(dependencies) {
             compute: '_computeAvatarUrl',
         }),
         /**
-         * States the discuss sidebar category displaying this.
+         * Determines the discuss sidebar category displaying this item.
          */
         category: many2one('mail.discuss_sidebar_category', {
             inverse: 'categoryItems',
             readonly: true,
             required: true,
+        }),
+        /**
+         * Determines the contribution of this discuss sidebar category item to
+         * the counter of this category.
+         */
+        categoryCounterContribution: attr({
+            compute: '_computeCategoryCounterContribution',
+            readonly: true,
         }),
         /**
          * Amount of unread/action-needed messages
@@ -293,7 +307,7 @@ function factory(dependencies) {
         /**
          * The related channel thread.
          */
-        channel: many2one('mail.thread', {
+        channel: one2one('mail.thread', {
             inverse: 'discussSidebarCategoryItem',
             readonly: true,
             required: true,

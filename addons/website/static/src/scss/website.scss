@@ -755,7 +755,17 @@ $-transition-duration: 200ms;
     display: block;
     @include o-position-absolute(0, 0, auto, 0);
     position: fixed;
-    background: $light;
+
+    // TODO remove me in master, the $light color makes no sense as is visible
+    // if the header uses rounded corners but is impossible to edit / remove.
+    // As a stable fix, it was decided to not remove it if the header uses a
+    // transparent color, in which case mixing it with $light actually alters
+    // the whole menu color. In case there is a background gradient, we suppose
+    // it is opaque and remove the $light color.
+    $-menu-color: o-color('menu-custom') or o-color('menu');
+    @if not o-website-value('menu-gradient') and (not $-menu-color or alpha($-menu-color) < 0.95) {
+        background: $light;
+    }
 
     &:not(.o_header_no_transition) {
         transition: transform $-transition-duration;
@@ -801,7 +811,7 @@ $-transition-duration: 200ms;
 }
 
 // Navbar
-.navbar .o_extra_menu_items.show > ul {
+.navbar .o_extra_menu_items.show > div {
     > li {
         + li {
             border-top: 1px solid gray('200');
@@ -1201,6 +1211,7 @@ header {
         padding-right: $grid-gutter-width / 2;
     }
 }
+
 .o_mega_menu_container_size {
     $-header-template: o-website-value('header-template');
     @if not index(('sidebar', 'hamburger', 'magazine'), $-header-template) {
@@ -1218,6 +1229,26 @@ header {
         ));
     }
     @include make-container-max-widths($-mm-max-widths);
+}
+
+// The design of some of the new mega menu templates required a column with
+// an overlay that would overflow until the end of the container. For
+// technical reasons, this overlay has to be hardcoded here.
+%s_mega_menu_gray_area {
+    z-index: 1;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 100vw;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: rgba(0, 0, 0, .05);
+    }
 }
 
 #wrapwrap.o_header_overlay {
@@ -1488,6 +1519,13 @@ $ribbon-padding: 100px;
     :not(.o_cookies_popup) {
         bottom: 0;
     }
+    .o_cookies_discrete {
+        .js_close_popup.o_cookies_bar_text_button, .o_cookies_bar_text_policy {
+            @include media-breakpoint-down(md) {
+                margin-bottom: 1rem;
+            }
+        }
+    }
 }
 
 .o_website_btn_loading {
@@ -1522,7 +1560,7 @@ ul.o_checklist > li.o_checked::after {
     text-rendering: geometricPrecision; // take care of animated titles
     visibility: hidden;
 
-    &:not(.o_animating) {
+    &:not(.o_animating):not(.o_animate_in_dropdown) {
         transform: none !important;
     }
 }

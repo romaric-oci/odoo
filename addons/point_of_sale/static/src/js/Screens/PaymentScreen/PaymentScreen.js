@@ -3,7 +3,7 @@ odoo.define('point_of_sale.PaymentScreen', function (require) {
 
     const { parse } = require('web.field_utils');
     const PosComponent = require('point_of_sale.PosComponent');
-    const { useErrorHandlers } = require('point_of_sale.custom_hooks');
+    const { useErrorHandlers, useAsyncLockedMethod } = require('point_of_sale.custom_hooks');
     const NumberBuffer = require('point_of_sale.NumberBuffer');
     const { useListener } = require('web.custom_hooks');
     const Registries = require('point_of_sale.Registries');
@@ -21,6 +21,7 @@ odoo.define('point_of_sale.PaymentScreen', function (require) {
             useListener('send-payment-cancel', this._sendPaymentCancel);
             useListener('send-payment-reverse', this._sendPaymentReverse);
             useListener('send-force-done', this._sendForceDone);
+            this.lockedValidateOrder = useAsyncLockedMethod(this.validateOrder);
             NumberBuffer.use({
                 // The numberBuffer listens to this event to update its state.
                 // Basically means 'update the buffer when this event is triggered'
@@ -59,20 +60,17 @@ odoo.define('point_of_sale.PaymentScreen', function (require) {
         }
         addNewPaymentLine({ detail: paymentMethod }) {
             // original function: click_paymentmethods
-            if (this.currentOrder.electronic_payment_in_progress()) {
+            let result = this.currentOrder.add_paymentline(paymentMethod);
+            if (result){
+                NumberBuffer.reset();
+                return true;
+            }
+            else{
                 this.showPopup('ErrorPopup', {
                     title: this.env._t('Error'),
                     body: this.env._t('There is already an electronic payment in progress.'),
                 });
                 return false;
-            } else {
-                this.currentOrder.add_paymentline(paymentMethod);
-                NumberBuffer.reset();
-                this.payment_interface = paymentMethod.payment_terminal;
-                if (this.payment_interface) {
-                    this.currentOrder.selected_paymentline.set_payment_status('pending');
-                }
-                return true;
             }
         }
         _updateSelectedPaymentline() {
@@ -81,8 +79,9 @@ odoo.define('point_of_sale.PaymentScreen', function (require) {
             }
             if (!this.selectedPaymentLine) return; // do nothing if no selected payment line
             // disable changing amount on paymentlines with running or done payments on a payment terminal
+            const payment_terminal = this.selectedPaymentLine.payment_method.payment_terminal;
             if (
-                this.payment_interface &&
+                payment_terminal &&
                 !['pending', 'retry'].includes(this.selectedPaymentLine.get_payment_status())
             ) {
                 return;
@@ -358,7 +357,7 @@ odoo.define('point_of_sale.PaymentScreen', function (require) {
                         ' ' +
                         this.env._t('? Clicking "Confirm" will validate the payment.'),
                 }).then(({ confirmed }) => {
-                    if (confirmed) this.validateOrder(true);
+                    if (confirmed) this.lockedValidateOrder(true);
                 });
                 return false;
             }

@@ -4,52 +4,31 @@
 # 
 # Translators:
 # Joan Ignasi Florit <jfloritmir@gmail.com>, 2021
-# Carlos Mun Mas <cmun@tda.ad>, 2021
-# Martin Trigaux, 2021
 # Carles Antoli <carlesantoli@hotmail.com>, 2021
 # RGB Consulting <odoo@rgbconsulting.com>, 2021
 # Quim - eccit <quim@eccit.com>, 2021
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2021
 # Arnau Ros, 2021
 # jabelchi, 2021
+# Harcogourmet, 2022
+# Carlos Mun Mas <cmun@tda.ad>, 2022
+# Martin Trigaux, 2022
+# AncesLatino2004, 2022
+# marcescu, 2022
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 10:29+0000\n"
+"POT-Creation-Date: 2022-05-10 14:27+0000\n"
 "PO-Revision-Date: 2021-09-14 12:24+0000\n"
-"Last-Translator: jabelchi, 2021\n"
+"Last-Translator: marcescu, 2022\n"
 "Language-Team: Catalan (https://www.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"Error: %s"
-msgstr ""
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"Reason: %s"
-msgstr ""
-
-#. module: payment
-#: code:addons/payment/models/payment_transaction.py:0
-#, python-format
-msgid ""
-"\n"
-"The related payment is posted: %s"
-msgstr ""
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard___data_fetched
@@ -82,7 +61,7 @@ msgstr "<i class=\"fa fa-arrow-circle-right\"/>Torna a El Meu Compte"
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.portal_breadcrumb
 msgid "<i class=\"fa fa-home\" role=\"img\" title=\"Home\" aria-label=\"Home\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-home\" role=\"img\" title=\"Home\" aria-label=\"Home\"/>"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.manage
@@ -95,6 +74,8 @@ msgid ""
 "<span class=\"badge badge-primary oe_inline "
 "o_enterprise_label\">Enterprise</span>"
 msgstr ""
+"<span class=\"badge badge-primary oe_inline "
+"o_enterprise_label\">Enterprise</span>"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.view_partners_form_payment_defaultcreditcard
@@ -104,7 +85,7 @@ msgstr ""
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
 msgid "<span><i class=\"fa fa-arrow-right\"/> Get my Stripe keys</span>"
-msgstr ""
+msgstr "<span><i class=\"fa fa-arrow-right\"/> Obtenir les meves claus</span>"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
@@ -112,6 +93,8 @@ msgid ""
 "<span><i class=\"fa fa-arrow-right\"/> How to configure your PayPal "
 "account</span>"
 msgstr ""
+"<span><i class=\"fa fa-arrow-right\"/> Com configurar el vostre compte de "
+"PayPal</span>"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_acquirer_onboarding_wizard_form
@@ -131,6 +114,8 @@ msgid ""
 "<strong>No suitable payment option could be found.</strong><br/>\n"
 "                                If you believe that it is an error, please contact the website administrator."
 msgstr ""
+"<strong>No s'ha trobat cap opció de pagament adequada.</strong><br/>\n"
+"                                Si creieu que es tracta d'un error, poseu-vos en contacte amb l'administrador del lloc web."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_refund_wizard_view_form
@@ -253,6 +238,11 @@ msgid "Activate"
 msgstr "Activar"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Activate Stripe"
+msgstr ""
+
+#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_token__active
 msgid "Active"
 msgstr "Actiu"
@@ -276,7 +266,7 @@ msgstr "Adyen"
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_alipay
 msgid "Alipay"
-msgstr ""
+msgstr "Alipay"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__allow_tokenization
@@ -470,11 +460,6 @@ msgid "Choose a payment method"
 msgstr "Trieu una forma de pagament"
 
 #. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Choose your default customer payment method."
-msgstr "Trieu la forma de pagament per defecte dels clients."
-
-#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_city
 #: model_terms:ir.ui.view,arch_db:payment.payment_transaction_form
 msgid "City"
@@ -615,6 +600,11 @@ msgid "Credentials"
 msgstr "Credencials"
 
 #. module: payment
+#: model:payment.acquirer,display_as:payment.payment_acquirer_stripe
+msgid "Credit & Debit Card"
+msgstr ""
+
+#. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_adyen
 msgid "Credit Card (powered by Adyen)"
 msgstr ""
@@ -627,7 +617,7 @@ msgstr ""
 #. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_authorize
 msgid "Credit Card (powered by Authorize)"
-msgstr ""
+msgstr "Targeta de crèdit (activada per Authorize)"
 
 #. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_buckaroo
@@ -652,11 +642,6 @@ msgstr ""
 #. module: payment
 #: model:payment.acquirer,display_as:payment.payment_acquirer_sips
 msgid "Credit Card (powered by Sips)"
-msgstr ""
-
-#. module: payment
-#: model:payment.acquirer,display_as:payment.payment_acquirer_stripe
-msgid "Credit Card (powered by Stripe)"
 msgstr ""
 
 #. module: payment
@@ -747,6 +732,11 @@ msgid "Email"
 msgstr "Correu electrònic"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Enable credit &amp; debit card payments supported by Stripe"
+msgstr ""
+
+#. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__state__enabled
 msgid "Enabled"
 msgstr ""
@@ -758,6 +748,7 @@ msgstr "Error"
 
 #. module: payment
 #. openerp-web
+#: code:addons/payment/models/payment_transaction.py:0
 #: code:addons/payment/static/src/js/payment_form_mixin.js:0
 #, python-format
 msgid "Error: %s"
@@ -810,7 +801,7 @@ msgstr ""
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_link_wizard_view_form
 msgid "Generate Payment Link"
-msgstr ""
+msgstr "Generar enllaç de pagament "
 
 #. module: payment
 #: model:ir.model,name:payment.model_payment_link_wizard
@@ -1056,7 +1047,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_seller_account
 msgid "Merchant Account ID"
-msgstr ""
+msgstr "ID del compte comercial"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__state_message
@@ -1077,7 +1068,7 @@ msgstr "Mètode"
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_mollie
 msgid "Mollie"
-msgstr ""
+msgstr "Mollie"
 
 #. module: payment
 #. openerp-web
@@ -1154,7 +1145,7 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__module_to_buy
 msgid "Odoo Enterprise Module"
-msgstr ""
+msgstr "Mòdul Odoo Enterprise"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__offline
@@ -1175,6 +1166,11 @@ msgid "Ok"
 msgstr "Ok"
 
 #. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Online Payments"
+msgstr ""
+
+#. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__online_direct
 msgid "Online direct payment"
 msgstr ""
@@ -1187,6 +1183,11 @@ msgstr ""
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__online_redirect
 msgid "Online payment with redirection"
+msgstr ""
+
+#. module: payment
+#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
+msgid "Online payments enabled"
 msgstr ""
 
 #. module: payment
@@ -1231,7 +1232,7 @@ msgstr "Un altre mètode de pagament"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__paypal_pdt_token
 msgid "PDT Identity Token"
-msgstr ""
+msgstr "Token d'identitat PDT"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_acquirer__support_refund__partial
@@ -1266,7 +1267,7 @@ msgstr "PayPal"
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_payulatam
 msgid "PayU Latam"
-msgstr ""
+msgstr "PayU Latam"
 
 #. module: payment
 #: model:payment.acquirer,name:payment.payment_acquirer_payumoney
@@ -1342,7 +1343,6 @@ msgstr ""
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__payment_method
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
 msgid "Payment Method"
 msgstr "Forma de pagament"
 
@@ -1412,8 +1412,8 @@ msgid "Payment acquire onboarding wizard"
 msgstr ""
 
 #. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Payment method set!"
+#: model:ir.model.fields,field_description:payment.field_payment_link_wizard__payment_acquirer_selection
+msgid "Payment acquirer selected"
 msgstr ""
 
 #. module: payment
@@ -1477,6 +1477,12 @@ msgid "Please set an amount smaller than %s."
 msgstr ""
 
 #. module: payment
+#: code:addons/payment/controllers/portal.py:0
+#, python-format
+msgid "Please switch to company '%s' to make this payment."
+msgstr ""
+
+#. module: payment
 #: model_terms:payment.acquirer,pending_msg:payment.payment_acquirer_transfer
 msgid "Please use the following transfer details"
 msgstr "Utilitzeu els detalls de transferència següents"
@@ -1512,6 +1518,12 @@ msgstr "Proveïdor"
 #, python-format
 msgid "Reason:"
 msgstr "Raó:"
+
+#. module: payment
+#: code:addons/payment/models/payment_transaction.py:0
+#, python-format
+msgid "Reason: %s"
+msgstr ""
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__redirect_form_view_id
@@ -1641,11 +1653,6 @@ msgid "Server error:"
 msgstr ""
 
 #. module: payment
-#: model_terms:ir.ui.view,arch_db:payment.onboarding_payment_acquirer_step
-msgid "Set payments"
-msgstr "Establiu pagaments"
-
-#. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer__show_allow_tokenization
 msgid "Show Allow Tokenization"
 msgstr ""
@@ -1729,12 +1736,12 @@ msgstr "Stripe"
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__stripe_publishable_key
 msgid "Stripe Publishable Key"
-msgstr ""
+msgstr "Clau publicable de Stripe"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_acquirer_onboarding_wizard__stripe_secret_key
 msgid "Stripe Secret Key"
-msgstr ""
+msgstr "Clau secreta de Stripe"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_account_payment__suitable_payment_token_ids
@@ -1772,6 +1779,8 @@ msgstr "Mode de prova"
 #: model:ir.model.fields,help:payment.field_payment_transaction__provider
 msgid "The Payment Service Provider to use with this acquirer"
 msgstr ""
+"El proveïdor de serveis de pagament que s'utilitzarà amb aquesta entitat "
+"adquirent"
 
 #. module: payment
 #: code:addons/payment/controllers/portal.py:0
@@ -1882,6 +1891,12 @@ msgstr ""
 #, python-format
 msgid ""
 "The payment should either be direct, with redirection, or made by a token."
+msgstr ""
+
+#. module: payment
+#: code:addons/payment/models/payment_transaction.py:0
+#, python-format
+msgid "The related payment is posted: %s"
 msgstr ""
 
 #. module: payment
@@ -2131,7 +2146,7 @@ msgstr ""
 #: code:addons/payment/static/src/js/payment_form_mixin.js:0
 #, python-format
 msgid "We are not able to process your payment."
-msgstr ""
+msgstr "No podem processar el pagament."
 
 #. module: payment
 #. openerp-web
@@ -2193,10 +2208,10 @@ msgid "You cannot delete a view that is used by a payment acquirer."
 msgstr ""
 
 #. module: payment
-#: code:addons/payment/wizards/payment_acquirer_onboarding_wizard.py:0
+#: code:addons/payment/controllers/portal.py:0
 #, python-format
-msgid "You have to set a journal for your payment acquirer %s."
-msgstr "Cal que definiu un diari pel mètode de pagament %s."
+msgid "You do not have access to this payment token."
+msgstr ""
 
 #. module: payment
 #. openerp-web
@@ -2271,7 +2286,7 @@ msgstr "El seu pagament s'ha autoritzat."
 #: model_terms:payment.acquirer,cancel_msg:payment.payment_acquirer_transfer
 #, python-format
 msgid "Your payment has been cancelled."
-msgstr ""
+msgstr "El seu pagament ha estat cancel·lat."
 
 #. module: payment
 #. openerp-web
@@ -2318,7 +2333,7 @@ msgstr ""
 #: model_terms:payment.acquirer,done_msg:payment.payment_acquirer_transfer
 #, python-format
 msgid "Your payment has been successfully processed. Thank you!"
-msgstr ""
+msgstr "El pagament s'ha processat correctament. Gràcies!"
 
 #. module: payment
 #. openerp-web

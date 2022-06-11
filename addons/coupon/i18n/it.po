@@ -9,6 +9,7 @@
 # David Minneci <david@numeko.it>, 2021
 # Léonie Bouchat <lbo@odoo.com>, 2021
 # BigBlu <paolo.moroni@air-srl.com>, 2021
+# Friederike Fasterling-Nesselbosch, 2022
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 10:28+0000\n"
 "PO-Revision-Date: 2021-09-14 12:21+0000\n"
-"Last-Translator: BigBlu <paolo.moroni@air-srl.com>, 2021\n"
+"Last-Translator: Friederike Fasterling-Nesselbosch, 2022\n"
 "Language-Team: Italian (https://www.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,6 +84,9 @@ msgid ""
 "'percentage')],'required': [('discount_type', '=', 'percentage')]}\" "
 "class=\"oe_inline\">%</span>"
 msgstr ""
+"<span attrs=\"{'invisible': [('discount_type', '!=', "
+"'percentage')],'required': [('discount_type', '=', 'percentage')]}\" "
+"class=\"oe_inline\">%</span>"
 
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_coupon_program_form
@@ -96,7 +100,7 @@ msgstr ""
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_form_common
 msgid "<span class=\"oe_grey\"> if 0, no limit</span>"
-msgstr ""
+msgstr "<span class=\"oe_grey\">se 0, nessun limite</span>"
 
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_promo_program_form
@@ -104,6 +108,8 @@ msgid ""
 "<span> Days</span>\n"
 "                    <span class=\"oe_grey\"> if 0, coupon doesn't expire</span>"
 msgstr ""
+"<span> Giorni</span>\n"
+"                    <span class=\"oe_grey\"> se 0, il coupon non scade</span>"
 
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_promo_program_form
@@ -336,7 +342,7 @@ msgstr "Regola buono sconto"
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_promo_program_form
 msgid "Coupon Validity"
-msgstr ""
+msgstr "Validità del coupon"
 
 #. module: coupon
 #: model:ir.model.fields,help:coupon.field_coupon_program__rule_date_to
@@ -957,11 +963,15 @@ msgid ""
 "Some selected customers do not have an email address and will not receive "
 "the coupon."
 msgstr ""
+"Alcuni clienti selezionati non hanno un indirizzo e-mail e non riceveranno "
+"il coupon."
 
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_generate_view_form
 msgid "Specify a mail template to send the generated coupons as email."
 msgstr ""
+"Specifica un modello di posta elettronica per inviare i coupon generati come"
+" email."
 
 #. module: coupon
 #: model:ir.model.fields,field_description:coupon.field_coupon_program__rule_date_from
@@ -1053,7 +1063,7 @@ msgstr "Buono sconto scaduto (%s)."
 #. module: coupon
 #: model:ir.model.fields,field_description:coupon.field_coupon_program__total_order_count
 msgid "Total Order Count"
-msgstr ""
+msgstr "Conteggio totale degli ordini"
 
 #. module: coupon
 #: model:ir.model.fields,field_description:coupon.field_coupon_program__reward_product_uom_id
@@ -1119,7 +1129,7 @@ msgstr "Impossibile eliminare un programma con stato attivo"
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.coupon_program_view_promo_program_form
 msgid "e.g. 10% Discount"
-msgstr ""
+msgstr "es. Sconto 10%"
 
 #. module: coupon
 #: model_terms:ir.ui.view,arch_db:coupon.report_coupon

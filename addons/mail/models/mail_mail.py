@@ -156,7 +156,7 @@ class MailMail(models.Model):
         res = None
         try:
             # auto-commit except in testing mode
-            auto_commit = not getattr(threading.currentThread(), 'testing', False)
+            auto_commit = not getattr(threading.current_thread(), 'testing', False)
             res = self.browse(ids).send(auto_commit=auto_commit)
         except Exception:
             _logger.exception("Failed processing mail queue")
@@ -418,7 +418,7 @@ class MailMail(models.Model):
                     except AssertionError as error:
                         if str(error) == IrMailServer.NO_VALID_RECIPIENT:
                             # if we have a list of void emails for email_list -> email missing, otherwise generic email failure
-                            if not email.get('email_to') and failure_type != "RECIPIENT":
+                            if not email.get('email_to') and failure_type != "mail_email_invalid":
                                 failure_type = "mail_email_missing"
                             else:
                                 failure_type = "mail_email_invalid"

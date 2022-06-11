@@ -148,6 +148,10 @@ class Partner(models.Model):
             values['company_id'] = parent.company_id.id
         if 'lang' in default_fields:
             values['lang'] = values.get('lang') or parent.lang or self.env.lang
+        # protection for `default_type` values leaking from menu action context (e.g. for crm's email)
+        if 'type' in default_fields and values.get('type'):
+            if values['type'] not in self._fields['type'].get_values(self.env):
+                values['type'] = None
         return values
 
     name = fields.Char(index=True)
@@ -434,7 +438,7 @@ class Partner(models.Model):
 
     @api.constrains('barcode')
     def _check_barcode_unicity(self):
-        if self.env['res.partner'].search_count([('barcode', '=', self.barcode)]) > 1:
+        if self.barcode and self.env['res.partner'].search_count([('barcode', '=', self.barcode)]) > 1:
             raise ValidationError('An other user already has this barcode')
 
     def _update_fields_values(self, fields):

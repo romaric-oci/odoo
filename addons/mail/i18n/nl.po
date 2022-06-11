@@ -3,18 +3,18 @@
 # 	* mail
 # 
 # Translators:
-# Yenthe Van Ginneken <yenthespam@gmail.com>, 2021
 # Bert Burggraaf, 2021
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2021
 # Martin Trigaux, 2021
+# Yenthe Van Ginneken <yenthespam@gmail.com>, 2022
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:18+0000\n"
+"POT-Creation-Date: 2022-01-24 08:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:23+0000\n"
-"Last-Translator: Martin Trigaux, 2021\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2022\n"
 "Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,16 +49,27 @@ msgid "%(activity_name)s: %(summary)s assigned to you"
 msgstr "%(activity_name)s: %(summary)s aan jou toegewezen"
 
 #. module: mail
+#: code:addons/mail/models/res_partner.py:0
+#, python-format
+msgid ""
+"%(email)s is not recognized as a valid email. This is required to create a "
+"new customer."
+msgstr ""
+"%(email)s wordt niet herkend als een geldig e-mailadres. Dit is nodig om een"
+" nieuwe klant aan te maken."
+
+#. module: mail
 #: code:addons/mail/wizard/mail_wizard_invite.py:0
 #, python-format
 msgid "%(user_name)s invited you to follow %(document)s document: %(title)s"
-msgstr "%(user_name)s heb je uitgenodigd om %(document)s te volgen: %(title)s"
+msgstr ""
+"%(user_name)s heeft je uitgenodigd om %(document)s te volgen: %(title)s"
 
 #. module: mail
 #: code:addons/mail/wizard/mail_wizard_invite.py:0
 #, python-format
 msgid "%(user_name)s invited you to follow a new document."
-msgstr "%(user_name)s heb je uitgenodigd om een nieuwe document te volgen."
+msgstr "%(user_name)s heeft je uitgenodigd om een nieuwe document te volgen."
 
 #. module: mail
 #. openerp-web
@@ -202,10 +213,17 @@ msgstr "(origineel toegewezen aan"
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/models/thread/thread.js:0
+#, python-format
+msgid ", "
+msgstr ", "
+
+#. module: mail
+#. openerp-web
 #: code:addons/mail/static/src/components/composer/composer.xml:0
 #, python-format
 msgid ", enter to"
-msgstr ", stap binnen in"
+msgstr ", enter voor"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.message_notification_email
@@ -530,6 +548,13 @@ msgstr "Een kanaallid moet een partner of een gast zijn."
 #. module: mail
 #: code:addons/mail/models/mail_channel.py:0
 #, python-format
+msgid "A channel of type 'chat' cannot have more than two users."
+msgstr ""
+"Een kanaal van het type 'chat' mag niet meer dan twee gebruikers hebben."
+
+#. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
 msgid ""
 "A chat should not be created with more than 2 persons. Create a group "
 "instead."
@@ -795,6 +820,7 @@ msgstr "Voeg een emoticon toe"
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/composer/composer.xml:0
+#: code:addons/mail/static/src/components/composer/composer.xml:0
 #, python-format
 msgid "Add attachment"
 msgstr "Voeg bijlage toe"
@@ -1004,6 +1030,13 @@ msgstr ""
 "deze e-mails later niet opnieuw verzenden!"
 
 #. module: mail
+#: code:addons/mail/models/mail_blacklist.py:0
+#: code:addons/mail/models/mail_thread_blacklist.py:0
+#, python-format
+msgid "Are you sure you want to unblacklist this Email Address?"
+msgstr "Weet je zeker dat je dit e-mailadres op de blacklist wilt zetten?"
+
+#. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/js/m2x_avatar_user.js:0
 #: code:addons/mail/static/src/js/m2x_avatar_user.js:0
@@ -1070,6 +1103,7 @@ msgstr "Bijlagenteller laden...."
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/attachment_box/attachment_box.xml:0
+#: code:addons/mail/static/src/components/chatter_topbar/chatter_topbar.xml:0
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message__attachment_ids
 #: model:ir.model.fields,field_description:mail.field_mail_mail__attachment_ids
 #: model:ir.model.fields,field_description:mail.field_mail_message__attachment_ids
@@ -1162,8 +1196,6 @@ msgstr ""
 #. openerp-web
 #: code:addons/mail/static/src/components/channel_invitation_form/channel_invitation_form.xml:0
 #: code:addons/mail/static/src/components/channel_member_list/channel_member_list.xml:0
-#: code:addons/mail/static/src/components/follower/follower.xml:0
-#: code:addons/mail/static/src/components/message/message.xml:0
 #: code:addons/mail/static/src/components/rtc_call_participant_card/rtc_call_participant_card.xml:0
 #: code:addons/mail/static/src/components/rtc_invitation_card/rtc_invitation_card.xml:0
 #: code:addons/mail/static/src/components/thread_view_topbar/thread_view_topbar.xml:0
@@ -1416,7 +1448,14 @@ msgstr "CC"
 #: model:ir.model.fields,field_description:mail.field_mail_activity__chaining_type
 #: model:ir.model.fields,field_description:mail.field_mail_activity_type__chaining_type
 msgid "Chaining Type"
-msgstr "Type ketting"
+msgstr "Soort "
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/models/rtc_call_viewer/rtc_call_viewer.js:0
+#, python-format
+msgid "Change Layout"
+msgstr "Opmaak wijzigen"
 
 #. module: mail
 #. openerp-web
@@ -1452,6 +1491,16 @@ msgstr "Gewijzigd"
 #, python-format
 msgid "Channel"
 msgstr "Kanaal"
+
+#. module: mail
+#: code:addons/mail/models/mail_channel.py:0
+#, python-format
+msgid ""
+"Channel \"%(channel_name)s\" only accepts members of group "
+"\"%(group_name)s\". Forbidden for: %(guest_names)s"
+msgstr ""
+"Kanaal \"%(channel_name)s\" accepteert alleen leden van de groep "
+"\"%(group_name)s\". Verboden voor: %(guest_names)s"
 
 #. module: mail
 #: code:addons/mail/models/mail_channel.py:0
@@ -1548,6 +1597,13 @@ msgstr "Klik hier om opnieuw te proberen"
 #, python-format
 msgid "Click on your message"
 msgstr "Klik op je bericht"
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/message_in_reply_to_view/message_in_reply_to_view.xml:0
+#, python-format
+msgid "Click to see the attachments"
+msgstr "Klik om de bijlagen te zien"
 
 #. module: mail
 #. openerp-web
@@ -2058,6 +2114,7 @@ msgstr "Vertraging eenheden"
 #. openerp-web
 #: code:addons/mail/static/src/components/delete_message_confirm_dialog/delete_message_confirm_dialog.xml:0
 #: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
+#: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #: code:addons/mail/static/src/xml/composer.xml:0
 #: code:addons/mail/static/src/xml/composer.xml:0
 #: model_terms:ir.ui.view,arch_db:mail.view_document_file_kanban
@@ -2079,6 +2136,13 @@ msgstr "Verwijder kopie bericht"
 #: model:ir.model.fields.selection,name:mail.selection__mail_mail__state__exception
 msgid "Delivery Failed"
 msgstr "Afleveren mislukt"
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/message/message.xml:0
+#, python-format
+msgid "Delivery failure"
+msgstr "Afleverfout"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_channel__description
@@ -2305,6 +2369,7 @@ msgstr "Gereed & plan volgende in"
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/attachment_card/attachment_card.xml:0
+#: code:addons/mail/static/src/components/attachment_card/attachment_card.xml:0
 #: code:addons/mail/static/src/components/attachment_viewer/attachment_viewer.xml:0
 #: code:addons/mail/static/src/components/attachment_viewer/attachment_viewer.xml:0
 #: code:addons/mail/static/src/components/attachment_viewer/attachment_viewer.xml:0
@@ -2393,6 +2458,7 @@ msgstr "Dynamische bladwijzer generator"
 #. openerp-web
 #: code:addons/mail/static/src/components/activity/activity.xml:0
 #: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
+#: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #, python-format
 msgid "Edit"
 msgstr "Wijzigen"
@@ -2411,6 +2477,7 @@ msgstr "Bewerk lidmaatschap van"
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/follower/follower.xml:0
 #: code:addons/mail/static/src/components/follower/follower.xml:0
 #, python-format
 msgid "Edit subscription"
@@ -2544,9 +2611,9 @@ msgid ""
 "mass; only used when the reply is not logged in the original discussion "
 "thread."
 msgstr ""
-"E-mailadres waarnaar antwoorden worden doorgestuurd bij massale verzending "
-"van e-mails; alleen gebruikt als het antwoord niet is vastgelegd in de "
-"originele discussiethread."
+"E-mailadres waarnaar antwoorden worden doorgestuurd bij bulkverzending van "
+"e-mails; alleen gebruikt als het antwoord niet is vastgelegd in de originele"
+" discussiethread."
 
 #. module: mail
 #: model_terms:ir.actions.act_window,help:mail.mail_blacklist_action
@@ -2599,6 +2666,13 @@ msgstr "E-mailsjablonen"
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_tree
 msgid "Emails"
 msgstr "E-mails"
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/composer/composer.xml:0
+#, python-format
+msgid "Emojis"
+msgstr "Emojis"
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_mail__is_internal
@@ -2869,6 +2943,8 @@ msgid "Follow"
 msgstr "Volgen"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/follower_list_menu/follower_list_menu.xml:0
 #: model:ir.actions.act_window,name:mail.action_view_followers
 #: model:ir.model.fields,field_description:mail.field_mail_blacklist__message_follower_ids
 #: model:ir.model.fields,field_description:mail.field_mail_channel__message_follower_ids
@@ -2879,6 +2955,7 @@ msgstr "Volgen"
 #: model:ir.model.fields,field_description:mail.field_res_users__message_follower_ids
 #: model:ir.ui.menu,name:mail.menu_email_followers
 #: model_terms:ir.ui.view,arch_db:mail.view_followers_tree
+#, python-format
 msgid "Followers"
 msgstr "Volgers"
 
@@ -2942,6 +3019,7 @@ msgstr "Van"
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/composer/composer.xml:0
 #: code:addons/mail/static/src/components/composer/composer.xml:0
 #, python-format
 msgid "Full composer"
@@ -3963,7 +4041,7 @@ msgstr "Log een interne notitie ..."
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__mail_compose_message__reply_to_mode__update
 msgid "Log in the original discussion thread"
-msgstr "Log in op de originele discussiethread"
+msgstr "Log in de originele discussiethread"
 
 #. module: mail
 #. openerp-web
@@ -4145,6 +4223,7 @@ msgstr "Markeer als gereed"
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
+#: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #: code:addons/mail/static/src/components/thread_needaction_preview/thread_needaction_preview.xml:0
 #: code:addons/mail/static/src/components/thread_preview/thread_preview.xml:0
 #, python-format
@@ -4153,6 +4232,7 @@ msgstr "Markeer als gelezen"
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #, python-format
 msgid "Mark as Todo"
@@ -4203,6 +4283,8 @@ msgid "Merged with the following partners:"
 msgstr "Samengevoegd met de volgende relaties:"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/models/message/message.js:0
 #: model:ir.model,name:mail.model_mail_message
 #: model:ir.model.fields,field_description:mail.field_mail_mail__mail_message_id
 #: model:ir.model.fields,field_description:mail.field_mail_message_reaction__message_id
@@ -4210,6 +4292,7 @@ msgstr "Samengevoegd met de volgende relaties:"
 #: model:ir.model.fields,field_description:mail.field_mail_resend_message__mail_message_id
 #: model:ir.model.fields,field_description:mail.field_mail_wizard_invite__message
 #: model_terms:ir.ui.view,arch_db:mail.mail_message_view_form
+#, python-format
 msgid "Message"
 msgstr "Bericht"
 
@@ -4766,10 +4849,13 @@ msgid "Normalized Email"
 msgstr "Genormaliseerde e-mail"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/models/message/message.js:0
 #: model:ir.model.fields,field_description:mail.field_ir_actions_server__activity_note
 #: model:ir.model.fields,field_description:mail.field_ir_cron__activity_note
 #: model:ir.model.fields,field_description:mail.field_mail_activity__note
 #: model:mail.message.subtype,name:mail.mt_note
+#, python-format
 msgid "Note"
 msgstr "Notitie"
 
@@ -5013,6 +5099,13 @@ msgid "Only logged notes can have their content updated on model '%s'"
 msgstr "Alleen gelogde notities kunnen worden bijgewerkt op model '%s'"
 
 #. module: mail
+#: code:addons/mail/models/mail_thread.py:0
+#, python-format
+msgid "Only messages type comment can have their content updated"
+msgstr ""
+"Alleen berichten van het type notitie kunnen hun inhoud laten bijwerken"
+
+#. module: mail
 #: code:addons/mail/models/mail_channel.py:0
 #, python-format
 msgid ""
@@ -5023,6 +5116,7 @@ msgstr ""
 "op model 'mail.channel'"
 
 #. module: mail
+#: code:addons/mail/models/mail_render_mixin.py:0
 #: code:addons/mail/models/mail_render_mixin.py:0
 #: code:addons/mail/models/mail_render_mixin.py:0
 #, python-format
@@ -5400,13 +5494,13 @@ msgstr ""
 #: code:addons/mail/models/res_users.py:0
 #, python-format
 msgid "Portal Access Granted"
-msgstr "Portaltoegang verleend"
+msgstr "Portaaltoegang verleend"
 
 #. module: mail
 #: code:addons/mail/models/res_users.py:0
 #, python-format
 msgid "Portal Access Revoked"
-msgstr "Portaltoegang ingetrokken"
+msgstr "Portaaltoegang ingetrokken"
 
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__mail_compose_message__composition_mode__mass_post
@@ -5472,6 +5566,7 @@ msgstr ""
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/attachment_card/attachment_card.xml:0
 #: code:addons/mail/static/src/components/mail_template/mail_template.xml:0
 #: code:addons/mail/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:mail.email_template_form
@@ -5815,6 +5910,8 @@ msgstr "Gerelateerd veld"
 #. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/attachment_card/attachment_card.xml:0
+#: code:addons/mail/static/src/components/attachment_card/attachment_card.xml:0
+#: code:addons/mail/static/src/components/attachment_image/attachment_image.xml:0
 #: code:addons/mail/static/src/components/attachment_image/attachment_image.xml:0
 #, python-format
 msgid "Remove"
@@ -5833,6 +5930,7 @@ msgstr ""
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/follower/follower.xml:0
 #: code:addons/mail/static/src/components/follower/follower.xml:0
 #, python-format
 msgid "Remove this follower"
@@ -5853,6 +5951,7 @@ msgstr "Antwoorden"
 
 #. module: mail
 #. openerp-web
+#: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #: code:addons/mail/static/src/components/message_action_list/message_action_list.xml:0
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_form
 #, python-format
@@ -5957,6 +6056,13 @@ msgstr "Sjabloonweergave beperken"
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
 msgid "Restrict mail templates and Jinja rendering."
 msgstr "Beperk e-mailsjablonen en Jinja-weergave."
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Restrict mail templates edition and QWEB placeholders usage."
+msgstr ""
+"Beperk het gebruik van de e-mailsjablonen en het gebruik van tijdelijke "
+"aanduidingen voor QWEB."
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_form
@@ -6171,7 +6277,10 @@ msgstr ""
 "overeenkomstige contactpersoon."
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/thread_icon/thread_icon.xml:0
 #: model:ir.model.fields.selection,name:mail.selection__mail_channel__public__groups
+#, python-format
 msgid "Selected group of users"
 msgstr "Geselecteerde groep van gebruikers"
 
@@ -6646,8 +6755,11 @@ msgid "System Parameter"
 msgstr "Systeem parameter"
 
 #. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/models/message/message.js:0
 #: model:ir.model.fields.selection,name:mail.selection__mail_compose_message__message_type__notification
 #: model:ir.model.fields.selection,name:mail.selection__mail_message__message_type__notification
+#, python-format
 msgid "System notification"
 msgstr "Systeem melding"
 
@@ -6655,6 +6767,12 @@ msgstr "Systeem melding"
 #: model:ir.model.fields,field_description:mail.field_mail_template_preview__model_id
 msgid "Targeted model"
 msgstr "Doelmodel"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_partner__vat
+#: model:ir.model.fields,field_description:mail.field_res_users__vat
+msgid "Tax ID"
+msgstr "BTW Nr"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_activity__has_recommended_activities
@@ -6746,7 +6864,7 @@ msgstr "Tekstbestand"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_bounce_catchall
 msgid "The"
-msgstr "De"
+msgstr "Het"
 
 #. module: mail
 #: code:addons/mail/models/ir_actions_server.py:0
@@ -6760,13 +6878,6 @@ msgstr "De waarde 'Vervaldatum in' kan niet negatief zijn."
 #, python-format
 msgid "The FullScreen mode was denied by the browser"
 msgstr "De modus Volledig scherm is geweigerd door de browser"
-
-#. module: mail
-#. openerp-web
-#: code:addons/mail/static/src/models/rtc_call_viewer/rtc_call_viewer.js:0
-#, python-format
-msgid "Change Layout"
-msgstr "Opmaak wijzigen"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_partner__vat
@@ -7550,12 +7661,6 @@ msgstr ""
 " profiteren van een kant-en-klare e-mailserver (@ mijnbedrijf.odoo.com)."
 
 #. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_partner__vat
-#: model:ir.model.fields,field_description:mail.field_res_users__vat
-msgid "VAT/Tax ID"
-msgstr "Btw-nummer"
-
-#. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/components/attachment_viewer/attachment_viewer.xml:0
 #: code:addons/mail/static/src/xml/thread.xml:0
@@ -7585,6 +7690,13 @@ msgstr "Bekijk %s"
 #: model:ir.model.fields,field_description:mail.field_ir_ui_view__type
 msgid "View Type"
 msgstr "Soort weergave"
+
+#. module: mail
+#. openerp-web
+#: code:addons/mail/static/src/components/attachment_image/attachment_image.xml:0
+#, python-format
+msgid "View image"
+msgstr "Bekijk afbeelding"
 
 #. module: mail
 #. openerp-web
@@ -7750,6 +7862,12 @@ msgid "You are in channel <b>#%s</b>."
 msgstr "Je bent in kanaal <b>#%s</b>."
 
 #. module: mail
+#: code:addons/mail/controllers/discuss.py:0
+#, python-format
+msgid "You are not allowed to upload an attachment here."
+msgstr "Je bent niet gemachtigd om hier bijlages toe te voegen."
+
+#. module: mail
 #. openerp-web
 #: code:addons/mail/static/src/models/discuss_sidebar_category_item/discuss_sidebar_category_item.js:0
 #, python-format
@@ -7787,7 +7905,7 @@ msgstr "Je kunt alleen chatten met bestaande gebruikers."
 #, python-format
 msgid "You can only chat with partners that have a dedicated user."
 msgstr ""
-"Je kunt alleen chatten met relaties die een toegewijde gebruiker hebben."
+"Je kunt alleen chatten met relaties waaraan een gebruiker is gekoppeld."
 
 #. module: mail
 #. openerp-web
@@ -7832,6 +7950,16 @@ msgid ""
 msgstr ""
 "Je kunt niets anders gebruiken dan Latijnse tekens zonder accent in het "
 "aliasadres (%s)."
+
+#. module: mail
+#: code:addons/mail/models/mail_thread_blacklist.py:0
+#, python-format
+msgid ""
+"You do not have the access right to unblacklist emails. Please contact your "
+"administrator."
+msgstr ""
+"Je heeft geen toegangsrechten om e-mails op de blacklist te zetten. Neem "
+"contact op met de beheerderer."
 
 #. module: mail
 #: code:addons/mail/models/mail_thread.py:0
@@ -8121,7 +8249,7 @@ msgstr "bijv. waar.waar..f"
 #: code:addons/mail/static/src/components/composer/composer.xml:0
 #, python-format
 msgid "escape to"
-msgstr "ontsnap naar"
+msgstr "escape voor"
 
 #. module: mail
 #. openerp-web

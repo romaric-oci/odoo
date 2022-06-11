@@ -159,7 +159,7 @@ class Forum(models.Model):
             self.update(default_stats)
             return
 
-        result = dict.fromkeys(self.ids, default_stats)
+        result = {cid: dict(default_stats) for cid in self.ids}
         read_group_res = self.env['forum.post'].read_group(
             [('forum_id', 'in', self.ids), ('state', 'in', ('active', 'close')), ('parent_id', '=', False)],
             ['forum_id', 'views', 'child_count', 'favourite_count'],
@@ -275,7 +275,7 @@ class Forum(models.Model):
         fetch_fields = ['id', 'name']
         mapping = {
             'name': {'name': 'name', 'type': 'text', 'match': True},
-            'website_url': {'name': 'website_url', 'type': 'text'},
+            'website_url': {'name': 'website_url', 'type': 'text', 'truncate': False},
         }
         if with_description:
             search_fields.append('description')
@@ -511,7 +511,7 @@ class Post(models.Model):
                 match = re.escape(match)  # replace parenthesis or special char in regex
                 content = re.sub(match, match[:3] + 'rel="nofollow" ' + match[3:], content)
 
-        if self.env.user.karma <= forum.karma_editor:
+        if self.env.user.karma < forum.karma_editor:
             filter_regexp = r'(<img.*?>)|(<a[^>]*?href[^>]*?>)|(<[a-z|A-Z]+[^>]*style\s*=\s*[\'"][^\'"]*\s*background[^:]*:[^url;]*url)'
             content_match = re.search(filter_regexp, content, re.I)
             if content_match:
@@ -982,7 +982,7 @@ class Post(models.Model):
         fetch_fields = ['id', 'name']
         mapping = {
             'name': {'name': 'name', 'type': 'text', 'match': True},
-            'website_url': {'name': 'website_url', 'type': 'text'},
+            'website_url': {'name': 'website_url', 'type': 'text', 'truncate': False},
         }
 
         domain = website.website_domain()

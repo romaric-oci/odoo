@@ -8,9 +8,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-14 10:28+0000\n"
+"POT-Creation-Date: 2022-01-24 08:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
 "Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2021\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -315,7 +315,7 @@ msgstr "允許在網站上顯示和管理特定於活動的選單。"
 #: code:addons/website_event/static/src/js/website_event.editor.js:0
 #, python-format
 msgid "Apply"
-msgstr "應用"
+msgstr "套用"
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.res_config_settings_view_form
@@ -336,7 +336,7 @@ msgstr ""
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.registration_attendee_details
 msgid "Attendees"
-msgstr "參會者"
+msgstr "與會者"
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.index_sidebar_quotes
@@ -398,7 +398,7 @@ msgstr "封面屬性"
 #: code:addons/website_event/static/src/js/website_event.editor.js:0
 #, python-format
 msgid "Create"
-msgstr "創建"
+msgstr "建立"
 
 #. module: website_event
 #. openerp-web
@@ -721,7 +721,7 @@ msgstr "看起來超棒！現在讓我們<b>發佈</b>此頁面，使其在您�
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.website_visitor_view_search
 msgid "Main Contact"
-msgstr "主要聯繫人"
+msgstr "主要聯絡人"
 
 #. module: website_event
 #: model:ir.model.fields,help:website_event.field_website_visitor__parent_id
@@ -1016,8 +1016,8 @@ msgstr "從今天開始"
 #. openerp-web
 #: code:addons/website_event/static/src/xml/event_create.xml:0
 #, python-format
-msgid "Start 🠖 End"
-msgstr "開始🠖 結束"
+msgid "Start → End"
+msgstr ""
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.display_timer_alert_widget
@@ -1089,7 +1089,7 @@ msgstr "即將舉辦的活動"
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.events_list
 msgid "Use the top button '<b>+ New</b>' to create an event."
-msgstr "使用頂部<b>按鈕\"+ \"</b>創建活動。"
+msgstr "使用頂部<b>按鈕\"+ \"</b>建立活動。"
 
 #. module: website_event
 #. openerp-web
@@ -1232,7 +1232,7 @@ msgstr "如果還沒有進行，活動是否會在今天開始"
 msgid ""
 "With the Edit button, you can <b>customize</b> the web page visitors will "
 "see when registering."
-msgstr "使用“編輯”按鈕，您可以<b>自定義</b>訪問者在註冊時將看到的網頁。"
+msgstr "使用“編輯”按鈕，您可以<b>自訂</b>訪問者在註冊時將看到的網頁。"
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.registration_template

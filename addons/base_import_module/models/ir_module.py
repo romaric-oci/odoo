@@ -104,7 +104,13 @@ class IrModule(models.Model):
                     if attachment:
                         attachment.write(values)
                     else:
-                        IrAttachment.create(values)
+                        attachment = IrAttachment.create(values)
+                        self.env['ir.model.data'].create({
+                            'name': f"attachment_{url_path}".replace('.', '_'),
+                            'model': 'ir.attachment',
+                            'module': module,
+                            'res_id': attachment.id,
+                        })
 
         IrAsset = self.env['ir.asset']
         assets_vals = []
@@ -123,8 +129,10 @@ class IrModule(models.Model):
                 })
 
         # Look for existing assets
-        existing_assets = IrAsset.search([('name', 'in', [vals['name'] for vals in assets_vals])])
-        existing_assets = existing_assets.mapped(lambda r: (r.name, r))
+        existing_assets = {
+            asset.name: asset
+            for asset in IrAsset.search([('name', 'in', [vals['name'] for vals in assets_vals])])
+        }
         assets_to_create = []
 
         # Update existing assets and generate the list of new assets values
@@ -137,7 +145,7 @@ class IrModule(models.Model):
         # Create new assets and attach 'ir.model.data' records to them
         created_assets = IrAsset.create(assets_to_create)
         self.env['ir.model.data'].create([{
-            'name': f"{asset['bundle']}.{asset['path']}",
+            'name': f"{asset['bundle']}_{asset['path']}".replace(".", "_"),
             'model': 'ir.asset',
             'module': module,
             'res_id': asset.id,

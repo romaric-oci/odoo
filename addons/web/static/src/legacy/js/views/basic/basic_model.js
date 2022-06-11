@@ -1039,6 +1039,7 @@ var BasicModel = AbstractModel.extend({
         var params = {
             model: modelName,
             ids: resIDs,
+            context: data.getContext(),
         };
         if (options.offset) {
             params.offset = options.offset;
@@ -1062,6 +1063,7 @@ var BasicModel = AbstractModel.extend({
                     model: modelName,
                     method: 'read',
                     args: [resIDs, [field]],
+                    context: data.getContext(),
                 }).then(function (records) {
                     if (data.data.length) {
                         var dataType = self.localData[data.data[0]].type;
@@ -1503,11 +1505,11 @@ var BasicModel = AbstractModel.extend({
         var makeDefaultRecords = [];
         if (additionalContexts){
             _.each(additionalContexts, function (context) {
-                params.context = self._getContext(list, {additionalContext: context});
+                params.context = self._getContext(list, {additionalContext: context, sanitize_default_values: true});
                 makeDefaultRecords.push(self._makeDefaultRecord(list.model, params));
             });
         } else {
-            params.context = self._getContext(list);
+            params.context = self._getContext(list, {sanitize_default_values: true});
             makeDefaultRecords.push(self._makeDefaultRecord(list.model, params));
         }
 
@@ -1905,7 +1907,7 @@ var BasicModel = AbstractModel.extend({
                         });
                     }
                 });
-                var def = self._readUngroupedList(list).then(function () {
+                var def = self._readUngroupedList(list).then(function (list) {
                     var x2ManysDef = self._fetchX2ManysBatched(list);
                     var referencesDef = self._fetchReferencesBatched(list);
                     return Promise.all([x2ManysDef, referencesDef]);
@@ -3485,7 +3487,12 @@ var BasicModel = AbstractModel.extend({
         context.set_eval_context(this._getEvalContext(element));
 
         if (options.full || !(options.fieldName || options.additionalContext)) {
-            context.add(element.context);
+            var context_to_add = options.sanitize_default_values ?
+                _.omit(element.context, function (val, key) {
+                    return _.str.startsWith(key, 'default_');
+                })
+                : element.context;
+            context.add(context_to_add);
         }
         if (options.fieldName) {
             var viewType = options.viewType || element.viewType;
@@ -4994,8 +5001,16 @@ var BasicModel = AbstractModel.extend({
         var fieldNames = list.getFieldNames();
         var prom;
         if (list.__data) {
-            // the data have already been fetched (alonside the groups by the
+            // the data have already been fetched (alongside the groups by the
             // call to 'web_read_group'), so we can bypass the search_read
+            // But the web_read_group returns the rawGroupBy field's value, which may not be present
+            // in the view. So we filter it out.
+            const fieldNameSet = new Set(fieldNames);
+            fieldNameSet.add("id"); // don't filter out the id
+            list.__data.records.forEach(record =>
+                Object.keys(record)
+                    .filter(fieldName => !fieldNameSet.has(fieldName))
+                    .forEach(fieldName => delete record[fieldName]));
             prom = Promise.resolve(list.__data);
         } else {
             prom = this._rpc({
@@ -5209,6 +5224,7 @@ var BasicModel = AbstractModel.extend({
         var fieldsInfo = view ? view.fieldsInfo : fieldInfo.fieldsInfo;
         var fields = view ? view.fields : fieldInfo.relatedFields;
         var viewType = view ? view.type : fieldInfo.viewType;
+        var id2Values = new Map(values.map((value) => [value.id, value]))
 
         _.each(records, function (record) {
             var x2mList = self.localData[record.data[fieldName]];
@@ -5216,7 +5232,7 @@ var BasicModel = AbstractModel.extend({
             _.each(x2mList.res_ids, function (res_id) {
                 var dataPoint = self._makeDataPoint({
                     modelName: field.relation,
-                    data: _.findWhere(values, {id: res_id}),
+                    data: id2Values.get(res_id),
                     fields: fields,
                     fieldsInfo: fieldsInfo,
                     parentID: x2mList.id,

@@ -25,6 +25,7 @@ const BaseAnimatedHeader = animations.Animation.extend({
         this.fixedHeader = false;
         this.scrolledPoint = 0;
         this.hasScrolled = false;
+        this.closeOpenedMenus = false;
     },
     /**
      * @override
@@ -78,7 +79,9 @@ const BaseAnimatedHeader = animations.Animation.extend({
      */
     _adaptToHeaderChange: function () {
         this._updateMainPaddingTop();
-        this.el.classList.toggle('o_top_fixed_element', this.fixedHeader && this._isShown());
+        // Take menu into account when `dom.scrollTo()` is used whenever it is
+        // visible - be it floating, fully displayed or partially hidden.
+        this.el.classList.toggle('o_top_fixed_element', this._isShown());
 
         for (const callback of extraMenuUpdateCallbacks) {
             callback();
@@ -167,6 +170,7 @@ const BaseAnimatedHeader = animations.Animation.extend({
             }
         } else {
             this.$el.removeClass('o_header_no_transition');
+            this.closeOpenedMenus = true;
         }
 
         // Indicates the page is scrolled, the logo size is changed.
@@ -177,9 +181,10 @@ const BaseAnimatedHeader = animations.Animation.extend({
             this.headerIsScrolled = headerIsScrolled;
         }
 
-        // Close opened menus
-        this.$dropdowns.removeClass('show');
-        this.$navbarCollapses.removeClass('show').attr('aria-expanded', false);
+        if (this.closeOpenedMenus) {
+            this.$dropdowns.removeClass('show');
+            this.$navbarCollapses.removeClass('show').attr('aria-expanded', false);
+        }
     },
     /**
      * Called when the window is resized

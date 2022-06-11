@@ -3,24 +3,24 @@
 # 	* web
 # 
 # Translators:
-# Martin Trigaux, 2021
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2021
 # Lucia Pacheco <lpo@odoo.com>, 2021
-# Braulio D. López Vázquez <bdl@odoo.com>, 2021
+# Martin Trigaux, 2022
+# Braulio D. López Vázquez <bdl@odoo.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-05 10:54+0000\n"
+"POT-Creation-Date: 2022-01-24 08:20+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Braulio D. López Vázquez <bdl@odoo.com>, 2021\n"
+"Last-Translator: Braulio D. López Vázquez <bdl@odoo.com>, 2022\n"
 "Language-Team: Spanish (Mexico) (https://www.transifex.com/odoo/teams/41243/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: es_MX\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: web
 #. openerp-web
@@ -432,6 +432,13 @@ msgstr "Acceder a todas las aplicaciones empresariales"
 #. openerp-web
 #: code:addons/web/static/src/legacy/xml/base.xml:0
 #, python-format
+msgid "Action"
+msgstr "Acción"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
 msgid "Action ID:"
 msgstr "ID de acción:"
 
@@ -574,6 +581,13 @@ msgstr "Agregar etiqueta"
 #, python-format
 msgid "Add to Favorites"
 msgstr "Agregar a favoritos"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
+msgid "Additional actions"
+msgstr "Acciones adicionales"
 
 #. module: web
 #. openerp-web
@@ -2398,6 +2412,8 @@ msgstr "Cargar más... ("
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#: code:addons/web/static/src/legacy/xml/base.xml:0
 #: code:addons/web/static/src/webclient/loading_indicator/loading_indicator.xml:0
 #, python-format
 msgid "Loading"
@@ -2666,7 +2682,7 @@ msgstr "Texto multilínea"
 #. openerp-web
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
 #, python-format
-msgid "My Odoo.com.account"
+msgid "My Odoo.com account"
 msgstr "Mi cuenta de Odoo.com"
 
 #. module: web
@@ -2811,6 +2827,7 @@ msgstr "No se encontró ningún menú"
 #. module: web
 #. openerp-web
 #: code:addons/web/static/src/legacy/js/fields/field_utils.js:0
+#: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
 #, python-format
 msgid "No records"
 msgstr "Sin registros"
@@ -2828,13 +2845,6 @@ msgstr "¡No se encontraron registros!"
 #, python-format
 msgid "No results found"
 msgstr "No se encontraron resultados"
-
-#. module: web
-#. openerp-web
-#: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
-#, python-format
-msgid "No results to show..."
-msgstr "No hay resultados que mostrar..."
 
 #. module: web
 #: code:addons/web/controllers/main.py:0
@@ -3443,6 +3453,13 @@ msgstr "Imprimir"
 
 #. module: web
 #. openerp-web
+#: code:addons/web/static/src/legacy/xml/report.xml:0
+#, python-format
+msgid "Printing options"
+msgstr "Opciones de impresión"
+
+#. module: web
+#. openerp-web
 #: code:addons/web/static/src/legacy/js/fields/basic_fields.js:0
 #, python-format
 msgid "Priority"
@@ -3589,6 +3606,14 @@ msgstr "Rastreo de registros"
 #, python-format
 msgid "Red"
 msgstr "Rojo"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#: code:addons/web/static/src/legacy/xml/base.xml:0
+#, python-format
+msgid "Refresh"
+msgstr "Actualizar"
 
 #. module: web
 #. openerp-web
@@ -4896,6 +4921,12 @@ msgstr "Sí"
 #, python-format
 msgid "Yesterday"
 msgstr "Ayer"
+
+#. module: web
+#: code:addons/web/controllers/main.py:0
+#, python-format
+msgid "You are not allowed to upload an attachment here."
+msgstr "No tiene permitido subir archivos adjuntos aquí."
 
 #. module: web
 #. openerp-web

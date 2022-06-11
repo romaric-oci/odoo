@@ -582,13 +582,88 @@ class TestSubcontractingFlows(TestMrpSubcontractingCommon):
             'name': self.subcontractor_partner1.id,
             'price': 5,
         })
+        self.env['product.supplierinfo'].create({
+            'product_tmpl_id': self.comp2.product_tmpl_id.id,
+            'name': self.subcontractor_partner1.id,
+            'price': 1,
+            'min_qty': 5,
+        })
         self.assertTrue(supplier.is_subcontractor)
         self.comp1.standard_price = 5
         report_values = self.env['report.mrp.report_bom_structure']._get_report_data(self.bom.id, searchQty=1, searchVariant=False)
         subcontracting_values = report_values['lines']['subcontracting']
         self.assertEqual(subcontracting_values['name'], self.subcontractor_partner1.display_name)
-        self.assertEqual(subcontracting_values['bom_cost'], 10)
         self.assertEqual(report_values['lines']['total'], 20)  # 10 For subcontracting + 5 for comp1 + 5 for subcontracting of comp2_bom
+        self.assertEqual(report_values['lines']['bom_cost'], 20)
+        self.assertEqual(subcontracting_values['bom_cost'], 10)
+        self.assertEqual(subcontracting_values['prod_cost'], 10)
+        self.assertEqual(report_values['lines']['components'][0]['total'], 5)
+        self.assertEqual(report_values['lines']['components'][1]['total'], 5)
+        report_values = self.env['report.mrp.report_bom_structure']._get_report_data(self.bom.id, searchQty=3, searchVariant=False)
+        subcontracting_values = report_values['lines']['subcontracting']
+        self.assertEqual(report_values['lines']['total'], 60)  # 30 for subcontracting + 15 for comp1 + 15 for subcontracting of comp2_bom
+        self.assertEqual(report_values['lines']['bom_cost'], 60)
+        self.assertEqual(subcontracting_values['bom_cost'], 30)
+        self.assertEqual(subcontracting_values['prod_cost'], 30)
+        self.assertEqual(report_values['lines']['components'][0]['total'], 15)
+        self.assertEqual(report_values['lines']['components'][1]['total'], 15)
+        report_values = self.env['report.mrp.report_bom_structure']._get_report_data(self.bom.id, searchQty=5, searchVariant=False)
+        subcontracting_values = report_values['lines']['subcontracting']
+        self.assertEqual(report_values['lines']['total'], 80)  # 50 for subcontracting + 25 for comp1 + 5 for subcontracting of comp2_bom
+        self.assertEqual(report_values['lines']['bom_cost'], 80)
+        self.assertEqual(subcontracting_values['bom_cost'], 50)
+        self.assertEqual(subcontracting_values['prod_cost'], 50)
+        self.assertEqual(report_values['lines']['components'][0]['total'], 25)
+        self.assertEqual(report_values['lines']['components'][1]['total'], 5)
+
+    def test_several_backorders(self):
+        def process_picking(picking, qty):
+            picking.move_lines.quantity_done = qty
+            action = picking.button_validate()
+            if isinstance(action, dict):
+                wizard = Form(self.env[action['res_model']].with_context(action['context'])).save()
+                wizard.process()
+
+        resupply_route = self.env['stock.location.route'].search([('name', '=', 'Resupply Subcontractor on Order')])
+        finished, component = self.env['product.product'].create([{
+            'name': 'Finished Product',
+            'type': 'product',
+        }, {
+            'name': 'Component',
+            'type': 'product',
+            'route_ids': [(4, resupply_route.id)],
+        }])
+
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': finished.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'type': 'subcontract',
+            'subcontractor_ids': [(4, self.subcontractor_partner1.id)],
+            'bom_line_ids': [(0, 0, {'product_id': component.id, 'product_qty': 1.0})],
+        })
+
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = self.env.ref('stock.picking_type_in')
+        picking_form.partner_id = self.subcontractor_partner1
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = finished
+            move.product_uom_qty = 5
+        picking = picking_form.save()
+        picking.action_confirm()
+
+        supply_picking = self.env['mrp.production'].search([('bom_id', '=', bom.id)]).picking_ids
+        process_picking(supply_picking, 5)
+
+        process_picking(picking, 1.25)
+
+        backorder01 = picking.backorder_ids
+        process_picking(backorder01, 1)
+
+        backorder02 = backorder01.backorder_ids
+        process_picking(backorder02, 0)
+        self.assertEqual(backorder02.move_lines.quantity_done, 2.75)
+
+        self.assertEqual(self.env['mrp.production'].search_count([('bom_id', '=', bom.id)]), 3)
 
 
 class TestSubcontractingTracking(TransactionCase):

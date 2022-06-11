@@ -355,6 +355,8 @@ class PurchaseOrderLine(models.Model):
         lines = self.filtered(lambda l: l.order_id.state == 'purchase')
         previous_product_qty = {line.id: line.product_uom_qty for line in lines}
         result = super(PurchaseOrderLine, self).write(values)
+        if 'price_unit' in values:
+            self.move_ids.price_unit = self.price_unit
         if 'product_qty' in values:
             lines.with_context(previous_product_qty=previous_product_qty)._create_or_update_picking()
         return result
@@ -537,6 +539,7 @@ class PurchaseOrderLine(models.Model):
         # This way, we shoud not lose any valuable information.
         if line_description and product_id.name != line_description:
             res['name'] += '\n' + line_description
+        res['date_planned'] = values.get('date_planned')
         res['move_dest_ids'] = [(4, x.id) for x in values.get('move_dest_ids', [])]
         res['orderpoint_id'] = values.get('orderpoint_id', False) and values.get('orderpoint_id').id
         res['propagate_cancel'] = values.get('propagate_cancel')
@@ -562,7 +565,7 @@ class PurchaseOrderLine(models.Model):
             description_picking = values['product_description_variants']
         lines = self.filtered(
             lambda l: l.propagate_cancel == values['propagate_cancel']
-            and ((values['orderpoint_id'] and not values['move_dest_ids']) and l.orderpoint_id == values['orderpoint_id'] or True)
+            and (l.orderpoint_id == values['orderpoint_id'] if values['orderpoint_id'] and not values['move_dest_ids'] else True)
         )
 
         # In case 'product_description_variants' is in the values, we also filter on the PO line

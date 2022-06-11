@@ -169,7 +169,7 @@ class TestSequenceMixin(TestSequenceMixinCommon):
             for i in range(6)
         )
         (invoice + invoice2 + refund + refund2).write({
-            'journal_id': self.company_data['default_journal_sale'],
+            'journal_id': self.company_data['default_journal_sale'].id,
             'partner_id': 1,
             'invoice_date': '2016-01-01',
         })
@@ -394,6 +394,25 @@ class TestSequenceMixin(TestSequenceMixinCommon):
             journal.unlink()
             account.unlink()
             env0.cr.commit()
+
+    def test_resequence_clash(self):
+        """Resequence doesn't clash when it uses a name set in the same batch
+        but that will be overriden later."""
+        moves = self.env['account.move']
+        for i in range(3):
+            moves += self.create_move(name=str(i))
+        moves.action_post()
+
+        mistake = moves[1]
+        mistake.button_draft()
+        mistake.posted_before = False
+        mistake.with_context(force_delete=True).unlink()
+        moves -= mistake
+
+        self.env['account.resequence.wizard'].create({
+            'move_ids': moves.ids,
+            'first_name': '2',
+        }).resequence()
 
 
 @tagged('post_install', '-at_install')

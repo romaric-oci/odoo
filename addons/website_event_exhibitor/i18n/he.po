@@ -7,11 +7,12 @@
 # Fishfur A Banter <fishfurbanter@gmail.com>, 2021
 # ExcaliberX <excaliberx@gmail.com>, 2021
 # Yihya Hugirat <hugirat@gmail.com>, 2021
-# hed shefetr <hed@laylinetech.com>, 2021
+# hed shefer <hed@laylinetech.com>, 2021
 # דודי מלכה <Dudimalka6@gmail.com>, 2021
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2021
 # Lilach Gilliam <lilach@apprcase.com>, 2021
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2021
+# Netta Waizer, 2022
 # 
 msgid ""
 msgstr ""
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-14 10:29+0000\n"
 "PO-Revision-Date: 2021-09-14 12:27+0000\n"
-"Last-Translator: Lilach Gilliam <lilach.gilliam@gmail.com>, 2021\n"
+"Last-Translator: Netta Waizer, 2022\n"
 "Language-Team: Hebrew (https://www.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +167,7 @@ msgstr "בארכיון"
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_2
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_3
 msgid "As a team, we are happy to contribute to this event."
-msgstr ""
+msgstr "כצוות, אנו שמחים לתרום לאירוע זה."
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__message_attachment_count
@@ -202,7 +203,7 @@ msgstr ""
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__chat_room_id
 msgid "Chat Room"
-msgstr ""
+msgstr "חדר צ'אט"
 
 #. module: website_event_exhibitor
 #. openerp-web
@@ -227,7 +228,7 @@ msgstr ""
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_2
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_3
 msgid "Come see us live, we hope to meet you !"
-msgstr ""
+msgstr "בוא.י לראות אותנו בשידור חי, מקווים לפגוש אותך!"
 
 #. module: website_event_exhibitor
 #: model_terms:ir.ui.view,arch_db:website_event_exhibitor.exhibitor_card
@@ -356,7 +357,7 @@ msgstr "נותני חסות לאירועים"
 #. module: website_event_exhibitor
 #: model:ir.model,name:website_event_exhibitor.model_event_type
 msgid "Event Template"
-msgstr ""
+msgstr "תבניות ארוע"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields.selection,name:website_event_exhibitor.selection__event_sponsor__exhibitor_type__exhibitor
@@ -423,7 +424,7 @@ msgstr "קבץ לפי"
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_2
 #: model_terms:event.sponsor,website_description:website_event_exhibitor.event_sponsor_3
 msgid "Happy to be Sponsor"
-msgstr ""
+msgstr "שמח להיות ספונסר של ארוע"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__has_message
@@ -471,7 +472,7 @@ msgstr "תמונה 256"
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__website_image_url
 msgid "Image URL"
-msgstr "כתובת תמונה"
+msgstr "לינק לתמונה"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__message_is_follower
@@ -567,7 +568,7 @@ msgstr ""
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_website_event_menu__menu_type
 msgid "Menu Type"
-msgstr ""
+msgstr "סוג תפריט"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__message_has_error
@@ -728,12 +729,12 @@ msgstr ""
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__room_is_full
 msgid "Room Is Full"
-msgstr ""
+msgstr "החדר מלא"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__room_name
 msgid "Room Name"
-msgstr ""
+msgstr "שם החדר"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__message_has_sms_error
@@ -761,7 +762,7 @@ msgstr "כסף"
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__subtitle
 msgid "Slogan"
-msgstr ""
+msgstr "סלוגן (סיסמה)"
 
 #. module: website_event_exhibitor
 #: code:addons/website_event_exhibitor/models/event_sponsor.py:0
@@ -911,7 +912,7 @@ msgstr "אתר אינטרנט"
 #. module: website_event_exhibitor
 #: model:ir.model,name:website_event_exhibitor.model_website_event_menu
 msgid "Website Event Menu"
-msgstr ""
+msgstr "תפריט אירועים באתר האינטרנט"
 
 #. module: website_event_exhibitor
 #: model:ir.model.fields,field_description:website_event_exhibitor.field_event_sponsor__website_message_ids
@@ -993,7 +994,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_event_exhibitor.exhibitor_main
 #, python-format
 msgid "starts in"
-msgstr ""
+msgstr "מתחיל ב"
 
 #. module: website_event_exhibitor
 #. openerp-web
@@ -1001,4 +1002,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_event_exhibitor.exhibitor_main
 #, python-format
 msgid "starts on"
-msgstr ""
+msgstr "מתחיל ב"

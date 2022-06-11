@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:18+0000\n"
+"POT-Creation-Date: 2022-01-24 08:19+0000\n"
 "PO-Revision-Date: 2021-09-14 12:23+0000\n"
 "Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2021\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -246,7 +246,7 @@ msgstr "Apple 應用商店"
 #. module: hr_timesheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet.hr_employee_view_form_inherit_timesheet
 msgid "Application Settings"
-msgstr "應用程序設定"
+msgstr "模組設定"
 
 #. module: hr_timesheet
 #: model:ir.model.fields,field_description:hr_timesheet.field_project_project__timesheet_ids
@@ -301,7 +301,7 @@ msgstr "配置"
 #. module: hr_timesheet
 #: model:ir.model,name:hr_timesheet.model_project_task_create_timesheet
 msgid "Create Timesheet from task"
-msgstr "從任務創建工時表"
+msgstr "從任務建立工時表"
 
 #. module: hr_timesheet
 #: model:ir.model.fields,field_description:hr_timesheet.field_project_task_create_timesheet__create_uid
@@ -393,7 +393,7 @@ msgstr "顯示目前任務的進度。"
 #: code:addons/hr_timesheet/static/src/js/timesheet_config_form_view.js:0
 #, python-format
 msgid "Download our App"
-msgstr "下載我們的應用程序"
+msgstr "下載我們的APP"
 
 #. module: hr_timesheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet.project_task_create_timesheet_view_form
@@ -476,7 +476,7 @@ msgstr "Google遊戲商店"
 #. module: hr_timesheet
 #: model_terms:ir.ui.view,arch_db:hr_timesheet.hr_timesheet_line_search
 msgid "Group By"
-msgstr "分組按"
+msgstr "分組依據"
 
 #. module: hr_timesheet
 #: model:ir.model,name:hr_timesheet.model_ir_http
@@ -655,7 +655,7 @@ msgstr "未找到任何活動"
 #: model_terms:ir.actions.act_window,help:hr_timesheet.act_hr_timesheet_line
 #: model_terms:ir.actions.act_window,help:hr_timesheet.timesheet_action_all
 msgid "No activities found. Let's start a new one!"
-msgstr "未找到任何活動。讓我們開始一個新的！"
+msgstr "未找到任何活動。讓我們新增一個！"
 
 #. module: hr_timesheet
 #: code:addons/hr_timesheet/controllers/portal.py:0
@@ -876,7 +876,7 @@ msgstr "任務"
 #. module: hr_timesheet
 #: model:ir.model.fields,help:hr_timesheet.field_project_task_create_timesheet__task_id
 msgid "Task for which we are creating a sales order"
-msgstr "我們為其創建銷售訂單的任務"
+msgstr "我們為其建立銷售訂單的任務"
 
 #. module: hr_timesheet
 #: model:ir.actions.act_window,name:hr_timesheet.timesheet_action_task
@@ -982,7 +982,7 @@ msgid ""
 "If you use the timesheet linked to projects, don't forget to setup the right unit of measure in your employees."
 msgstr ""
 "這設定了專案和任務所使用的度量單位。\n"
-" 如果您使用鏈接到專案的工時表，請不要忘記在員工中設定正確的度量單位。"
+" 如果您使用連結到專案的工時表，請不要忘記在員工中設定正確的度量單位。"
 
 #. module: hr_timesheet
 #: model:ir.model.fields,help:hr_timesheet.field_project_project__timesheet_encode_uom_id
@@ -1075,6 +1075,11 @@ msgstr "工時表成本"
 #: model_terms:ir.ui.view,arch_db:hr_timesheet.view_my_timesheet_line_pivot
 msgid "Timesheet Costs"
 msgstr "工時表成本"
+
+#. module: hr_timesheet
+#: model:ir.model.fields,field_description:hr_timesheet.field_project_project__timesheet_count
+msgid "Timesheet Count"
+msgstr ""
 
 #. module: hr_timesheet
 #: model:ir.model.fields,field_description:hr_timesheet.field_project_project__timesheet_encode_uom_id
@@ -1267,7 +1272,7 @@ msgstr "當此單元是用於編碼工時表的單元時，webclient中使用的
 #: code:addons/hr_timesheet/models/hr_timesheet.py:0
 #, python-format
 msgid "You cannot access timesheets that are not yours."
-msgstr "您無法訪問不屬於您的工時表。"
+msgstr "您無法存取不屬於您的工時表。"
 
 #. module: hr_timesheet
 #: code:addons/hr_timesheet/models/hr_timesheet.py:0
@@ -1275,7 +1280,7 @@ msgstr "您無法訪問不屬於您的工時表。"
 msgid ""
 "You cannot add timesheets to a project linked to an inactive analytic "
 "account."
-msgstr "您不能向鏈接到非運作分析帳戶的專案添加工時表。"
+msgstr "您不能向連結到非運作分析帳戶的專案添加工時表。"
 
 #. module: hr_timesheet
 #: code:addons/hr_timesheet/models/hr_timesheet.py:0

@@ -7,7 +7,7 @@ import { download } from "@web/core/network/download";
 import { evaluateExpr } from "@web/core/py_js/py";
 import { registry } from "@web/core/registry";
 import { KeepLast } from "@web/core/utils/concurrency";
-import { useBus } from "@web/core/utils/hooks";
+import { useBus, useService } from "@web/core/utils/hooks";
 import { sprintf } from "@web/core/utils/strings";
 import { cleanDomFromBootstrap } from "@web/legacy/utils";
 import { View } from "@web/views/view";
@@ -23,7 +23,7 @@ const viewRegistry = registry.category("views");
 
 /** @typedef {number|false} ActionId */
 /** @typedef {Object} ActionDescription */
-/** @typedef {"current" | "fullscreen" | "new" | "self" | "inline"} ActionMode */
+/** @typedef {"current" | "fullscreen" | "new" | "main" | "self" | "inline"} ActionMode */
 /** @typedef {string} ActionTag */
 /** @typedef {string} ActionXMLId */
 /** @typedef {Object} Context */
@@ -399,11 +399,15 @@ function makeActionManager(env) {
                 return viewSwitcherEntry;
             });
         const context = action.context || {};
+        let groupBy = context.group_by || [];
+        if (typeof groupBy === "string") {
+            groupBy = [groupBy];
+        }
         const viewProps = Object.assign({}, props, {
             context,
             display: { mode: target === "new" ? "inDialog" : target },
             domain: action.domain || [],
-            groupBy: action.context.group_by || [],
+            groupBy,
             loadActionMenus: target !== "new" && target !== "inline",
             loadIrFilters: action.views.some((v) => v[1] === "search"),
             resModel: action.res_model,
@@ -519,15 +523,19 @@ function makeActionManager(env) {
             reject = _rej;
         });
         const action = controller.action;
-
-        // Compute breadcrumbs
         const index = _computeStackIndex(options);
         const controllerArray = [controller];
         if (options.lazyController) {
             controllerArray.unshift(options.lazyController);
         }
         const nextStack = controllerStack.slice(0, index).concat(controllerArray);
-        controller.config.breadcrumbs = _getBreadcrumbs(nextStack.slice(0, -1));
+
+        // Compute breadcrumbs
+        if (action.target === "new") {
+            controller.config.breadcrumbs = [];
+        } else {
+            controller.config.breadcrumbs = _getBreadcrumbs(nextStack.slice(0, -1));
+        }
         if (controller.Component.isLegacy) {
             controller.props.breadcrumbs = controller.config.breadcrumbs;
         }
@@ -536,6 +544,7 @@ function makeActionManager(env) {
             setup() {
                 this.Component = controller.Component;
                 this.componentRef = useRef("component");
+                this.titleService = useService("title");
                 useDebugCategory("action", { action });
                 useSubEnv({ config: controller.config });
                 if (action.target !== "new") {
@@ -552,6 +561,7 @@ function makeActionManager(env) {
                         __getLocalState__: this.__getLocalState__,
                     });
                 }
+                this.isMounted = false;
             }
             catchError(error) {
                 reject(error);
@@ -629,12 +639,15 @@ function makeActionManager(env) {
                     }
                     // END LEGACY CODE COMPATIBILITY
                     controllerStack = nextStack; // the controller is mounted, commit the new stack
-                    // wait Promise callbacks to be executed
                     pushState(controller);
+                    this.titleService.setParts({
+                        action: controller.title || this.env.config.displayName,
+                    });
                     browser.sessionStorage.setItem("current_action", action._originalAction);
                 }
                 resolve();
                 env.bus.trigger("ACTION_MANAGER:UI-UPDATED", _getActionMode(action));
+                this.isMounted = true;
             }
             willUnmount() {
                 if (action.target === "new" && dialogCloseResolve) {
@@ -651,6 +664,10 @@ function makeActionManager(env) {
             }
             onTitleUpdated(ev) {
                 controller.title = ev.detail;
+                if (this.isMounted) {
+                    // if not mounted yet, will be done in "mounted"
+                    this.titleService.setParts({ action: controller.title });
+                }
             }
         }
         ControllerComponent.template = ControllerComponentTemplate;
@@ -731,8 +748,9 @@ function makeActionManager(env) {
      *
      * @private
      * @param {ActURLAction} action
+     * @param {ActionOptions} options
      */
-    function _executeActURLAction(action) {
+    function _executeActURLAction(action, options) {
         if (action.target === "self") {
             env.services.router.redirect(action.url);
         } else {
@@ -746,6 +764,9 @@ function makeActionManager(env) {
                     sticky: true,
                     type: "warning",
                 });
+            }
+            if (options.onClose) {
+                options.onClose();
             }
         }
     }
@@ -1050,7 +1071,7 @@ function makeActionManager(env) {
     async function _executeServerAction(action, options) {
         const runProm = env.services.rpc("/web/action/run", {
             action_id: action.id,
-            context: action.context || {},
+            context: makeContext([env.services.user.context, action.context]),
         });
         let nextAction = await keepLast.add(runProm);
         nextAction = nextAction || { type: "ir.actions.act_window_close" };
@@ -1086,9 +1107,10 @@ function makeActionManager(env) {
         const actionProm = _loadAction(actionRequest, options.additionalContext);
         let action = await keepLast.add(actionProm);
         action = _preprocessAction(action, options.additionalContext);
+        options.clearBreadcrumbs = action.target === "main" || options.clearBreadcrumbs;
         switch (action.type) {
             case "ir.actions.act_url":
-                return _executeActURLAction(action);
+                return _executeActURLAction(action, options);
             case "ir.actions.act_window":
                 if (action.target !== "new") {
                     await clearUncommittedChanges(env);
@@ -1202,6 +1224,11 @@ function makeActionManager(env) {
      * @returns {Promise<Number>}
      */
     async function switchView(viewType, props = {}) {
+        if (dialog) {
+            // we don't want to switch view when there's a dialog open, as we would
+            // not switch in the correct action (action in background != dialog action)
+            return;
+        }
         const controller = controllerStack[controllerStack.length - 1];
         const view = _getView(viewType);
         if (!view) {
@@ -1212,6 +1239,7 @@ function makeActionManager(env) {
                 )
             );
         }
+        await keepLast.add(Promise.resolve());
         const newController = controller.action.controllers[viewType] || {
             jsId: `controller_${++id}`,
             Component: view.isLegacy ? view : View,
@@ -1261,6 +1289,7 @@ function makeActionManager(env) {
      * @param {string} jsId
      */
     async function restore(jsId) {
+        await keepLast.add(Promise.resolve());
         let index;
         if (!jsId) {
             index = controllerStack.length - 2;

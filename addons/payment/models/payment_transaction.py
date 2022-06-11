@@ -298,16 +298,20 @@ class PaymentTransaction(models.Model):
         if any(tx.state != 'authorized' for tx in self):
             raise ValidationError(_("Only authorized transactions can be captured."))
 
+        payment_utils.check_rights_on_recordset(self)
         for tx in self:
-            tx._send_capture_request()
+            # In sudo mode because we need to be able to read on acquirer fields.
+            tx.sudo()._send_capture_request()
 
     def action_void(self):
         """ Check the state of the transaction and request to have them voided. """
         if any(tx.state != 'authorized' for tx in self):
             raise ValidationError(_("Only authorized transactions can be voided."))
 
+        payment_utils.check_rights_on_recordset(self)
         for tx in self:
-            tx._send_void_request()
+            # In sudo mode because we need to be able to read on acquirer fields.
+            tx.sudo()._send_void_request()
 
     def action_refund(self, amount_to_refund=None):
         """ Check the state of the transactions and request their refund.
@@ -597,6 +601,7 @@ class PaymentTransaction(models.Model):
             'reference': self._compute_reference(self.provider, prefix=f'R-{self.reference}'),
             'amount': -(amount_to_refund or self.amount),
             'currency_id': self.currency_id.id,
+            'token_id': self.token_id.id,
             'operation': 'refund',
             'source_transaction_id': self.id,
             'partner_id': self.partner_id.id,
@@ -1046,8 +1051,8 @@ class PaymentTransaction(models.Model):
                 acq_name=self.acquirer_id.name
             )
             if self.payment_id:
-                message += _(
-                    "\nThe related payment is posted: %s",
+                message += "<br />" + _(
+                    "The related payment is posted: %s",
                     self.payment_id._get_payment_chatter_link()
                 )
         elif self.state == 'error':
@@ -1057,14 +1062,14 @@ class PaymentTransaction(models.Model):
                 ref=self.reference, amount=formatted_amount, acq_name=self.acquirer_id.name
             )
             if self.state_message:
-                message += _("\nError: %s", self.state_message)
+                message += "<br />" + _("Error: %s", self.state_message)
         else:
             message = _(
                 "The transaction with reference %(ref)s for %(amount)s is canceled (%(acq_name)s).",
                 ref=self.reference, amount=formatted_amount, acq_name=self.acquirer_id.name
             )
             if self.state_message:
-                message += _("\nReason: %s", self.state_message)
+                message += "<br />" + _("Reason: %s", self.state_message)
         return message
 
     def _get_last(self):

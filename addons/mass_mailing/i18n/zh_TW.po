@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-16 13:18+0000\n"
+"POT-Creation-Date: 2022-02-01 17:39+0000\n"
 "PO-Revision-Date: 2021-09-14 12:23+0000\n"
 "Last-Translator: 敬雲 林 <chingyun@yuanchih-consult.com>, 2021\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -388,17 +388,17 @@ msgstr ""
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_numbers
-msgid "<span class=\"s_number display-4 o_default_snippet_text\">12</span>"
+msgid "<span class=\"s_number display-4 o_default_snippet_text\">12</span><br/>"
 msgstr ""
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_numbers
-msgid "<span class=\"s_number display-4 o_default_snippet_text\">45</span>"
+msgid "<span class=\"s_number display-4 o_default_snippet_text\">45</span><br/>"
 msgstr ""
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_numbers
-msgid "<span class=\"s_number display-4 o_default_snippet_text\">8</span>"
+msgid "<span class=\"s_number display-4 o_default_snippet_text\">8</span><br/>"
 msgstr ""
 
 #. module: mass_mailing
@@ -529,7 +529,7 @@ msgstr "<strong>進階</strong> 功能"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_comparison_table
 msgid "<strong>Fully customizable</strong>"
-msgstr "<strong>完全可定制</strong>"
+msgstr "<strong>可完全自訂</strong>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_comparison_table
@@ -684,7 +684,7 @@ msgstr "活動狀態"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "活動類型圖標"
+msgstr "活動類型圖示"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_three_columns
@@ -808,7 +808,7 @@ msgid ""
 "                                   The 'come Back' button will always be "
 "visible in any case to allow leads and partners to re-subscribe."
 msgstr ""
-"允許收件人通過取消訂閱頁面在黑名單中管理自己的狀態。 如果該選項處於活動狀態，則「取消訂閱」按鈕將隱藏在取消訂閱頁面上。 "
+"允許收件人通過取消訂閱頁面在黑名單中管理自己的狀態。 如果該選項處於有效狀態，則「取消訂閱」按鈕將隱藏在取消訂閱頁面上。 "
 "在任何情況下，「返回」按鈕始終可見，以允許潛在客戶和合作夥伴重新訂閱。"
 
 #. module: mass_mailing
@@ -856,7 +856,7 @@ msgstr ""
 #: code:addons/mass_mailing/static/src/js/unsubscribe.js:0
 #, python-format
 msgid "An error occurred. Your changes have not been saved, try again later."
-msgstr "發生錯誤。 您的更改尚未保存，請稍後重試。"
+msgstr "發生錯誤。 您的更改尚未儲存，請稍後重試。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_masonry_block_alternation_image_text_template
@@ -907,7 +907,7 @@ msgstr "歸檔源信件列表"
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_search
 msgid "Archived"
-msgstr "封存"
+msgstr "已歸檔"
 
 #. module: mass_mailing
 #: code:addons/mass_mailing/models/mailing_list.py:0
@@ -1339,7 +1339,7 @@ msgstr "連接失敗(發件伺服器問題)"
 #: model:ir.model,name:mass_mailing.model_res_partner
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_contact_subscription__contact_id
 msgid "Contact"
-msgstr "聯繫人"
+msgstr "聯絡人"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_list_view_form
@@ -1360,7 +1360,7 @@ msgstr "聯絡我們"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_contact_to_list__contact_ids
 msgid "Contacts"
-msgstr "聯繫人"
+msgstr "聯絡人"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_media_list
@@ -1391,12 +1391,12 @@ msgstr ""
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_list_view_form_simplified_footer
 msgid "Create"
-msgstr "創建"
+msgstr "建立"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.layout
 msgid "Create a"
-msgstr "創建一個"
+msgstr "建立一個"
 
 #. module: mass_mailing
 #: model_terms:ir.actions.act_window,help:mass_mailing.mailing_mailing_action_mail
@@ -1423,7 +1423,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:mass_mailing.action_create_mass_mailings_from_campaign
 #: model_terms:ir.actions.act_window,help:mass_mailing.action_view_mass_mailings_from_campaign
 msgid "Create a new mailing"
-msgstr "創建一個新的信件"
+msgstr "建立一個新的信件"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -1459,12 +1459,12 @@ msgstr "建立於"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_view_search
 msgid "Creation Date"
-msgstr "創建日期"
+msgstr "建立日期"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_list_view_search
 msgid "Creation Period"
-msgstr "創建期間"
+msgstr "建立期間"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating_options
@@ -1633,7 +1633,7 @@ msgstr "單據模型"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__mailing_domain
 msgid "Domain"
-msgstr "域"
+msgstr "Domain"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.ab_testing_description
@@ -1842,14 +1842,14 @@ msgstr ""
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__model_object_field
 msgid "Field"
-msgstr "字段"
+msgstr "欄位"
 
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_mailing_mailing__copyvalue
 msgid ""
 "Final placeholder expression, to be copy-pasted in the desired template "
 "field."
-msgstr "最終的佔位符表達式，可以複製粘貼到目標模板字段。"
+msgstr "最終的佔位符表達式，可以複製粘貼到目標模板欄位。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_features
@@ -1886,7 +1886,7 @@ msgstr "關注人（業務夥伴）"
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_mailing_mailing__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Font awesome 圖標，例如，fa-task"
+msgstr "Font awesome 圖示，例如，fa-task"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.email_designer_snippets
@@ -1927,7 +1927,7 @@ msgstr "傢俱"
 msgid ""
 "Get your inside sales (CRM) fully integrated with online sales (eCommerce), "
 "in-store sales (Point of Sale) and marketplaces like eBay and Amazon."
-msgstr "將內部銷售 (CRM) 與網上銷售（電子商務）、店內銷售（銷售點）和市場（如 eBay 和 Amazon）完全集成。"
+msgstr "將內部銷售 (CRM) 與網上銷售（電子商務）、店內銷售（銷售點）和市場（如 eBay 和 Amazon）完全整合。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_features_grid
@@ -1940,12 +1940,12 @@ msgstr "遠大價值"
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_trace_view_search
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_search
 msgid "Group By"
-msgstr "分組按"
+msgstr "分組依據"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_trace_report_view_search
 msgid "Group By..."
-msgstr "分組按..."
+msgstr "分組依據..."
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_contact__has_message
@@ -2004,7 +2004,7 @@ msgid ""
 "related mail_mail can be deleted separately from its statistics. However the"
 " ID is needed for several action and controllers."
 msgstr ""
-"相關 mail_mail 的 ID。此字段為整數字段，因為可單獨將相關 mail_mail 從其統計數據中刪除。但是，若干操作和控制器均需要使用 ID。"
+"相關 mail_mail 的 ID。此欄位為整數欄位，因為可單獨將相關 mail_mail 從其統計資料中刪除。但是，若干操作和控制器均需要使用 ID。"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__activity_exception_icon
@@ -2140,7 +2140,7 @@ msgstr "歸檔"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_title_text
 msgid "LOGIN"
-msgstr "登錄"
+msgstr "登入"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__lang
@@ -2226,7 +2226,7 @@ msgstr "連結追蹤"
 #. module: mass_mailing
 #: model:ir.model,name:mass_mailing.model_link_tracker_click
 msgid "Link Tracker Click"
-msgstr "鏈接追蹤器點選"
+msgstr "點選連結追蹤器"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.social_links
@@ -2236,7 +2236,7 @@ msgstr "LinkedIn"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_trace__links_click_ids
 msgid "Links click"
-msgstr "點選鏈接"
+msgstr "點選連結"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_trace__mail_mail_id
@@ -2358,7 +2358,7 @@ msgstr "信件列表"
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_view_search
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_view_tree
 msgid "Mailing List Contacts"
-msgstr "信件列表聯繫人"
+msgstr "信件列表聯絡人"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_subscription_view_form
@@ -2734,7 +2734,7 @@ msgstr "沒有客製化"
 #. module: mass_mailing
 #: model_terms:ir.actions.act_window,help:mass_mailing.action_view_mail_mail_statistics_mailing
 msgid "No data yet!"
-msgstr "暫無數據！"
+msgstr "暫無資料！"
 
 #. module: mass_mailing
 #: code:addons/mass_mailing/models/mailing.py:0
@@ -2973,7 +2973,7 @@ msgstr ""
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_mailing_mailing__null_value
 msgid "Optional value to use if the target field is empty"
-msgstr "如果目標字段為空則使用此可選值"
+msgstr "如果目標欄位為空則使用此可選值"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_steps
@@ -3165,7 +3165,7 @@ msgstr "報名"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
 msgid "Regular"
-msgstr "常規項目"
+msgstr "常用項目"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__render_model
@@ -3223,7 +3223,7 @@ msgstr "報表"
 #: code:addons/mass_mailing/controllers/main.py:0
 #, python-format
 msgid "Requested blacklisting via unsubscribe link."
-msgstr "通過取消訂閱鏈接請求列入黑名單。"
+msgstr "通過取消訂閱連結請求列入黑名單。"
 
 #. module: mass_mailing
 #: code:addons/mass_mailing/controllers/main.py:0
@@ -3388,8 +3388,8 @@ msgid ""
 "Select target field from the related document model.\n"
 "If it is a relationship field you will be able to select a target field at the destination of the relationship."
 msgstr ""
-"從相關單據模型中選擇目標字段。\n"
-"如果這是個關係型字段，您將可以在關係字段目的地選擇目標字段。"
+"從相關單據模型中選擇目標欄位。\n"
+"如果這是個關係欄位，您將可以在關係欄位目的地選擇目標欄位。"
 
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_mailing_mailing__ab_testing_winner_selection
@@ -3498,6 +3498,13 @@ msgid "Settings"
 msgstr "設定"
 
 #. module: mass_mailing
+#: model_terms:ir.ui.view,arch_db:mass_mailing.ab_testing_description
+msgid ""
+"Since the date and time for this test has not been scheduled, don't forget "
+"to manually send your preferred version."
+msgstr ""
+
+#. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_alert_options
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating_options
 msgid "Size"
@@ -3602,7 +3609,7 @@ msgstr "Stretch to Equal Height"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__sub_model_object_field
 msgid "Sub-field"
-msgstr "子字段"
+msgstr "子欄位"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__sub_object
@@ -3752,7 +3759,7 @@ msgstr "該聯絡人選擇不再接受本信件列表的信件"
 msgid ""
 "The mailing list can be accessible by recipient in the unsubscription page "
 "to allows him to update his subscription preferences."
-msgstr "收件人在取消訂閱頁面可以訪問信件列表，以允許他更新訂閱偏好。"
+msgstr "收件人在取消訂閱頁面可以存取信件列表，以允許他更新訂閱偏好。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_paragraph
@@ -3767,7 +3774,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_text_block
 msgid ""
 "The open source model of Odoo has allowed us to leverage thousands of developers and\n"
-"                business experts to build hundreds of apps in just a few years."
+"                    business experts to build hundreds of apps in just a few years."
 msgstr ""
 
 #. module: mass_mailing
@@ -3852,7 +3859,7 @@ msgstr "此欄位用於搜索電子郵件地址，因為主電子郵件欄位可
 msgid ""
 "This is the link source, e.g. Search Engine, another domain, or name of "
 "email list"
-msgstr "鏈接來源如下，例如，搜尋引擎、其他域名或電子信件列表名稱"
+msgstr "連結來源如下，例如，搜尋引擎、其他域名或電子信件列表名稱"
 
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_res_config_settings__group_mass_mailing_campaign
@@ -3889,7 +3896,7 @@ msgstr ""
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_contact__title_id
 msgid "Title"
-msgstr "稱謂"
+msgstr "標題"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_three_columns
@@ -3897,7 +3904,7 @@ msgid ""
 "To add a fourth column, reduce the size of these three columns using the "
 "right icon of each block. Then, duplicate one of the columns to create a new"
 " one as a copy."
-msgstr "要添加第四列，請使用每個塊的右圖示減小這三列的大小。然後，複製其中一列以創建一個新列作為副本。"
+msgstr "要添加第四列，請使用每個塊的右圖示減小這三列的大小。然後，複製其中一列以建立一個新列作為副本。"
 
 #. module: mass_mailing
 #: code:addons/mass_mailing/models/mailing.py:0
@@ -4028,14 +4035,14 @@ msgid ""
 "Usability improvements made on Odoo will automatically apply to all\n"
 "                                of our fully integrated apps."
 msgstr ""
-"對 Odoo 所做的可用性改進將自動應用於所有\n"
-"                                完全集成的應用。"
+"對 Odoo 所做的可用性改進將自動套用於所有\n"
+"                                完全整合的應用。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_text_block
 msgid ""
 "Usability improvements made on Odoo will automatically apply to all\n"
-"                of our fully integrated apps."
+"                    of our fully integrated apps."
 msgstr ""
 
 #. module: mass_mailing
@@ -4181,14 +4188,14 @@ msgstr "網站溝通記錄"
 msgid ""
 "When a relationship field is selected as first field, this field lets you "
 "select the target field within the destination document model (sub-model)."
-msgstr "如果首先選擇了一個關係型字段，這個字段允許您選擇目的地單據模型（子模型）內的目標字段。"
+msgstr "如果首先選擇了一個關係型欄位，這個欄位允許您選擇目的地單據模型（子模型）內的目標欄位。"
 
 #. module: mass_mailing
 #: model:ir.model.fields,help:mass_mailing.field_mailing_mailing__sub_object
 msgid ""
 "When a relationship field is selected as first field, this field shows the "
 "document model the relationship goes to."
-msgstr "如果關係型字段被選為第一個字段，這個字段顯示這個關係指向的單據模型。"
+msgstr "如果關係型欄位被選為第一個欄位，這個欄位顯示這個關係指向的單據模型。"
 
 #. module: mass_mailing
 #: model:ir.actions.act_window,name:mass_mailing.mailing_mailing_schedule_date_action
@@ -4227,7 +4234,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_text_block
 msgid ""
 "With strong technical foundations, Odoo's framework is unique.\n"
-"                It provides top notch usability that scales across all apps."
+"                    It provides top notch usability that scales across all apps."
 msgstr ""
 
 #. module: mass_mailing
@@ -4343,7 +4350,7 @@ msgstr "您的標誌"
 #: code:addons/mass_mailing/static/src/js/unsubscribe.js:0
 #, python-format
 msgid "Your changes have been saved."
-msgstr "您的修改已經保存。"
+msgstr "您的修改已經儲存。"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_mail_block_title_text

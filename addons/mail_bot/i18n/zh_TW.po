@@ -49,7 +49,7 @@ msgid ""
 "Great! 👍<br/>To access special commands, <b>start your sentence with</b> "
 "<span class=\"o_odoobot_command\">/</span>. Try getting help."
 msgstr ""
-"太棒了！ 👍<br/>若要訪問特殊命令，<b>請以</b><span "
+"太棒了！ 👍<br/>若要使用特殊命令，<b>請以</b><span "
 "class=\"o_odoobot_command\">/</span>開頭。嘗試/help。"
 
 #. module: mail_bot
@@ -202,7 +202,7 @@ msgid ""
 "aria-hidden=\"true\"></i> icon and select a file."
 msgstr ""
 "要<b>發送附件</b>，請點選<i class=\"fa fa-paperclip\" aria-"
-"hidden=\"true\"></i>圖標並選擇一個文件。"
+"hidden=\"true\"></i>圖示並選擇一個文件。"
 
 #. module: mail_bot
 #: code:addons/mail_bot/models/mail_bot.py:0

@@ -92,7 +92,7 @@ msgstr "選擇一個工作職缺的面試表格，您可以把它列印出來讓
 #. module: hr_recruitment_survey
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.view_hr_job_kanban_inherit
 msgid "Create Interview Form"
-msgstr "創建面試表單"
+msgstr "建立面試表單"
 
 #. module: hr_recruitment_survey
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_survey.hr_job_survey_inherit
@@ -269,6 +269,12 @@ msgstr "您輸入的答案格式無效。"
 #, python-format
 msgid "The applicant \"%s\" has finished the survey."
 msgstr "申請人“%s”已完成問券"
+
+#. module: hr_recruitment_survey
+#: code:addons/hr_recruitment_survey/models/survey_invite.py:0
+#, python-format
+msgid "The survey %(survey_link)s has been sent to %(partner_link)s"
+msgstr ""
 
 #. module: hr_recruitment_survey
 #: code:addons/hr_recruitment_survey/models/survey_invite.py:0

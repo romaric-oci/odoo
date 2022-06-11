@@ -253,8 +253,8 @@ odoo.define('pos_coupon.pos', function (require) {
         // OVERIDDEN METHODS
 
         initialize: function () {
-            let res = _order_super.initialize.apply(this, arguments);
-            res.on(
+            _order_super.initialize.apply(this, arguments);
+            this.on(
                 'update-rewards',
                 () => {
                     if (!this.pos.config.use_coupon_programs) return;
@@ -266,16 +266,16 @@ odoo.define('pos_coupon.pos', function (require) {
                         this.trigger('rewards-updated');
                     }).catch(() => { /* catch the reject of dp when calling `add` to avoid unhandledrejection */ });
                 },
-                res
+                this
             );
-            res.on('reset-coupons', res.resetCoupons, res);
-            res._initializePrograms();
-            return res;
+            this.on('reset-coupons', this.resetCoupons, this);
+            this._initializePrograms();
+            return this;
         },
         init_from_JSON: function (json) {
+            this.bookedCouponCodes = this.bookedCouponCodes ? this.order.bookedCouponCodes : {};
+            this.activePromoProgramIds = this.activePromoProgramIds ? this.order.activePromoProgramIds : [];
             _order_super.init_from_JSON.apply(this, arguments);
-            this.bookedCouponCodes = json.bookedCouponCodes;
-            this.activePromoProgramIds = json.activePromoProgramIds;
         },
         export_as_JSON: function () {
             let json = _order_super.export_as_JSON.apply(this, arguments);
@@ -910,7 +910,6 @@ odoo.define('pos_coupon.pos', function (require) {
                         unit_price: -discountAmount,
                         quantity: 1,
                         program: program,
-                        tax_ids: [],
                         coupon_id: coupon_id,
                     }),
                 ],
@@ -935,9 +934,9 @@ odoo.define('pos_coupon.pos', function (require) {
                 if (program.discount_specific_product_ids.has(line.get_product().id)) {
                     const key = this._getGroupKey(line);
                     if (!(key in amountsToDiscount)) {
-                        amountsToDiscount[key] = line.get_quantity() * line.get_lst_price();
+                        amountsToDiscount[key] = line.get_quantity() * line.price;
                     } else {
-                        amountsToDiscount[key] += line.get_quantity() * line.get_lst_price();
+                        amountsToDiscount[key] += line.get_quantity() * line.price;
                     }
                     productIdsToAccount.add(line.get_product().id);
                 }
@@ -959,14 +958,14 @@ odoo.define('pos_coupon.pos', function (require) {
             const orderlines = this._getRegularOrderlines();
             if (orderlines.length > 0) {
                 const cheapestLine = orderlines.reduce((min_line, line) => {
-                    if (line.get_lst_price() < min_line.get_lst_price()) {
+                    if (line.price < min_line.price) {
                         return line;
                     } else {
                         return min_line;
                     }
                 }, orderlines[0]);
                 const key = this._getGroupKey(cheapestLine);
-                amountsToDiscount[key] = cheapestLine.get_lst_price();
+                amountsToDiscount[key] = cheapestLine.price;
             }
             return this._createDiscountRewards(program, coupon_id, amountsToDiscount);
         },
@@ -987,9 +986,9 @@ odoo.define('pos_coupon.pos', function (require) {
             for (let line of this._getRegularOrderlines()) {
                 const key = this._getGroupKey(line);
                 if (!(key in amountsToDiscount)) {
-                    amountsToDiscount[key] = line.get_quantity() * line.get_lst_price();
+                    amountsToDiscount[key] = line.get_quantity() * line.price;
                 } else {
-                    amountsToDiscount[key] += line.get_quantity() * line.get_lst_price();
+                    amountsToDiscount[key] += line.get_quantity() * line.price;
                 }
                 productIdsToAccount.add(line.get_product().id);
             }
@@ -1048,6 +1047,11 @@ odoo.define('pos_coupon.pos', function (require) {
                 this.is_program_reward = json.is_program_reward;
                 this.program_id = json.program_id;
                 this.coupon_id = json.coupon_id;
+                if (this.coupon_id && this.coupon_id[1]) {
+                    this.order.bookedCouponCodes[this.coupon_id[1]] = new CouponCode(this.coupon_id[1], this.coupon_id[0], this.program_id[0]);
+                } else if (json.program_id && json.program_id[0]) {
+                    this.order.activePromoProgramIds.push(json.program_id[0]);
+                }
             }
             _orderline_super.init_from_JSON.apply(this, [json]);
         },
